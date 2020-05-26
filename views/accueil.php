@@ -347,25 +347,30 @@ color: #455a64; }
                 <!-- Material form register -->
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                <button id="next" page="<?=$page?>"  class="btn btn-outline-secondary" type="button">
-                    <?php
-if ($page == "G3" || $page == "L3") {
-    ?>
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    Terminer
-                    <?php
-} else {
-    ?>
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    G<?=($page != "prepa" || $page != "accueil") ? (int) $page[1] + 1 : 1?>
-                    <?php
-}
-?>
-                </button>
-                <button id="back" class="btn btn-outline-primary back" type="button" <?=($page != "prepa" || $page != "accueil") ? "" : "disabled"?>>
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                    Retour
-                </button>
+                <div class="justify-content-center">
+                    <button id="next" page="<?=$page?>"  class="btn btn-outline-secondary" type="button">
+                        <?php
+                        if ($page == "G3" || $page == "L3") {
+                            ?>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Terminer
+                        <?php
+                        } else {
+                        ?>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        G<?=($page != "prepa" || $page != "accueil") ? (int) $page[1] + 1 : 1?>
+                        <?php
+                        }
+                        ?>
+                    </button>
+                    <button id="back" class="btn btn-outline-primary back" type="button" <?=($page != "prepa" || $page != "accueil") ? "" : "disabled"?>>
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Retour
+                    </button>
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalCart">
+                        <i class="fa fa-eye" aria-hidden="true"></i> Preview
+                    </button>
+                </div>
             </div>
 
         </div>
