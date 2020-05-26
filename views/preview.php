@@ -50,11 +50,12 @@
                                             </thead>
                                             <tbody>
                                                 <?php
-foreach ($_SESSION['voted'] as $voted) {
-    if (key($voted) == "prepa") {
-        foreach ($voted as $value) {
-            for ($j = 0; $j < count($value); $j++) {
-                ?>
+                                                if (isset($_SESSION['voted'])) {
+                                                    foreach ($_SESSION['voted'] as $voted) {
+                                                        if (key($voted) == "prepa") {
+                                                            foreach ($voted as $value) {
+                                                                for ($j = 0; $j < count($value); $j++) {
+                                                                    ?>
                                                 <tr>
                                                     <th scope="row">#</th>
                                                     <td><?=$value[$j]['id']?></td>
@@ -62,12 +63,19 @@ foreach ($_SESSION['voted'] as $voted) {
                                                     <td><a><i class="fas fa-times"></i></a></td>
                                                 </tr>
                                                 <?php
-}
-        }
-    }
-}
-?>
-                                            </tbody>
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }else {
+                                                    ?>
+                                                    <div class="alert alert-primary" role="alert">
+                                                        Aucune donnée enregistrée
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>                                      
+                                                </tbody>
                                         </table>
                                     </p>
                                 </div>
@@ -84,11 +92,12 @@ foreach ($_SESSION['voted'] as $voted) {
                                             </thead>
                                             <tbody>
                                                 <?php
-foreach ($_SESSION['voted'] as $voted) {
-    if (key($voted) == "G1") {
-        foreach ($voted as $value) {
-            for ($j = 0; $j < count($value); $j++) {
-                ?>
+                                                if (isset($_SESSION['voted'])) {
+                                                    foreach ($_SESSION['voted'] as $voted) {
+                                                        if (key($voted) == "G1") {
+                                                            foreach ($voted as $value) {
+                                                                for ($j = 0; $j < count($value); $j++) {
+                                                                    ?>
                                                 <tr>
                                                     <th scope="row">#</th>
                                                     <td><?=$value[$j]['id']?></td>
@@ -96,10 +105,18 @@ foreach ($_SESSION['voted'] as $voted) {
                                                     <td><a><i class="fas fa-times"></i></a></td>
                                                 </tr>
                                                 <?php
-}
-        }
-    }
-}
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }else {
+                                                    ?>
+                                                    <div class="alert alert-primary" role="alert">
+                                                        Aucune donnée enregistrée
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>
 ?>
                                             </tbody>
                                         </table>
@@ -118,11 +135,12 @@ foreach ($_SESSION['voted'] as $voted) {
                                             </thead>
                                             <tbody>
                                                 <?php
-foreach ($_SESSION['voted'] as $voted) {
-    if (key($voted) == "G2") {
-        foreach ($voted as $value) {
-            for ($j = 0; $j < count($value); $j++) {
-                ?>
+                                                if (isset($_SESSION['voted'])) {
+                                                    foreach ($_SESSION['voted'] as $voted) {
+                                                        if (key($voted) == "G2") {
+                                                            foreach ($voted as $value) {
+                                                                for ($j = 0; $j < count($value); $j++) {
+                                                                    ?>
                                                 <tr>
                                                     <th scope="row">#</th>
                                                     <td><?=$value[$j]['id']?></td>
@@ -130,11 +148,18 @@ foreach ($_SESSION['voted'] as $voted) {
                                                     <td><a><i class="fas fa-times"></i></a></td>
                                                 </tr>
                                                 <?php
-}
-        }
-    }
-}
-?>
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }else {
+                                                ?>
+                                                    <div class="alert alert-primary" role="alert">
+                                                        Aucune donnée enregistrée
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </p>
@@ -151,7 +176,9 @@ foreach ($_SESSION['voted'] as $voted) {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                
                                                 <?php
+                                                if (isset($_SESSION['voted'])) {
                                                     foreach ($_SESSION['voted'] as $voted) {
                                                         if (key($voted) == "G3") {
                                                             foreach ($voted as $value) {
@@ -168,7 +195,14 @@ foreach ($_SESSION['voted'] as $voted) {
                                                             }
                                                         }
                                                     }
+                                                }else {
                                                     ?>
+                                                    <div class="alert alert-primary" role="alert">
+                                                        Aucune donnée enregistrée
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </p>
