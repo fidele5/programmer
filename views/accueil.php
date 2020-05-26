@@ -102,12 +102,12 @@ color: #455a64; }
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb indigo lighten-4">
-                <li class="breadcrumb-item" <?=($page=="prepa")?'active':""?>><a class="black-text" href="<?=$page?>">Home</a><i class="fas fa-caret-right mx-2"
+                <li class="breadcrumb-item" <?=($page=="prepa")?'active text-default':""?>><a class="black-text" href="prepa">Prepa</a><i class="fas fa-caret-right mx-2"
                     aria-hidden="true"></i></li>
-                <li class="breadcrumb-item <?=($page=="G1")?'active':""?>"><a class="black-text" href="#">G1</a><i class="fas fa-caret-right mx-2"
+                <li class="breadcrumb-item <?=($page=="G1")?'active text-default':""?>"><a class="black-text" href="G1">G1</a><i class="fas fa-caret-right mx-2"
                     aria-hidden="true"></i></li>
-                <li class="breadcrumb-item <?=($page=="G2")?'active':""?>">G2</li>
-                <li class="breadcrumb-item <?=($page=="G3")?'active':""?>"><a class="black-text" href="#">G1</a><i class="fas fa-caret-right mx-2"
+                <li class="breadcrumb-item <?=($page=="G2")?'active text-default':""?>">G2</li>
+                <li class="breadcrumb-item <?=($page=="G3")?'active text-default':""?>"><a class="black-text" href="G3">G3</a><i class="fas fa-caret-right mx-2"
                     aria-hidden="true"></i></li>
             </ol>
         </nav>
@@ -396,7 +396,18 @@ require_once 'includes/template.php';
                                 $(".form-check-input").each(function (index, element) {
                                     if (value.id == $(this).attr("valeur")) {
                                         if ($(this).prop('disabled')) {
-                                            $(this).parent().find("label").append("<span class='text-success'><small><i> Selectionné pour "+key+"</i></small></span>");
+                                            if (key =="prepa") {
+                                                $(this).parent().find("label").append("<span class='text-success'><small><i> Selectionné pour "+key+"</i></small></span>");   
+                                            }
+                                            else if (key == "G1") {
+                                                $(this).parent().find("label").append("<span class='text-default'><small><i> Selectionné pour "+key+"</i></small></span>");
+                                            }
+                                            else if (key =="G2") {
+                                                $(this).parent().find("label").append("<span class='text-warning'><small><i> Selectionné pour "+key+"</i></small></span>");
+                                            }
+                                            else if (key == "G3") {
+                                                $(this).parent().find("label").append("<span class='text-danger'><small><i> Selectionné pour "+key+"</i></small></span>");
+                                            }
                                         }
                                     }
                                         
@@ -435,7 +446,8 @@ require_once 'includes/template.php';
                         if (data == "okay") {
                             $(".cover").delay(2500).fadeOut(1600 ,function() {
                                 if (next=="G4") {
-                                    toastr . success("Terminé");
+                                    $('#modalCart').modal('show');
+                                    toastr.info("Terminé");
                                 }
                                 else location.href = next;
                             });
