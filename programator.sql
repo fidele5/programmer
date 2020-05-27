@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 26 mai 2020 à 19:17
+-- Généré le :  mer. 27 mai 2020 à 23:12
 -- Version du serveur :  10.1.38-MariaDB
 -- Version de PHP :  7.3.4
 
@@ -40,10 +40,11 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `cotes_users` (
-  `id_cote` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `id_cours` int(11) NOT NULL,
   `moyenne` float NOT NULL,
-  `examen` float NOT NULL
+  `examen` float NOT NULL,
+  `id_etudiant` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -60,6 +61,18 @@ CREATE TABLE `cours` (
   `promotions_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `cours`
+--
+
+INSERT INTO `cours` (`id`, `intitule`, `volhoraire`, `suggestion`, `promotions_id`) VALUES
+(1, 'Genie logiciel', '45', 0, 7),
+(2, 'Genie logiciel', '60', 0, 8),
+(3, 'Genie logiciel', '45', 0, 9),
+(4, 'Genie logiciel', '60', 0, 10),
+(5, 'Logique formelle', '45', 0, 1),
+(6, 'SFO', '60', 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +83,18 @@ CREATE TABLE `domaines` (
   `id` int(11) NOT NULL,
   `nom` varchar(80) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `domaines`
+--
+
+INSERT INTO `domaines` (`id`, `nom`) VALUES
+(1, 'Generale'),
+(2, 'Genie logiciel'),
+(3, 'Management des systemes d\'information'),
+(4, 'Telecommunications et reseaux'),
+(5, 'Administration systemes et reseaux'),
+(6, 'Design et multimedia');
 
 -- --------------------------------------------------------
 
@@ -82,6 +107,24 @@ CREATE TABLE `promotions` (
   `designation` varchar(100) DEFAULT NULL,
   `domaines_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `promotions`
+--
+
+INSERT INTO `promotions` (`id`, `designation`, `domaines_id`) VALUES
+(1, 'Preparatoire', 1),
+(2, 'G1', 1),
+(3, 'G2 AS', 5),
+(4, 'G3 AS', 5),
+(5, 'G2 DSG', 6),
+(6, 'G3 DSG', 6),
+(7, 'G2 GL', 2),
+(8, 'G3 GL', 2),
+(9, 'G2 MSI', 3),
+(10, 'G3 MSI', 3),
+(11, 'G2 TLC', 4),
+(12, 'G3 TLC', 4);
 
 -- --------------------------------------------------------
 
@@ -109,7 +152,9 @@ CREATE TABLE `votes` (
   `id` int(11) NOT NULL,
   `utilisateur_id` int(11) NOT NULL,
   `cours_id` int(11) NOT NULL,
-  `promotion_id` int(11) NOT NULL
+  `promotion_id` int(11) NOT NULL,
+  `ponderation` int(11) NOT NULL,
+  `selected` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -126,7 +171,9 @@ ALTER TABLE `categories`
 -- Index pour la table `cotes_users`
 --
 ALTER TABLE `cotes_users`
-  ADD PRIMARY KEY (`id_cote`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk` (`id_cours`),
+  ADD KEY `id_etudiant` (`id_etudiant`);
 
 --
 -- Index pour la table `cours`
@@ -179,25 +226,25 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT pour la table `cotes_users`
 --
 ALTER TABLE `cotes_users`
-  MODIFY `id_cote` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `cours`
 --
 ALTER TABLE `cours`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `domaines`
 --
 ALTER TABLE `domaines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
@@ -214,6 +261,13 @@ ALTER TABLE `votes`
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `cotes_users`
+--
+ALTER TABLE `cotes_users`
+  ADD CONSTRAINT `cotes_users_ibfk_1` FOREIGN KEY (`id_etudiant`) REFERENCES `utilisateurs` (`id`),
+  ADD CONSTRAINT `fk` FOREIGN KEY (`id_cours`) REFERENCES `cours` (`id`);
 
 --
 -- Contraintes pour la table `cours`
