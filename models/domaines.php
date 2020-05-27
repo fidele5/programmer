@@ -25,7 +25,7 @@ class Domaines extends Config
         $query = 'SELECT * FROM domaines';
         $requete = $connexion->prepare($query);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
@@ -59,7 +59,7 @@ class Domaines extends Config
         $requete = $connexion->prepare($query);
         $requete->bindValue(':id', $id);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }

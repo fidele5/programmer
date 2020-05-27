@@ -1,5 +1,7 @@
 <?php
+
 require_once 'config.php';
+
 class Votes extends Config
 {
     public $id;
@@ -10,15 +12,16 @@ class Votes extends Config
     {
 
     }
-    public function insert($utilisateurs_id, $cours_id, $promotions_id)
+    public function insert($utilisateurs_id, $cours_id, $promotions_id, $ponderation, $selected)
     {
         $connexion = $this->GetConnexion();
-        $query = 'INSERT INTO votes(utilisateurs_id, cours_id, promotions_id) VALUES(:utilisateurs_id, :cours_id, :promotions_id)';
+        $query = 'INSERT INTO votes(utilisateurs_id, cours_id, promotions_id, ponderation, selected) VALUES(:utilisateurs_id, :cours_id, :promotions_id, :ponderation, :selected)';
         $requete = $connexion->prepare($query);
-
         $requete->bindValue(":utilisateurs_id", $utilisateurs_id);
         $requete->bindValue(":cours_id", $cours_id);
         $requete->bindValue(":promotions_id", $promotions_id);
+        $requete->bindValue(":ponderation", $ponderation);
+        $requete->bindValue(":selected", $selected);
         $requete->execute();
         $requete->closeCursor();
     }
@@ -29,7 +32,7 @@ class Votes extends Config
         $query = 'SELECT * FROM votes';
         $requete = $connexion->prepare($query);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
@@ -51,9 +54,8 @@ class Votes extends Config
         $requete = $connexion->prepare($query);
         $requete->bindValue(':id', $id);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
-
 }

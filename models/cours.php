@@ -29,7 +29,7 @@ class Cours extends Config
         $query = 'SELECT * FROM cours';
         $requete = $connexion->prepare($query);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
@@ -51,9 +51,8 @@ class Cours extends Config
         $requete = $connexion->prepare($query);
         $requete->bindValue(':id', $id);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
-
 }

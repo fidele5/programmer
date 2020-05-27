@@ -27,7 +27,7 @@ class Admins extends Config
         $query = 'SELECT * FROM admins';
         $requete = $connexion->prepare($query);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
@@ -62,7 +62,7 @@ class Admins extends Config
         $requete = $connexion->prepare($query);
         $requete->bindValue(':id', $id);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }

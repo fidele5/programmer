@@ -34,7 +34,7 @@ class Utilisateurs extends Config
         $query = 'SELECT * FROM utilisateurs';
         $requete = $connexion->prepare($query);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
@@ -56,7 +56,7 @@ class Utilisateurs extends Config
         $requete = $connexion->prepare($query);
         $requete->bindValue(':id', $id);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
