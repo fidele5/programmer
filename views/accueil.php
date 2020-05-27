@@ -102,41 +102,43 @@ color: #455a64; }
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb indigo lighten-4">
-                <li class="breadcrumb-item" <?=($page=="prepa")?'active text-default':""?>><a class="black-text" href="prepa">Prepa</a><i class="fas fa-caret-right mx-2"
+                <li class="breadcrumb-item" <?=($page == "prepa") ? 'active text-default' : ""?>><a class="black-text" href="prepa">Prepa</a><i class="fas fa-caret-right mx-2"
                     aria-hidden="true"></i></li>
-                <li class="breadcrumb-item <?=($page=="G1")?'active text-default':""?>"><a class="black-text" href="G1">G1</a><i class="fas fa-caret-right mx-2"
+                <li class="breadcrumb-item <?=($page == "G1") ? 'active text-default' : ""?>"><a class="black-text" href="G1">G1</a><i class="fas fa-caret-right mx-2"
                     aria-hidden="true"></i></li>
-                <li class="breadcrumb-item <?=($page=="G2")?'active text-default':""?>">G2</li>
-                <li class="breadcrumb-item <?=($page=="G3")?'active text-default':""?>"><a class="black-text" href="G3">G3</a><i class="fas fa-caret-right mx-2"
+                <li class="breadcrumb-item <?=($page == "G2") ? 'active text-default' : ""?>">G2</li>
+                <li class="breadcrumb-item <?=($page == "G3") ? 'active text-default' : ""?>"><a class="black-text" href="G3">G3</a><i class="fas fa-caret-right mx-2"
                     aria-hidden="true"></i></li>
             </ol>
         </nav>
         <?php
-            function is_checked($id){
-                if (isset($_SESSION['voted'])) {
-                    foreach ($_SESSION['voted'] as $value) {
-                        foreach ($value as $val) {
-                            for ($j=0; $j < count($val) ; $j++) { 
-                                if (in_array($id, $val[$j])) {
-                                    return true;
-                                }
-                            }
-                        }
+function is_checked($id)
+{
+    if (isset($_SESSION['voted'])) {
+        foreach ($_SESSION['voted'] as $value) {
+            foreach ($value as $val) {
+                for ($j = 0; $j < count($val); $j++) {
+                    if (in_array($id, $val[$j])) {
+                        return true;
                     }
                 }
-                else return false;
-                
             }
-        ?>
+        }
+    } else {
+        return false;
+    }
+
+}
+?>
         <div class="row d-flex justify-content-center contenu">
             <!-- Material form register -->
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                     <?php
-                    if(isset($_GET['action'])){?>
+if (isset($_GET['action'])) {?>
                     <button id="reset" class="btn btn-amber">Modifier pour <?=$page?></button>
                     <?php
-                    }
-                    ?>
+}
+?>
                     <div class="card card-form-2">
                         <div class="card-body">
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fa fa-code" aria-hidden="true"></i> Programmation</h6>
@@ -350,18 +352,18 @@ color: #455a64; }
                 <div class="justify-content-center">
                     <button id="next" page="<?=$page?>"  class="btn btn-outline-secondary" type="button">
                         <?php
-                        if ($page == "G3" || $page == "L3") {
-                            ?>
+if ($page == "G3" || $page == "L3") {
+    ?>
                         <i class="fa fa-check" aria-hidden="true"></i>
                         Terminer
                         <?php
-                        } else {
-                        ?>
+} else {
+    ?>
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         G<?=($page != "prepa" || $page != "accueil") ? (int) $page[1] + 1 : 1?>
                         <?php
-                        }
-                        ?>
+}
+?>
                     </button>
                     <button id="back" class="btn btn-outline-primary back" type="button" <?=($page != "prepa" || $page != "accueil") ? "" : "disabled"?>>
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -376,8 +378,8 @@ color: #455a64; }
         </div>
 
         <?php
-            require_once "preview.php";
-        ?>
+require_once "preview.php";
+?>
 
     </section>
 </div>
@@ -389,15 +391,15 @@ require_once 'includes/template.php';
 
         $.getJSON("views/json_data.php",
                 function (data, textStatus, jqXHR) {
-                    $.each(data, function (cle, val) { 
+                    $.each(data, function (cle, val) {
                         $.each(val, function (key, valeur) {
-                            $.each(valeur, function (index, value) { 
+                            $.each(valeur, function (index, value) {
                                 console.log(value)
                                 $(".form-check-input").each(function (index, element) {
                                     if (value.id == $(this).attr("valeur")) {
                                         if ($(this).prop('disabled')) {
                                             if (key =="prepa") {
-                                                $(this).parent().find("label").append("<span class='text-success'><small><i> Selectionné pour "+key+"</i></small></span>");   
+                                                $(this).parent().find("label").append("<span class='text-success'><small><i> Selectionné pour "+key+"</i></small></span>");
                                             }
                                             else if (key == "G1") {
                                                 $(this).parent().find("label").append("<span class='text-default'><small><i> Selectionné pour "+key+"</i></small></span>");
@@ -410,7 +412,7 @@ require_once 'includes/template.php';
                                             }
                                         }
                                     }
-                                        
+
                                 });
                             });
                         });
@@ -476,15 +478,25 @@ require_once 'includes/template.php';
             else location.assign(prev+"-reset");
         });
 
-        $("#reset").click(function (e) { 
+        $("#valider").click(function (e) {
+            e.preventDefault();
+                $.post("controllers/votes.php", {action: "ajouter"},
+                    function (data, textStatus, jqXHR) {
+                        if (data == "ok") {
+                            location.reload(true);
+                        }
+                });
+        });
+
+        $("#reset").click(function (e) {
             e.preventDefault();
             var tableau = {};
             $.getJSON("views/json_data.php",
                 function (data, textStatus, jqXHR) {
-                    $.each(data, function (cle, val) { 
-                        $.each(val, function (key, valeur) { 
+                    $.each(data, function (cle, val) {
+                        $.each(val, function (key, valeur) {
                             if (key == "<?=$page?>") {
-                                $.each(valeur, function (index, value) { 
+                                $.each(valeur, function (index, value) {
                                     console.log(value)
                                     $(".form-check-input").each(function (index, element) {
                                         if (value.id == $(this).attr("valeur")) {
@@ -492,7 +504,7 @@ require_once 'includes/template.php';
                                                 $(this).removeAttr("disabled");
                                             }
                                         }
-                                        
+
                                     });
                                 });
                             }
@@ -500,7 +512,7 @@ require_once 'includes/template.php';
                     });
                 }
             );
-            
+
         });
 
     });
