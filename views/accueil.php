@@ -444,7 +444,6 @@ require_once 'includes/template.php';
 
                 $(".progress-bar").animate({width: pourc+"%"});
                 $(".progress-bar").html(val+"h");
-                
             }
             else {
                 val = val - parseInt($(this).attr("volume"));
@@ -464,7 +463,21 @@ require_once 'includes/template.php';
                 $(".progress-bar").animate({width: pourc+"%"});
                 $(".progress-bar").html(val+"h");
             }
-            console.log(val);
+
+            if (pourc >= 50) {
+                $(".form-check-input").each(function (index, element) {
+                    if (!$(this).is(":checked")) {
+                        $(this).attr("disabled", 'disabled');
+                    } 
+                });
+            }
+            else {
+                $(".form-check-input").each(function (index, element) {
+                    if (!$(this).is(":checked")) {
+                        $(this).removeAttr('disabled');
+                    } 
+                });
+            }
         });
 
         $("#next").click(function (e) {
