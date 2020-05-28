@@ -7,6 +7,9 @@
 -- Version du serveur :  10.1.38-MariaDB
 -- Version de PHP :  7.3.4
 
+
+CREATE DATABASE programator;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
