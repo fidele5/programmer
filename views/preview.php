@@ -477,4 +477,3 @@ if (isset($_SESSION['voted'])) {
                 </div>
             </div>
         </div>
->>>>>>> 86335429dec8973fd7edf18732314d0f7ff6de3c
