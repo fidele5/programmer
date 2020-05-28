@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
         <!-- Modal: modalCart -->
         <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -218,7 +218,6 @@
             </div>
         </div>
         <!-- Modal: modalCart -->
-=======
         <!-- Modal: modalCart -->
         <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
