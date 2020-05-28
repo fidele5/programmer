@@ -1114,7 +1114,5 @@ require_once 'includes/template.php';
                 console.log(elements);
             });
         });
-
     });
->>>>>>> 86335429dec8973fd7edf18732314d0f7ff6de3c
 </script>
