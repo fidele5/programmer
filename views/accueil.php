@@ -130,6 +130,9 @@ function is_checked($id)
 
 }
 ?>
+        <div class="progress md-progress" style="height: 20px">
+            <div class="progress-bar" role="progressbar" style="width: 0%; height: 20px" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
         <div class="row d-flex justify-content-center contenu">
             <!-- Material form register -->
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
@@ -144,39 +147,39 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fa fa-code" aria-hidden="true"></i> Programmation</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check red-checkbox pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox"  valeur="1" <?=(is_checked(1)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox" volume="90"  valeur="1" <?=(is_checked(1)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox">Java</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check purple-checkbox pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox4" valeur="2" <?=(is_checked(2)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox4" valeur="2" volume="90" <?=(is_checked(2)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox4">C#</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check blue-checkbox pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox1" valeur="3" <?=(is_checked(3)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox1" valeur="3" volume="120" <?=(is_checked(3)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox1">PHP</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check teal-checkbox pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox2" valeur="4" <?=(is_checked(4)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox2" valeur="4" volume="60" <?=(is_checked(4)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox2">JavaScript</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox3" valeur="5" <?=(is_checked(5)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox3" valeur="5" volume="60" <?=(is_checked(5)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox3">C</label>
                             </div>
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox5" valeur="6" <?=(is_checked(6)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox5" valeur="6" volume="60" <?=(is_checked(6)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox5">Python</label>
                             </div>
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox30" valeur="30" <?=(is_checked(30)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox30" valeur="30" volume="60" <?=(is_checked(30)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox30">VBA</label>
                             </div>
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox31" valeur="31" <?=(is_checked(31)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox31" volume="60" valeur="31" <?=(is_checked(31)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox31">Html/CSS</label>
                             </div>
                         </div>
@@ -186,12 +189,12 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fas fa-project-diagram"></i> Modelisation</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox6"  valeur="6" <?=(is_checked(6)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox6" volume="60"  valeur="6" <?=(is_checked(6)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox6">UML</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check purple-checkbox pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox7" valeur="7" <?=(is_checked(7)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox7" valeur="7" volume="60" <?=(is_checked(7)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox7">Merise</label>
                             </div>
                         </div>
@@ -201,22 +204,22 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fa fa-database" aria-hidden="true"></i> Base des données</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox8"  valeur="8" <?=(is_checked(8)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox8" volume="45"  valeur="8" <?=(is_checked(8)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox8">SQL Server</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox9" valeur="9" <?=(is_checked(9)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox9" volume="45" valeur="9" <?=(is_checked(9)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox9">Oracle</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox10" valeur="10" <?=(is_checked(10)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox10" volume="30" valeur="10" <?=(is_checked(10)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox10">Mysql</label>
                             </div>
 
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox29" valeur="29" <?=(is_checked(29)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox29" volume="30" valeur="29" <?=(is_checked(29)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox29">Ms Access</label>
                             </div>
                         </div>
@@ -226,17 +229,17 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"> <i class="fas fa-network-wired"></i> Architecture Reseau</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox11"  valeur="11" <?=(is_checked(11)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox11" volume="60"  valeur="11" <?=(is_checked(11)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox11">TCP-IP</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox12" valeur="12" <?=(is_checked(12)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox12" volume="60" valeur="12" <?=(is_checked(12)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox12">Windows Server</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox13" valeur="13" <?=(is_checked(13)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox13" volume="60" valeur="13" <?=(is_checked(13)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox13">Linux</label>
                             </div>
                         </div>
@@ -247,17 +250,17 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fas fa-image"></i> Design</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox14"  valeur="14" <?=(is_checked(14)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox14" volume="30"  valeur="14" <?=(is_checked(14)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox14">Introduction au design</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox15" valeur="15" <?=(is_checked(15)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox15" volume="45" valeur="15" <?=(is_checked(15)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox15">Photoshop</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox16" valeur="16" <?=(is_checked(16)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox16" volume="60" valeur="16" <?=(is_checked(16)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox16">Photographie</label>
                             </div>
                         </div>
@@ -268,17 +271,17 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fa fa-wifi" aria-hidden="true"></i> Telecommunication</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox17"  valeur="17" <?=(is_checked(17)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox17" volume="45"  valeur="17" <?=(is_checked(17)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox17">Television</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox18" valeur="18" <?=(is_checked(18)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox18" volume="45" valeur="18" <?=(is_checked(18)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox18">Communication satelite</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox19" valeur="19" <?=(is_checked(19)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox19" valeur="19" volume="60" <?=(is_checked(19)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox19">Telephonie</label>
                             </div>
                         </div>
@@ -289,17 +292,17 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fa fa-calculator" aria-hidden="true"></i> Mathematiques</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox20"  valeur="20" <?=(is_checked(20)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox20" volume="60"  valeur="20" <?=(is_checked(20)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox20">Algèbre</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox21" valeur="21" <?=(is_checked(21)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox21" volume="45" valeur="21" <?=(is_checked(21)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox21">Maths discrètes</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox22" valeur="22" <?=(is_checked(22)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox22" volume="30" valeur="22" <?=(is_checked(22)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox22">Logique math</label>
                             </div>
                         </div>
@@ -310,17 +313,17 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fa fa-comment" aria-hidden="true"></i> Communication</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox23"  valeur="23" <?=(is_checked(23)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox23" volume="45" valeur="23" <?=(is_checked(23)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox23">EOE</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox24" valeur="24" <?=(is_checked(24)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox24" volume="45" valeur="24" <?=(is_checked(24)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox24">Marketing</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox25" valeur="25" <?=(is_checked(25)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox25" volume="45" valeur="25" <?=(is_checked(25)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox25">Leaderhip</label>
                             </div>
                         </div>
@@ -331,17 +334,17 @@ if (isset($_GET['action'])) {?>
                             <h6 class="mt-2 mb-4 font-weight-bold"><i class="fas fa-chart-pie"></i> Management</h6>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox26"  valeur="26" <?=(is_checked(26)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox26" volume="90" valeur="26" <?=(is_checked(26)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox26">Comptabilite</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox27" valeur="27" <?=(is_checked(27)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox27" volume="45" valeur="27" <?=(is_checked(27)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox27">Business Intellignce</label>
                             </div>
                             <!-- Filled-in checkbox -->
                             <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox28" valeur="28" <?=(is_checked(28)) ? "disabled checked" : ""?>>
+                                <input type="checkbox" class="form-check-input filled-in" id="filledInCheckbox28" volume="45" valeur="28" <?=(is_checked(28)) ? "disabled checked" : ""?>>
                                 <label class="form-check-label" for="filledInCheckbox28">Gestion des budget</label>
                             </div>
                         </div>
@@ -419,6 +422,50 @@ require_once 'includes/template.php';
                     });
                 }
             );
+
+        var val = 0;
+        var pourc = 0;
+        $(".form-check-input").change(function (e) {
+            e.preventDefault();
+            if ($(this).is(":checked")) {
+                val = val + parseInt($(this).attr("volume"));
+                valeur = val/2000;
+                pourc = valeur*100;
+
+                if (pourc > 25 && pourc <=50) {
+                    $(".progress-bar").addClass("bg-success");
+                }
+                else if (pourc > 50 && pourc <=75) {
+                    $(".progress-bar").addClass("bg-warning");
+                }
+                else if (pourc > 75 && pourc <=100) {
+                    $(".progress-bar").addClass("bg-danger");
+                }
+
+                $(".progress-bar").animate({width: pourc+"%"});
+                $(".progress-bar").html(val+"h");
+                
+            }
+            else {
+                val = val - parseInt($(this).attr("volume"));
+                valeur = val/2000;
+                pourc = valeur*100;
+
+                if (pourc > 25 && pourc <=50) {
+                    $(".progress-bar").addClass("bg-success");
+                }
+                else if (pourc > 50 && pourc <=75) {
+                    $(".progress-bar").addClass("bg-warning");
+                }
+                else if (pourc > 75 && pourc <=100) {
+                    $(".progress-bar").addClass("bg-danger");
+                }
+
+                $(".progress-bar").animate({width: pourc+"%"});
+                $(".progress-bar").html(val+"h");
+            }
+            console.log(val);
+        });
 
         $("#next").click(function (e) {
             e.preventDefault();
