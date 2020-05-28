@@ -372,12 +372,14 @@ if ($page == "G3" || $page == "L3") {
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         Retour
                     </button>
+                    <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#modalRegisterForm">
+                        <i class="fa fa-plus" aria-hidden="true"></i>Suggerer
+                    </button>
                     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalCart">
                         <i class="fa fa-eye" aria-hidden="true"></i> Preview
                     </button>
                 </div>
             </div>
-
         </div>
 
         <?php
@@ -468,14 +470,14 @@ require_once 'includes/template.php';
                 $(".form-check-input").each(function (index, element) {
                     if (!$(this).is(":checked")) {
                         $(this).attr("disabled", 'disabled');
-                    } 
+                    }
                 });
             }
             else {
                 $(".form-check-input").each(function (index, element) {
                     if (!$(this).is(":checked")) {
                         $(this).removeAttr('disabled');
-                    } 
+                    }
                 });
             }
         });
@@ -573,6 +575,36 @@ require_once 'includes/template.php';
                 }
             );
 
+        });
+
+
+        $("#plus").click(function (e) {
+            e.preventDefault();
+            var field = $("#content").html();
+
+            $(".parent").append(field);
+
+            var size = $(".field").length;
+            console.log($(".field").length);
+
+            if (size >= 3) {
+                $(this).attr("disabled", "disabled");
+            }
+
+            $("#suggest").click(function (e) {
+                e.preventDefault();
+                var elements = [];
+                var elt = "";
+                $(".champ").each(function (index, element) {
+                    // elements.push({intitule: $(this).val() });
+                    if ($(this).prop("tagName") == "INPUT") {
+                        var elt = $(this).val()
+                    }
+                    else elements.push({intitule: elt, volume: $(this).val()})
+                    console.log(elt + " " + $(this).prop("tagName"));
+                });
+                console.log(elements);
+            });
         });
 
     });

@@ -217,3 +217,42 @@ if (isset($_SESSION['voted'])) {
             </div>
         </div>
         <!-- Modal: modalCart -->
+
+        <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3 parent">
+                        <button class="btn btn-info" id="plus" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <div id="content">
+                            <div class="row field">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group form-group-md mb-3">
+                                        <input type="text" id="orangeForm-name" class="form-control champ" placeholder="Intitulé">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <select class="browser-default custom-select champ mb-3">
+                                        <option selected>Volume horaire</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button id="suggest" class="btn btn-deep-orange">Sign up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
