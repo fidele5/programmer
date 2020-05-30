@@ -10,10 +10,18 @@
         $i = 0;
         switch ($action) {
             case "ajouter":
+                $vals = array();
                 foreach ($data as $key => $value) {
                     extract($value);
                     $ajouter = $cours->insert($intitule, $volume, 1);
+                    if ($ajouter > 0) {
+                        $datas = array("label" => $intitule, "state" => "on", "id" => $ajouter);
+                        array_push($vals, $datas);
+                    }
+                    else continue;
+                    
                 }
+                print_r($vals);
                 echo "ok";
             break;
             case "delete":
