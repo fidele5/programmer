@@ -453,20 +453,27 @@ if (isset($_SESSION['voted'])) {
                         <div id="content">
                             <div class="row field">
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <div class="form-group form-group-md mb-3">
-                                        <input type="text" id="orangeForm-name" class="form-control champ" placeholder="Intitulé">
+                                    <div class="md-form">
+                                        <input type="search" id="form-autocomplete-2" class="form-control mdb-autocomplete champ">
+                                        <button class="mdb-autocomplete-clear">
+                                            <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="https://www.w3.org/2000/svg">
+                                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                                            <path d="M0 0h24v24H0z" fill="none" />
+                                            </svg>
+                                        </button>
+                                        <label for="form-autocomplete-2" class="active">Intitule</label>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <select class="browser-default custom-select champ mb-3">
-                                        <option selected>Volume horaire</option>
+                                    <select class="mdb-select md-form colorful-select dropdown-dark  champ mb-3">
                                         <option value="15">15 heures</option>
                                         <option value="30">30 heures</option>
                                         <option value="45">45 heures</option>
                                         <option value="60">60 heures</option>
                                         <option value="75">75 heures</option>
                                     </select>
+                                    <label>Volume horaire</label>
                                 </div>
                             </div>
                         </div>

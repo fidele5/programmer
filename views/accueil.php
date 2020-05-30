@@ -670,6 +670,26 @@ require_once 'includes/template.php';
                 }
             }
         });
+
+         var subjects = [
+            "Laravel",
+            "Symphony",
+            "JQuery",
+            "Angular",
+            "React",
+            "Vue",
+            "Codeigniter",
+            "CakePhp",
+            "Django",
+            "Arduino",
+            "Ruby"
+        ];
+
+$('#form-autocomplete-2').mdb_autocomplete({
+data: subjects
+});
         
     });
+   
+
 </script>
