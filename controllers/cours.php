@@ -12,7 +12,7 @@
             case "ajouter":
                 foreach ($data as $key => $value) {
                     extract($value);
-                    //$ajouter = $cours->insert($intitule, $volume, 1);
+                    $ajouter = $cours->insert($intitule, $volume, 1);
                 }
                 echo "ok";
             break;

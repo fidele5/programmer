@@ -685,9 +685,9 @@ require_once 'includes/template.php';
             "Ruby"
         ];
 
-$('#form-autocomplete-2').mdb_autocomplete({
-data: subjects
-});
+        $('#form-autocomplete-2').mdb_autocomplete({
+            data: subjects
+        });
         
     });
    

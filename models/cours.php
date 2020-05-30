@@ -15,12 +15,13 @@ class Cours extends Config
         $connexion = $this->GetConnexion();
         $query = 'INSERT INTO cours(intitule, volhoraire, promotions_id) VALUES(:intitule, :volhoraire, :promotions_id)';
         $requete = $connexion->prepare($query);
-
         $requete->bindValue(":intitule", $intitule);
         $requete->bindValue(":volhoraire", $volhoraire);
         $requete->bindValue(":promotions_id", $promotions_id);
         $requete->execute();
+        $id = $connexion->lastInsertId();
         $requete->closeCursor();
+        return $id;
     }
 
     public function select()

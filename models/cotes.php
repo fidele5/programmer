@@ -16,7 +16,6 @@ class Cours extends Config
         $connexion = $this->GetConnexion();
         $query = 'INSERT INTO cotes_users VALUES(NULL, :idCours, :idEtudiant, :moyenne, :examen)';
         $requete = $connexion->prepare($query);
-
         $requete->bindValue(":idCours", $idCours);
         $requete->bindValue(":idEtudiant", $idEtudiant);
         $requete->bindValue(":moyenne", $moyenne);

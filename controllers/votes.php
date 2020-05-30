@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 session_start();
 require_once '../models/votes.php';
@@ -11,7 +10,7 @@ $i = 0;
 switch ($action) {
 
     case "ajouter":
-        foreach ($_POST as $value) {
+        foreach ($_SESSION['voted'] as $value) {
             if (empty($value)) {
                 $i++;
             } else {
@@ -22,8 +21,7 @@ switch ($action) {
             $_SESSION["message"] = "Vous devez remplir tous les champs";
             header("location: ../votes/ajouter");
         } else {
-            //$ajouter = $votes->insert($utilisateurs_id, $cours_id, $promotions_id);
-            header("location: ../votes");
+            #code
         }
         break;
     case "delete":
@@ -35,26 +33,19 @@ switch ($action) {
         echo "okay";
         extract($_POST);
         if (!isset($_SESSION['voted'])) {
-           $_SESSION['voted'] = array();
+            $_SESSION['voted'] = array();
         }
 
         if (is_array($data)) {
             if (exists($promotion)) {
-                reset_data($promotion, $data);
-            }
-            else {
+                $_SESSION['voted'] = reset_data($promotion, $data);
+            } else {
                 $action = array($promotion => $data);
                 array_push($_SESSION["voted"], $action);
             }
 
         }
-        
-        // echo "<pre>";
-        // print_r($_POST);
-        // echo "</pre>";
-        
         break;
-
 }
 
 function exists($promotion)
@@ -74,16 +65,19 @@ function exists($promotion)
 function reset_data($promotion, $data)
 {
     if (isset($_SESSION['voted'])) {
-        foreach ($_SESSION['voted'] as $val) {
-            if (key($val) == $promotion) {
-                unset($val);
+        $temp = array();
+        foreach ($_SESSION['voted'] as $key => $value) {
+            if (key($value) == $promotion) {
                 $action = array($promotion => $data);
-                array_push($_SESSION["voted"], $action);
-                return true;
+                array_push($temp, $action);
+            } else {
+                array_push($temp, $value);
             }
         }
+        return $temp;
+
     } else {
-        return false;
+        return null;
     }
 
 }
