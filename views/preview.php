@@ -461,9 +461,11 @@ if (isset($_SESSION['voted'])) {
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                     <select class="browser-default custom-select champ mb-3">
                                         <option selected>Volume horaire</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <option value="15">15 heures</option>
+                                        <option value="30">30 heures</option>
+                                        <option value="45">45 heures</option>
+                                        <option value="60">60 heures</option>
+                                        <option value="75">75 heures</option>
                                     </select>
                                 </div>
                             </div>

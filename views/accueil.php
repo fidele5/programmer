@@ -586,26 +586,90 @@ require_once 'includes/template.php';
             $(".parent").append(field);
 
             var size = $(".field").length;
-            console.log($(".field").length);
-
+          
             if (size >= 3) {
                 $(this).attr("disabled", "disabled");
             }
-
-            $("#suggest").click(function (e) {
-                e.preventDefault();
-                var elements = [];
-                var elt = "";
-                $(".champ").each(function (index, element) {
-                    // elements.push({intitule: $(this).val() });
-                    if ($(this).prop("tagName") == "INPUT") {
-                        var elt = $(this).val()
-                    }
-                    else elements.push({intitule: elt, volume: $(this).val()})
-                    console.log(elt + " " + $(this).prop("tagName"));
-                });
-                console.log(elements);
-            });
         });
+
+        $("#suggest").click(function (e) {
+            e.preventDefault();
+            var elements = [];
+            var elt = "";
+            var hours = 0;
+            $(".champ").each(function (index, element) {
+                if ($(this).prop("tagName") == "INPUT") {
+                    elt = $(this).val();
+                }
+                else{
+                    elements.push({intitule: elt, volume: $(this).val()})
+                    hours+= parseInt($(this).val());
+                } 
+            });
+
+            val+= hours;
+            valeur = val/2000;
+            pourc = valeur*100;
+
+            if (pourc > 25 && pourc <=50) {
+                $(".progress-bar").addClass("bg-success");
+            }
+            else if (pourc > 50 && pourc <=75) {
+                $(".progress-bar").addClass("bg-warning");
+            }
+            else if (pourc > 75 && pourc <=100) {
+                $(".progress-bar").addClass("bg-danger");
+            }
+
+            $(".progress-bar").animate({width: pourc+"%"});
+            $(".progress-bar").html(val+"h");
+
+            if (pourc >= 50) {
+                toastr.warning("Vous avez depassé le volume horaire prévu");
+                $("#suggest").attr("disabled", "disabled");
+            }
+            else {
+                $("#suggest").removeAttr('disabled');
+                if(elements.length == 0){
+                    toastr.warning("Veuillez completer tous les champs");
+                }
+                else
+                {
+                    var i = 0;
+                    $.each(elements, function (indexe, valeur) { 
+                        if (valeur.intitule === "" || valeur.volume === "Volume horaire") {
+                            i++;
+                        }
+                    });
+                   
+                    if (i > 0) {
+                        toastr.warning("veuillez compléter tous les champs");
+                    }
+                    else{
+                        $.post("controllers/cours.php", 
+                        {
+                            data:elements,
+                            action: 'ajouter'
+                        },
+                        function (data, textStatus, jqXHR) {
+                            if (jqXHR.done()) {
+                                if(data === "ok")
+                                { 
+                                    $('#modalRegisterForm').modal('hide');
+                                    toastr.info("Suggesttion enregistrée"); 
+                                }
+                                else{
+                                    toastr.warning("Une erreur s'est produite veuillez réesayer");
+                                }  
+                            }
+                            else{
+                                toastr.warning(textStatus);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        
     });
 </script>

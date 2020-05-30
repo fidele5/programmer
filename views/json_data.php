@@ -1,3 +1,3 @@
 <?php
     session_start();
-    echo json_encode($_SESSION['voted']);
+    echo (isset($_SESSION['voted']))?json_encode($_SESSION['voted']):json_encode([]);
