@@ -1,66 +1,73 @@
 <?php
 ob_start();
 ?>
-  <div class="yoo-login-wrap yoo-style1">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7"><i class="fab fa-500px"></i>
-          <div class="yoo-vertical-middle">
-            <div class="yoo-vertical-middle-in">
-              <div class="yoo-signup-img yoo-style1">
-                <img src="public/img/signup/01.png" alt="">
-              </div>
-            </div>
-          </div>
-        </div><!-- .col -->
-        <div class="col-lg-5">
-          <div class="yoo-vertical-middle">
-            <div class="yoo-vertical-middle-in">
-              <form action="#" class="yoo-form yoo-style1">
-                <h2 class="yoo-form-title">Sign in to continue</h2>
-                <div class="yoo-form-subtitle">Don’t have an account?  <a href="signup" class="yoo-form-btn yoo-style2">Sign up</a></div>
-                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
-                <ul class="yoo-social-area yoo-style1 yoo-mp0">
-                  <li><a href="#" class="yoo-form-btn yoo-style1 yoo-colo2"><i class="fab fa-facebook-f"></i><span>Sign up with Facebook</span></a></li>
-                  <li><a href="#" class="yoo-form-btn yoo-style1 yoo-colo3"><i class="fab fa-google-plus-g"></i><span>Sign up with Gmail</span></a></li>
-                </ul>
-                <div class="yoo-height-b15 yoo-height-lg-b15"></div>
-                <div class="yoo-form-separator">Or</div>
-                <div class="yoo-height-b15 yoo-height-lg-b15"></div>
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="form-group level-up form-group-md">
-                      <label for="email">Email</label>
-                      <input type="text" class="form-control" id="email">
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="form-group level-up form-group-md">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control" id="password">
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="form-group">
-                      <div class="yoo-forget-pass-wrap">
-                        <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="gridCheck">
-                          <label class="custom-control-label" for="gridCheck">
-                            <span class="custom-control-shadow"></span>Remember me
-                          </label>
-                        </div>
-                        <a href="#" class="yoo-form-btn yoo-style2">Forgot password?</a>
-                      </div>
-                    </div>
-                    <a href="accueil" class="yoo-form-btn yoo-style1 yoo-color1" class="yoo-form-btn yoo-style2 yoo-type1"><span>Sign Up</span></a>
-                  </div>
+<!-- Material form login -->
+<div class="container my-5 py-5 z-depth-1">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="card">
+          <h5 class="card-header info-color white-text text-center py-4">
+            <strong>Sign in</strong>
+          </h5>
+          <!--Card content-->
+          <div class="card-body px-lg-5 pt-0">
+              <!-- Form -->
+              <form class="text-center" style="color: #757575;" action="#!">
+                <!-- Email -->
+                <div class="md-form">
+                  <input type="email" id="nom" class="form-control champs">
+                  <label for="login">E-mail</label>
                 </div>
+
+                <!-- Password -->
+                <div class="md-form">
+                  <input type="password" id="password" class="form-control champs">
+                  <label for="password">Password</label>
+                </div>
+
+                <div class="d-flex justify-content-around">
+                  <div>
+                    <!-- Remember me -->
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
+                      <label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+
+                <!-- Sign in button -->
+                <button id="login" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+
+                <!-- Register -->
+                <p>Pas de compte?
+                  <a href="signin">S'enregister</a>
+                </p>
+
+                <!-- Social login -->
+                <p>or sign in with:</p>
+                <a type="button" class="btn-floating btn-fb btn-sm">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a type="button" class="btn-floating btn-tw btn-sm">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a type="button" class="btn-floating btn-li btn-sm">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a type="button" class="btn-floating btn-git btn-sm">
+                  <i class="fab fa-github"></i>
+                </a>
+
               </form>
-            </div>
+              <!-- Form -->
+
           </div>
+
         </div>
+        <!-- Material form login -->
       </div>
-    </div><!-- .container -->
+        </div>
   </div>
 <?php
 $content = ob_get_clean();

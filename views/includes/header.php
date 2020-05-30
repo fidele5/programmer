@@ -30,7 +30,7 @@ if (is_connected()) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
-                <button class="btn btn-outline-secondary waves-effect ml-auto" type="button">Deconnexion</button>
+                <a class="btn btn-outline-secondary waves-effect ml-auto" href="logout">Deconnexion</a>
             </div>
         </nav>
         <!--/.Navbar -->

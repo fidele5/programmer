@@ -1,100 +1,73 @@
 <?php
     ob_start();
 ?>
-    <div class="yoo-login-wrap yoo-style1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="yoo-vertical-middle">
-                        <div class="yoo-vertical-middle-in">
-                            <div class="yoo-signup-img yoo-style1">
-                                <img src="public/img/signup/01.png" alt="">
-                            </div>
-                        </div>
+<div class="container my-5 py-5 z-depth-1">
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <!-- Default form register -->
+            <form class="text-center border border-light p-5" action="#!">
+
+                <p class="h4 mb-4">Sign up</p>
+
+                
+                <input type="text" id="nom" class="form-control mb-4 field" placeholder="Nom complet">
+
+                <!-- E-mail -->
+                <input type="email" id="email" class="form-control mb-4 field" placeholder="E-mail">
+
+                <!-- Password -->
+                <input type="password" id="password" class="form-control field" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                <small id="password" class="form-text text-muted mb-4">
+                    At least 8 characters and 1 digit
+                </small>
+
+                <div class="form-row">
+                    <div class="col">
+                        <select id="status" class="browser-default custom-select field">
+                            <option selected>Status</option>
+                            <option value="1">Etudiant</option>
+                            <option value="2">Professeur</option>
+                        </select>
                     </div>
-                </div><!-- .col -->
-                <div class="col-lg-5">
-                    <div class="yoo-vertical-middle">
-                        <div class="yoo-vertical-middle-in">
-                        <form action="#" class="yoo-form yoo-style1">
-                            <h2 class="yoo-form-title">Create an account today</h2>
-                            <div class="yoo-form-subtitle">Already have an account? <a href="login" class="yoo-form-btn yoo-style2">Sign in</a></div>
-                            <div class="yoo-height-b25 yoo-height-lg-b25"></div>
-                            <ul class="yoo-social-area yoo-style1 yoo-mp0">
-                            <li><a href="#" class="yoo-form-btn yoo-style1 yoo-colo2"><i class="fab fa-facebook-f"></i><span>Sign up with Facebook</span></a></li>
-                            <li><a href="#" class="yoo-form-btn yoo-style1 yoo-colo3"><i class="fab fa-google-plus-g"></i><span>Sign up with Gmail</span></a></li>
-                            </ul>
-                            <div class="yoo-height-b15 yoo-height-lg-b15"></div>
-                            <div class="yoo-form-separator">Or</div>
-                            <div class="yoo-height-b15 yoo-height-lg-b15"></div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group level-up form-group-md">
-                                    <label for="first-name">First Name</label>
-                                    <input type="text" class="form-control" id="first-name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group level-up form-group-md">
-                                    <label for="last-name">Last Name</label>
-                                    <input type="text" class="form-control" id="last-name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group level-up form-group-md">
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group level-up form-group-md">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select id="inputState" class="browser-default custom-select">
-                                            <option selected>Statut</option>
-                                            <option>Etudiant</option>
-                                            <option>Professeur</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <select id="inputState" class="browser-default custom-select">
-                                            <option selected>Domaine</option>
-                                            <option>Programmation</option>
-                                            <option>Design</option>
-                                            <option>Management</option>
-                                            <option>Reseaux</option>
-                                            <option>Telecommunications</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                <div class="yoo-termas">
-                                    <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="gridCheck">
-                                    <label class="custom-control-label" for="gridCheck">
-                                    <span class="custom-control-shadow"></span>I agree to terms and condittions & 
-                                    </label>
-                                </div>
-                                <a href="#" class="yoo-form-btn yoo-style2">cookies policy.</a>
-                                </div>
-                                </div>
-                                <a href="#" class="yoo-form-btn yoo-style1 yoo-color1" class="yoo-form-btn yoo-style2 yoo-type1"><span>Sign Up</span></a>
-                            </div>
-                            </div>
-                        </form>
-                        </div>
+                    <div class="col">
+                        <select id="domain" class="browser-default custom-select field">
+                            <option selected>Domaine</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </div><!-- .container -->
+                
+                <!-- Newsletter -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">
+                    <label class="custom-control-label" for="defaultRegisterFormNewsletter">Subscribe to our newsletter</label>
+                </div>
+
+                <!-- Sign up button -->
+                <button id="signin" class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+
+                <!-- Social register -->
+                <p>or sign up with:</p>
+
+                <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
+                <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
+                <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
+                <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
+
+                <hr>
+
+                <!-- Terms of service -->
+                <p>By clicking
+                    <em>Sign up</em> you agree to our
+                    <a href="" target="_blank">terms of service</a>
+
+            </form>
+<!-- Default form register -->
+        </div>
     </div>
+</div>
 <?php
     $content = ob_get_clean();
     require_once 'includes/template.php';
