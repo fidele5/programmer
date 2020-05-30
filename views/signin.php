@@ -14,27 +14,36 @@
 
                 <!-- E-mail -->
                 <input type="email" id="email" class="form-control mb-4 field" placeholder="E-mail">
+                <div id="err" class="valid-feedback">
+                
+                </div>
 
                 <!-- Password -->
-                <input type="password" id="password" class="form-control field" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-                <small id="password" class="form-text text-muted mb-4">
-                    At least 8 characters and 1 digit
-                </small>
+                <input type="password" id="password" class="form-control mb-4 field" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
 
                 <div class="form-row">
                     <div class="col">
                         <select id="status" class="browser-default custom-select field">
                             <option selected>Status</option>
-                            <option value="1">Etudiant</option>
-                            <option value="2">Professeur</option>
+                            <?php
+                                for ($i=0; $i < count($statuses); $i++) {
+                                    ?>
+                            <option value="<?=$statuses[$i]["id"]?>"><?=$statuses[$i]["nom"]?></option>
+                            <?php
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="col">
                         <select id="domain" class="browser-default custom-select field">
                             <option selected>Domaine</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <?php
+                                for ($i = 0; $i < count($domaines); $i++) {
+                            ?>
+                            <option value="<?=$domaines[$i]["id"]?>"><?=$domaines[$i]["nom"]?></option>
+                            <?php
+                                }
+                            ?>
                         </select>
                     </div>
                 </div>

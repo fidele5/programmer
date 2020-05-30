@@ -5,8 +5,17 @@ $(document).ready(function() {
         $(".field").each(function(index, element) {
 
             if (!$(this).val()) {
-                $(this).addClass("is-invalid");
+                $(this).removeClass("form-control champ").addClass("form-control is-invalid champ");
                 i++;
+            } else {
+                if ($(this).attr("type") === "email") {
+                    if ($(this).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+                        $(this).removeClass("form-control champ").addClass("form-control is-invalid champ");
+                        $("#err").removeClass('valid-feedback').addClass('invalid-feedback mb-4');
+                        $("#err").text("Adresse email invalide");
+                        i++;
+                    }
+                } else $(this).removeClass("form-control is-invalid champ").addClass("form-control is-valid champ");
             }
 
         });
@@ -52,8 +61,10 @@ $(document).ready(function() {
         $(".champs").each(function(index, element) {
 
             if (!$(this).val()) {
-                $(this).addClass("is-invalid");
+                $(this).removeClass("form-control champ").addClass("form-control is-invalid champ");
                 i++;
+            } else {
+                $(this).removeClass("form-control is-invalid champ").addClass("form-control is-valid champ");
             }
         });
         console.log(i);
