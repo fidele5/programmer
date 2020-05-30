@@ -9,22 +9,17 @@
             <!-- Bootstrap CSS -->
             <link href="public/css/fontawesome-all.css" rel="stylesheet">
             <link rel="stylesheet" href="public/css/font-awesome.min.css">
-            <link rel="icon" href="public/img/favicon.png">
             <!-- Bootstrap core CSS -->
             <link href="public/css/bootstrap.min.css" rel="stylesheet">
             <!-- Material Design Bootstrap -->
             <link href="public/css/mdb.min.css" rel="stylesheet">
-            <link href="public/css/addons-pro/stepper.css" rel="stylesheet">
-            <!-- Stepper CSS - minified-->
-            <link href="public/css/addons-pro/stepper.min.css" rel="stylesheet">
-            <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css" />
-            <link rel="stylesheet" type="text/css" href="public/css/fontawesome.css" />
-            <link rel="stylesheet" type="text/css" href="public/css/iDashboard.css" />
+            <!-- Your custom styles (optional) -->
+            <link href="public/css/style.css" rel="stylesheet">
             <![endif]-->
         </head>
     <?php
-        if (is_connected()) {
-            ?>
+if (is_connected()) {
+    ?>
         <body class="fixed-sn light-blue-skin">
         <!--Main Navigation-->
         <!--Navbar -->
@@ -40,10 +35,9 @@
         </nav>
         <!--/.Navbar -->
         <?php
-        }
-        else {
-        ?>
-            <body class="yoo-white-bg">
+} else {
+    ?>
+             <body class="fixed-sn light-blue-skin">
         <?php
-        }
-        ?>
+}
+?>

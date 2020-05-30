@@ -373,7 +373,7 @@ if ($page == "G3" || $page == "L3") {
                         Retour
                     </button>
                     <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#modalRegisterForm">
-                        <i class="fa fa-plus" aria-hidden="true"></i>Suggerer
+                        <i class="fa fa-plus" aria-hidden="true"></i> Suggerer
                     </button>
                     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalCart">
                         <i class="fa fa-eye" aria-hidden="true"></i> Preview
