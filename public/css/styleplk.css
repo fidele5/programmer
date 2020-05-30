@@ -1,0 +1,46 @@
+/* Required for full background image */
+
+html,
+body,
+header,
+#intro-section {
+    height: 100%;
+}
+
+@media (max-width: 740px) {
+    html,
+    body,
+    header,
+    #intro-section {
+        height: 100vh;
+    }
+}
+
+.top-nav-collapse {
+    background-color: #3f9b2c !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+    background: transparent !important;
+}
+
+@media (max-width: 991px) {
+    .navbar:not(.top-nav-collapse) {
+        background: #3f9b2c !important;
+    }
+}
+
+.rgba-gradient {
+    background: -moz-linear-gradient(45deg, rgba(76, 175, 80, 0.7), rgba(57, 124, 68, 0.69) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(76, 175, 80, 0.7), rgba(57, 124, 68, 0.69) 100%);
+    background: linear-gradient(45deg, rgba(76, 175, 80, 0.7), rgba(57, 124, 68, 0.69) 100%);
+}
+
+
+/*.card {
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+
+  h6 {
+    line-height: 1.7;
+  }*/
