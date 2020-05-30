@@ -1,9 +1,9 @@
 <?php
 ob_start();
 if (isset($_SESSION['voted'])) {
-    // echo "<pre>";
-    // print_r($_SESSION['voted']);
-    // echo "</pre>";
+    echo "<pre>";
+    print_r($_SESSION['voted']);
+    echo "</pre>";
 }
 // session_destroy();
 ?>
@@ -597,7 +597,7 @@ require_once 'includes/template.php';
             var elements = [];
             var elt = "";
             var hours = 0;
-            $(".champ").each(function (index, element) {
+            $(".champs").each(function (index, element) {
                 if ($(this).prop("tagName") == "INPUT") {
                     elt = $(this).val();
                 }
@@ -610,7 +610,7 @@ require_once 'includes/template.php';
             val+= hours;
             valeur = val/2000;
             pourc = valeur*100;
-
+            
             if (pourc > 25 && pourc <=50) {
                 $(".progress-bar").addClass("bg-success");
             }
@@ -646,10 +646,15 @@ require_once 'includes/template.php';
                         toastr.warning("veuillez compléter tous les champs");
                     }
                     else{
+                        var page = "<?=$page?>";
+                        if(page === "accueil") {
+                            page = "prepa";
+                        }
                         $.post("controllers/cours.php", 
                         {
                             data:elements,
-                            action: 'ajouter'
+                            action: 'ajouter',
+                            promotion: page
                         },
                         function (data, textStatus, jqXHR) {
                             if (jqXHR.done()) {
