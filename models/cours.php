@@ -35,6 +35,19 @@ class Cours extends Config
         return $datas;
     }
 
+    public function selectGrouped()
+    {
+        $connexion = $this->GetConnexion();
+        $query = "SELECT count(*), nom FROM programator.cours AS a INNER JOIN
+                        programator.categorie_cours AS b ON a.categorie_id = b.id
+                        GROUP BY categorie_id;";
+        $requete = $connexion->prepare($query);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
     public function delete($id)
     {
         $connexion = $this->GetConnexion();
@@ -55,5 +68,17 @@ class Cours extends Config
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
+    }
+
+    public function select_by_category($id_category){
+        $connexion = $this->GetConnexion();
+        $query = 'SELECT * FROM cours WHERE categorie_id = :id';
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':id', $id_category);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+
     }
 }

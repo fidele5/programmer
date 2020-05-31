@@ -84,5 +84,21 @@ function Utilisateurs($page)
 
 function Accueil($page)
 {
+    $cour = new Cours;
+    $categorie = new Categorie_cours;
+    $categories = $categorie->select();
+    $icons = array(
+        'Programmation'=>'<i class="fa fa-code" aria-hidden="true"></i>', 
+        'Machine Learning'=>'<i class="fa fa-code" aria-hidden="true"></i>', 
+        'Domotique'=>'<i class="fa fa-code" aria-hidden="true"></i>', 
+        'Modelisation'=>'<i class="fas fa-project-diagram"></i>', 
+        'Base des donnees'=>'<i class="fa fa-database" aria-hidden="true"></i>', 
+        'Architecture Reseaux'=>'<i class="fas fa-network-wired"></i>',
+        'Design'=>'<i class="fas fa-image"></i>',
+        'Telecommunication'=>'<i class="fa fa-wifi" aria-hidden="true"></i>',
+        'Mathematiques'=>'<i class="fa fa-calculator" aria-hidden="true"></i>',
+        'Communication'=>'<i class="fa fa-comment" aria-hidden="true"></i>',
+        'Management'=>'<i class="fas fa-chart-pie"></i>'
+    );
     require_once 'views/accueil.php';
 }

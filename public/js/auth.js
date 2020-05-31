@@ -19,7 +19,6 @@ $(document).ready(function() {
             }
 
         });
-        console.log(i);
         if (i > 0) {
             toastr.warning("Veuillez compléter tous les champs");
         } else {
