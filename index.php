@@ -6,7 +6,7 @@ $pages = ["accueil", "prepa", "G1", "G2", "G3", "L1", "L2", "L3", "g1", "g2", "g
 try {
     if (empty($page)) {
         throw new Exception('page non disponible', 1);
-    }elseif(!in_array($page, $pages)) {
+    } elseif (!in_array($page, $pages)) {
         throw new Exception('page non disponible', 1);
     } else {
         switch ($page) {
@@ -20,14 +20,14 @@ try {
                 Signup($page);
                 break;
             default:
-            if (!is_connected()) {
-                header("location: login");
-            } else {
-                Accueil($page);
-            }
+                if (!is_connected()) {
+                    header("location: login");
+                } else {
+                    Accueil($page);
+                }
                 break;
         }
     }
 } catch (Exception $e) {
-    die('Erreur : ' . $e);
+    die('Erreur : ' . $e->getMessage());
 }
