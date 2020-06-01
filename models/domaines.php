@@ -64,4 +64,16 @@ class Domaines extends Config
         return $datas;
     }
 
+    public function select_by_name($name)
+    {
+        $connexion = $this->GetConnexion();
+        $query = 'SELECT * FROM domaines WHERE nom = :name';
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':name', $name);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
 }

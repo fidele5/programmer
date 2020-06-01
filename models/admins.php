@@ -67,13 +67,12 @@ class Admins extends Config
         return $datas;
     }
 
-    public function Login($mdp, $login)
+    public function Login($mdp)
     {
         $connexion = $this->GetConnexion();
-        $query = "SELECT id, login FROM admins WHERE mdp = :mdp AND login = :log";
+        $query = "SELECT id, login FROM admins WHERE mdp = :mdp";
         $requete = $connexion->prepare($query);
         $requete->bindValue(":mdp", $mdp);
-        $requete->bindValue(":log", $login);
         $requete->execute();
         $data = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();

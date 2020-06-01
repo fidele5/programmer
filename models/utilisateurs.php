@@ -25,9 +25,7 @@ class Utilisateurs extends Config
         $requete->bindValue(":categorie_id", $categorie_id);
         $requete->bindValue(":domaine_id", $domaine_id);
         $requete->execute();
-        $id = $connexion->lastInsertId();
         $requete->closeCursor();
-        return $id;
     }
 
     public function select()
@@ -61,19 +59,6 @@ class Utilisateurs extends Config
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
-    }
-
-    public function Login($mdp, $login)
-    {
-        $connexion = $this->GetConnexion();
-        $query = "SELECT id, nom_complet FROM utilisateurs WHERE password = :mdp AND login = :log";
-        $requete = $connexion->prepare($query);
-        $requete->bindValue(":mdp", $mdp);
-        $requete->bindValue(":log", $login);
-        $requete->execute();
-        $data = $requete->fetchAll(PDO::FETCH_ASSOC);
-        $requete->closeCursor();
-        return $data;
     }
 
 }

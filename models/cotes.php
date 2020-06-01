@@ -1,21 +1,24 @@
 <?php
+
 require_once 'config.php';
-class Cours extends Config
+
+class Cotes extends Config
 {
     public $id;
     public $id_cours;
     public $id_etudiant;
     public $moyenne;
     public $examen;
+    
     public function __construct()
     {
-
     }
     public function insert($idCours, $idEtudiant, $moyenne, $examen)
     {
         $connexion = $this->GetConnexion();
         $query = 'INSERT INTO cotes_users VALUES(NULL, :idCours, :idEtudiant, :moyenne, :examen)';
         $requete = $connexion->prepare($query);
+
         $requete->bindValue(":idCours", $idCours);
         $requete->bindValue(":idEtudiant", $idEtudiant);
         $requete->bindValue(":moyenne", $moyenne);
@@ -60,14 +63,12 @@ class Cours extends Config
     public function select_by_user_and_course($idUser, $idCourse)
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT * FROM cotes_users WHERE id_etudiant = :idUser AND id_cours = :idCourse';
+        $query = sprintf('SELECT * FROM cotes_users WHERE id_etudiant = %d AND id_cours = %d', $idUser, $idCourse);
+        print($query."\n");
         $requete = $connexion->prepare($query);
-        $requete->bindValue(':idUser', $idUser);
-        $requete->bindValue(':idCourse', $idCourse);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
-
 }
