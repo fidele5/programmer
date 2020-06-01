@@ -1,36 +1,59 @@
-
-        <!-- jQuery -->
-        <script type="text/javascript" src="http://<?=$_SERVER["HTTP_HOST"]?>/programator/public/js/jquery-3.4.0.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="http://<?=$_SERVER["HTTP_HOST"]?>/programator/public/js/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="http://<?=$_SERVER["HTTP_HOST"]?>/programator/public/js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="http://<?=$_SERVER["HTTP_HOST"]?>/programator/public/js/mdb.min.js"></script>
-        <script type="text/javascript" src="http://<?=$_SERVER["HTTP_HOST"]?>/programator/public/js/addons/datatables.min.js"></script>
-        <script type="text/javascript" src="http://<?=$_SERVER["HTTP_HOST"]?>/programator/public/js/addons/datatables-select.js"></script>
-        <script src="http://<?=$_SERVER["HTTP_HOST"]?>/programator/public/js/datable.js" type="text/javascript"></script>
-        <script>
-            new WOW().init();
-            // SideNav Button Initialization
-            $(".button-collapse").sideNav();
-            // SideNav Scrollbar Initialization
-            var sideNavScrollbar = document.querySelector(".custom-scrollbar");
-            Ps.initialize(sideNavScrollbar);
-    </script>
+            <div class="footer-wrapper">
+                <div class="footer-section f-section-1">
+                    <p class="">Copyright © <?=date('Y')?> <a href="mailto:fideleplk@gmailcom">Fidele plk</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+            <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="public/assets/js/libs/jquery-3.1.1.min.js"></script>
+    <script src="public/bootstrap/js/popper.min.js"></script>
+    <script src="public/bootstrap/js/bootstrap.min.js"></script>
+    <script src="public/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="public/assets/js/app.js"></script>
     <script>
-        $("#dt-less-columns").mdbEditor();
-        $(".dataTables_length").addClass("bs-select");
-    </script>
-    <script>
-        // Data Picker Initialization
-        $(".datepicker").pickadate();
-    </script>
-    <script>
-        // Material Select Initialization
         $(document).ready(function() {
-        $(".mdb-select").materialSelect();
+            App.init();
         });
     </script>
-    </body>
+    <script src="public/assets/js/custom.js"></script>
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+    <script src="public/plugins/apex/apexcharts.min.js"></script>
+    <script src="public/assets/js/dashboard/dash_1.js"></script>
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+
+    <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+    <script src="public/plugins/table/datatable/datatables.js"></script>
+    <!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
+    <script src="public/plugins/table/datatable/button-ext/dataTables.buttons.min.js"></script>
+    <script src="public/plugins/table/datatable/button-ext/jszip.min.js"></script>    
+    <script src="public/plugins/table/datatable/button-ext/buttons.html5.min.js"></script>
+    <script src="public/plugins/table/datatable/button-ext/buttons.print.min.js"></script>
+    <script>
+        $('#html5-extension').DataTable( {
+            dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
+            buttons: {
+                buttons: [
+                    { extend: 'copy', className: 'btn' },
+                    { extend: 'csv', className: 'btn' },
+                    { extend: 'excel', className: 'btn' },
+                    { extend: 'print', className: 'btn' }
+                ]
+            },
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7 
+        } );
+    </script>
+    <!-- END PAGE LEVEL CUSTOM SCRIPTS -->
+</body>
 </html>

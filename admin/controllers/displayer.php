@@ -32,9 +32,9 @@ function Votes($page)
     require_once 'views/votes.php';
 }
 
-function Utilisateurs($page)
+function Programmes($page)
 {
-    require_once 'views/utilisateurs.php';
+    require_once 'views/programmes.php';
     
 }
 

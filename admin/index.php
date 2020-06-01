@@ -17,8 +17,8 @@
                 case 'votes':
                     Votes($page);
                 break;
-                case 'utilisateurs':
-                    Utilisateurs($page);
+                case 'programmes':
+                    Programmes($page);
                 break;
                 case 'logout' :
                     Logout();
