@@ -63,4 +63,15 @@ class Categories extends Config
         return $datas;
     }
 
+    public function select_id_by_name($name)
+    {
+        $connexion = $this->GetConnexion();
+        $query = 'SELECT id FROM categories WHERE nom = :nom';
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':nom', $name);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas[0]["id"];
+    }
 }

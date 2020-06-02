@@ -1,44 +1,56 @@
 <?php
 
 session_start();
-require_once 'models/autoload.php';
+require_once '../models/autoload.php';
 
 class Process {
     private $modelCours;
     private $modelVotes;
     private $modelCotes;
     private $modelUtilisateur;
+    private $modelPromotion;
+    private $modelDomaine;
+    private $categorieModel;
     private $datas;
     private $idUser;
+    private $suggered;
 
-    public function __construct() {
+    public function __construct(array $datas, array $suggered,  int $idUser) {
         $this->modelCours = new Cours();
-        $this->datas = array(
-            "prepa" => array(5),
-            "G1"=> array(),
-            "G2" => array(4),
-            "G3" => array(3)
-        );
-        $this->idUser = 1;
+        $this->modelCotes = new Cotes();
+        $this->modelVotes = new Votes();
+        $this->modelUtilisateur = new Utilisateurs();
+        $this->modelPromotion = new Promotions();
+        $this->modelDomaine = new Domaines();
+        $this->categorieModel = new Categories();
+        $this->idUser = $idUser;
+        $this->datas = $datas;
+        $this->suggered = $suggered;
     }
 
     private function getNotSelected() {
-        $all_courses = $this->modelCours->select();
+        $idFiliere = $this->modelUtilisateur->select_by_id($this->idUser);
+        $all_courses = $this->modelCours->select_by_id_filiere($idFiliere[0]["domaine_id"]);
         $notSelected = array(
-            "prepa" => array(),
+            "Prepa" => array(),
             "G1"=> array(),
             "G2" => array(),
             "G3" => array()
         );
-        foreach($all_courses as $cours)
+        foreach($all_courses as $key => $cours)
         {
-            if(!(in_array($cours['id'], $this->datas["prepa"]) || in_array($cours['id'], $this->datas["G1"]) || in_array($cours['id'], $this->datas["G2"]) || in_array($cours['id'], $this->datas["G3"]))) {
-                printf("true %d", $cours['id']);
-                if($cours["promotions_id"] == 1) $notSelected["prepa"][] = $cours["id"];
-                else if($cours["promotions_id"] == 2) $notSelected["G1"][] = $cours["id"];
-                else if($cours["promotions_id"] % 2 == 0) $notSelected["G2"][] = $cours["id"];
-                else if($cours["promotions_id"] %2 != 0) $notSelected["G3"][] = $cours["id"];
-            }
+            if(!(in_array($cours["id"], $this->datas["Prepa"]) ||
+                in_array($cours["id"], $this->datas["G1"]) ||
+                in_array($cours["id"], $this->datas["G2"]) ||
+                in_array($cours["id"], $this->datas["G3"]))) {
+                    $id_promotion = $cours["promotions_id"];
+                    $promotion = $this->modelPromotion->select_by_id($id_promotion);
+                    $nom = $promotion[0]["designation"];
+                    if(preg_match("/Prepa/", $nom)) $notSelected["Prepa"][] = $cours["id"];
+                    else if(preg_match("/G1/", $nom)) $notSelected["G1"][] = $cours["id"];
+                    else if(preg_match("/G2/", $nom)) $notSelected["G2"][] = $cours["id"];
+                    else if(preg_match("/G3/", $nom)) $notSelected["G3"][] = $cours["id"];
+                }
         }
         return $notSelected;
     }
@@ -46,15 +58,24 @@ class Process {
     private function pondererSelected()
     {
         $poids_cotes = array(
-            "prepa" => array(),
+            "Prepa" => array(),
             "G1" => array(),
             "G2" => array(),
             "G3" => array()
         );
+
+        if(!$this->user_student())
+        {
+            foreach($this->datas as $key => $values)
+            {
+                $poids_cotes[$key][] = 5;
+            }
+        }
         foreach($this->datas as $key => $values)
         {
             foreach($values as $cours){
-                $cote = $this->modelCotes->select_by_user_and_course($this->idUtilisateur, $cours);
+                $cotes = $this->modelCotes->select_by_user_and_course($this->idUser, $cours); 
+                $cote = $cotes[0];
                 $total = $cote["moyenne"] + $cote['examen'];
                 if($total < 5) $poids_cotes[$key][] = 5;
                 else if(($total >= 5) && ($total < 10)) $poids_cotes[$key][] = 4;
@@ -69,21 +90,47 @@ class Process {
     private function pondererNotSelected(array $notSelected)
     {
         $poids_cotes = array(
-            "prepa" => array(),
+            "Prepa" => array(),
             "G1" => array(),
             "G2" => array(),
             "G3" => array()
         );
+        if(!$this->user_student())
+        {
+            foreach($notSelected as $key => $values)
+            {
+                $poids_cotes[$key][] = 1;
+            }
+        }
         foreach($notSelected as $key => $values)
         {
             foreach($values as $cours){
-                $cote = $this->modelCotes->select_by_user_and_course($this->idUtilisateur, $cours);
+                $cotes = $this->modelCotes->select_by_user_and_course($this->idUser, $cours);
+                $cote = $cotes[0];
                 $total = $cote["moyenne"] + $cote['examen'];
-                if($total < 5) $poids_cotes[$key][] = 5;
-                else if(($total >= 5) && ($total < 10)) $poids_cotes[$key][] = 4;
+                if($total < 5) $poids_cotes[$key][] = 1;
+                else if(($total >= 5) && ($total < 10)) $poids_cotes[$key][] = 2;
                 else if(($total >= 10) && ($total < 14)) $poids_cotes[$key][] = 3;
-                else if(($total >= 14) && ($total < 16)) $poids_cotes[$key][] = 2;
-                else $poids_cotes[$key][] = 1;
+                else if(($total >= 14) && ($total < 16)) $poids_cotes[$key][] = 4;
+                else $poids_cotes[$key][] = 5;
+            }
+        }
+        print_r($poids_cotes);
+        return $poids_cotes;
+    }
+
+    public function pondererSuggered()
+    {
+        $poids_cotes = array(
+            "Prepa" => array(),
+            "G1" => array(),
+            "G2" => array(),
+            "G3" => array()
+        );
+        foreach($this->suggered as $key => $values)
+        {
+            foreach($values as $cours){
+                $poids_cotes[$key][] = 5;
             }
         }
         return $poids_cotes;
@@ -94,30 +141,54 @@ class Process {
         $notSelected = $this->getNotSelected();
         $dataPonderedSelected = $this->pondererSelected();
         $dataPonderedNotSelected = $this->pondererNotSelected($notSelected);
+        $dataPonderedSuggered = $this->pondererSuggered();
+
+        $this->modelVotes->update_votes($this->idUser);
         
         foreach($this->datas as $key => $value)
         {
-            foreach($value as $key2 => $value2)
+            foreach($value as $key2 => $id_cours)
             {
                 $filiere = 0;
-                if(($key == "Prepa")||($key == "G1")) $filiere = "Generale";
+                if(($key == "Prepa")||($key == "G1")) $filiere = $this->modelDomaine->select_by_name("Generale")[0]["id"];
                 else $filiere = $this->modelUtilisateur->select_by_id($this->idUser)[0]["domaine_id"];
-                $id_cours = $this->modelCours->select_id_by_name_domain($key, $filiere);
-                $this->modelVotes->insert($this->idUser, $value2, $id_cours, $dataPonderedSelected[$key][$key2], true);
+                $promotion = $this->modelPromotion->select_id_by_name_domain($key, $filiere);
+                $id_promotion = $promotion[0]["id"];
+                $this->modelVotes->insert($this->idUser, $id_cours, $id_promotion, $dataPonderedSelected[$key][$key2], true);
             }
         }
 
         foreach($notSelected as $key => $value)
         {
-            foreach($value as $key2 => $value2)
+            foreach($value as $key2 => $id_cours)
             {
                 $filiere = 0;
-                if(($key == "Prepa")||($key == "G1")) $filiere = "Generale";
+                if(($key == "Prepa")||($key == "G1")) $filiere = $this->modelDomaine->select_by_name("Generale")[0]["id"];
                 else $filiere = $this->modelUtilisateur->select_by_id($this->idUser)[0]["domaine_id"];
-                $id_cours = $this->modelCours->select_id_by_name_domain($key, $filiere);
-                $this->modelVotes->insert($this->idUser, $value2, $id_cours, $dataPonderedNotSelected[$key][$key2], false);
+                $promotion = $this->modelPromotion->select_id_by_name_domain($key, $filiere);
+                $id_promotion = $promotion[0]["id"];
+                $this->modelVotes->insert($this->idUser, $id_cours, $id_promotion, $dataPonderedNotSelected[$key][$key2], false);
             }
         }
+
+        foreach($dataPonderedSuggered as $key => $value)
+        {
+            foreach($value as $key2 => $id_cours)
+            {
+                $filiere = 0;
+                if(($key == "Prepa")||($key == "G1")) $filiere = $this->modelDomaine->select_by_name("Generale")[0]["id"];
+                else $filiere = $this->modelUtilisateur->select_by_id($this->idUser)[0]["domaine_id"];
+                $promotion = $this->modelPromotion->select_id_by_name_domain($key, $filiere);
+                $id_promotion = $promotion[0]["id"];
+                $this->modelVotes->insert($this->idUser, $id_cours, $id_promotion, $dataPonderedNotSelected[$key][$key2], true);
+            }
+        }
+    }
+
+    private function user_student()
+    {
+        $user = $this->modelUtilisateur->select_by_id($this->idUser);
+        return ($user[0]["categorie_id"] == $this->categorieModel->select_id_by_name("etudiant"));
     }
 
     public function process()
@@ -126,6 +197,13 @@ class Process {
     }
 }
 
-$p = new Process();
-print_r($p->getNotSelected());
-
+$datas = array(
+    "Prepa" => array(5),
+    "G1"=> array(9),
+    "G2" => array(7),
+    "G3" => array(8)
+);
+$id = 1;
+$suggered = array();
+$p = new Process($datas, $suggered, $id);
+$p -> process();

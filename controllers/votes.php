@@ -10,7 +10,7 @@ $i = 0;
 switch ($action) {
 
     case "ajouter":
-        foreach ($_SESSION['voted'] as $value) {
+        foreach ($_POST as $value) {
             if (empty($value)) {
                 $i++;
             } else {
@@ -21,7 +21,8 @@ switch ($action) {
             $_SESSION["message"] = "Vous devez remplir tous les champs";
             header("location: ../votes/ajouter");
         } else {
-            #code
+            $ajouter = $votes->insert($utilisateurs_id, $cours_id, $promotions_id);
+            header("location: ../votes");
         }
         break;
     case "delete":
@@ -33,19 +34,26 @@ switch ($action) {
         echo "okay";
         extract($_POST);
         if (!isset($_SESSION['voted'])) {
-            $_SESSION['voted'] = array();
+           $_SESSION['voted'] = array();
         }
 
         if (is_array($data)) {
             if (exists($promotion)) {
-                $_SESSION['voted'] = reset_data($promotion, $data);
-            } else {
+                reset_data($promotion, $data);
+            }
+            else {
                 $action = array($promotion => $data);
                 array_push($_SESSION["voted"], $action);
             }
 
         }
+        
+        // echo "<pre>";
+        // print_r($_POST);
+        // echo "</pre>";
+        
         break;
+
 }
 
 function exists($promotion)
@@ -65,19 +73,17 @@ function exists($promotion)
 function reset_data($promotion, $data)
 {
     if (isset($_SESSION['voted'])) {
-        $temp = array();
-        foreach ($_SESSION['voted'] as $key => $value) {
-            if (key($value) == $promotion) {
+        foreach ($_SESSION['voted'] as $val) {
+            if (key($val) == $promotion) {
+                unset($val);
                 $action = array($promotion => $data);
-                array_push($temp, $action);
-            } else {
-                array_push($temp, $value);
+                array_push($_SESSION["voted"], $action);
+                return true;
             }
         }
-        return $temp;
-
     } else {
-        return null;
+        return false;
     }
 
 }
+

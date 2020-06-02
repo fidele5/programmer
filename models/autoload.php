@@ -9,6 +9,7 @@ function my_autoloader()
     include "categories.php";
     include "Categorie_cours.php";
     include "admins.php";
+    include "cotes.php";
 }
 
 spl_autoload_register("my_autoloader");

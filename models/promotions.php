@@ -56,12 +56,20 @@ class Promotions extends Config
 
     public function select_id_by_name_domain($nom, $domaine)
     {
-        $name = sprintf("'%s%%'", $nom);
         $connexion = $this->GetConnexion();
-        $query = 'SELECT id FROM promotions WHERE designation LIKE :name AND domaines_id = :domaine';
+        $query = sprintf('SELECT id FROM promotions WHERE designation LIKE "%s%%" AND domaines_id = %d', $nom, $domaine);
         $requete = $connexion->prepare($query);
-        $requete->bindValue(':name', $name);
-        $requete->bindValue(':domaine', $domaine);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
+    public function select_id_for_filieres($idFiliere)
+    {
+        $connexion = $this->GetConnexion();
+        $query = sprintf('SELECT id FROM promotions WHERE designation = "Preparatoire" OR designation = "G1" OR domaines_id = %d', $idFiliere);
+        $requete = $connexion->prepare($query);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
