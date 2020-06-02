@@ -88,17 +88,17 @@ function Accueil($page)
     $categorie = new Categorie_cours;
     $categories = $categorie->select();
     $icons = array(
-        'Programmation'=>'<i class="fa fa-code" aria-hidden="true"></i>', 
-        'Machine Learning'=>'<i class="fa fa-code" aria-hidden="true"></i>', 
-        'Domotique'=>'<i class="fa fa-code" aria-hidden="true"></i>', 
-        'Modelisation'=>'<i class="fas fa-project-diagram"></i>', 
-        'Base des donnees'=>'<i class="fa fa-database" aria-hidden="true"></i>', 
-        'Architecture Reseaux'=>'<i class="fas fa-network-wired"></i>',
-        'Design'=>'<i class="fas fa-image"></i>',
-        'Telecommunication'=>'<i class="fa fa-wifi" aria-hidden="true"></i>',
-        'Mathematiques'=>'<i class="fa fa-calculator" aria-hidden="true"></i>',
-        'Communication'=>'<i class="fa fa-comment" aria-hidden="true"></i>',
-        'Management'=>'<i class="fas fa-chart-pie"></i>'
+        'Programmation'=>'<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
+        'Machine Learning'=>'<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
+        'Domotique'=>'<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
+        'Modelisation'=>'<i class="fab fa-wpforms fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
+        'Base des donnees'=>'<i class="fa fa-database fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
+        'Architecture Reseaux'=>'<i class="fa fa-wifi fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Design'=>'<i class="fas fa-image fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Telecommunication'=>'<i class="fas fa-signal fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Mathematiques'=>'<i class="fa fa-calculator fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Communication'=>'<i class="fa fa-comment fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Management'=>'<i class="fab fa-bitcoin fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>'
     );
     require_once 'views/accueil.php';
 }

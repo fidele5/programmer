@@ -112,77 +112,108 @@ color: #455a64; }
             </ol>
         </nav>
         <?php
-        function is_checked($id)
-        {
-            if (isset($_SESSION['voted'])) {
-                foreach ($_SESSION['voted'] as $value) {
-                    foreach ($value as $val) {
-                        for ($j = 0; $j < count($val); $j++) {
-                            if (in_array($id, $val[$j])) {
-                                return true;
-                            }
-                        }
+function is_checked($id)
+{
+    if (isset($_SESSION['voted'])) {
+        foreach ($_SESSION['voted'] as $value) {
+            foreach ($value as $val) {
+                for ($j = 0; $j < count($val); $j++) {
+                    if (in_array($id, $val[$j])) {
+                        return true;
                     }
                 }
-            } else {
-                return false;
             }
-
         }
-        ?>
+    } else {
+        return false;
+    }
+
+}
+?>
         <div class="progress md-progress" style="height: 20px">
             <div class="progress-bar" role="progressbar" style="width: 0%; height: 20px" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <div class="row d-flex justify-content-center contenu">
             <!-- Material form register -->
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                    <?php
-                        if (isset($_GET['action'])) {?>
-                    <button id="reset" class="btn btn-amber">Modifier pour <?=$page?></button>
-                    <?php
-                        }
-                        foreach ($categories as $cle => $valeur) {
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                <div class="card card-image"
+                    style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+
+                    <!-- Content -->
+                    <div class="rgba-black-strong py-5 px-4">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-12 col-xl-12">
+
+                                <!--Accordion wrapper-->
+                                <div class="accordion md-accordion accordion-5" id="accordionEx5" role="tablist"
+                                    aria-multiselectable="true">
+
+                                    <?php
+                                        if (isset($_GET['action'])) {
                                     ?>
-                    <div class="card card-form-2 mb-2">
-                        <div class="card-body">
-                            <h6 class="mt-2 mb-4 font-weight-bold">
-                                <?=$icons[$valeur['nom']]?>
-                                <?=$valeur['nom']?>
-                            </h6>
-                            <?php
-                                foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
+                                    <button id="reset" class="btn btn-amber">Modifier pour <?=$page?></button>
+                                    <?php
+                                    }
+                                    foreach ($categories as $cle => $valeur) {
                                     ?>
-                            <!--  checkbox -->
-                            <div class="form-check pl-0">
-                                <input type="checkbox" class="form-check-input" id="filledInCheckbox<?=$value['id']?>" volume="<?=$value['volhoraire']?>"  valeur="<?=$value['id']?>" <?=(is_checked($value['id'])) ? "disabled checked" : ""?>>
-                                <label class="form-check-label" for="filledInCheckbox<?=$value['id']?>"><?=$value['intitule']?></label>
+                                    <!-- Card -->
+                                    <!-- Accordion card -->
+                                    <div class="card card-form-2 mb-4">
+                                        <!-- Card header -->
+                                        <div class="card-header p-0 z-depth-1" role="tab" id="heading3<?=$cle?>">
+                                            <a data-toggle="collapse" data-parent="#accordionEx5" href="#collapse3<?=$cle?>" aria-expanded="true"
+                                                aria-controls="collapse3<?=$cle?>">
+                                                <?=$icons[$valeur['nom']]?>
+                                                <h4 class="text-uppercase white-text mb-0 py-3 mt-1">
+                                                <?=$valeur['nom']?>
+                                                </h4>
+                                            </a>
+                                        </div>
+                                        <div id="collapse3<?=$cle?>" class="collapse <?=($cle==0)?"show":""?>" role="tabpanel" aria-labelledby="heading3<?=$cle?>"
+                                                data-parent="#accordionEx5">
+                                            <div class="card-body rgba-black-light white-text z-depth-1">
+                                                <?php
+                                                    foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
+                                                ?>
+                                                <!--  checkbox -->
+                                                <div class="form-check pl-0">
+                                                    <input type="checkbox" class="form-check-input" id="filledInCheckbox<?=$value['id']?>" volume="<?=$value['volhoraire']?>"  valeur="<?=$value['id']?>" <?=(is_checked($value['id'])) ? "disabled checked" : ""?>>
+                                                    <label class="form-check-label" for="filledInCheckbox<?=$value['id']?>"><?=$value['intitule']?></label>
+                                                </div>
+                                                <!--  checkbox -->
+                                                <?php
+                                                    }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                        }
+                                    ?>
+                                    <!-- accordeon card -->
+                                </div>
+                                <!--/.Accordion wrapper-->
                             </div>
-                            <!--  checkbox -->
-                            <?php
-                                }
-                            ?>
                         </div>
                     </div>
-                    <?php
-                                }
-                    ?>
+                </div>    
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="justify-content-center">
                     <button id="next" page="<?=$page?>"  class="btn btn-outline-secondary" type="button">
                         <?php
-                            if ($page == "G3" || $page == "L3") {
-                        ?>
+if ($page == "G3" || $page == "L3") {
+    ?>
                         <i class="fa fa-check" aria-hidden="true"></i>
                         Terminer
                         <?php
-                            } else {
-                        ?>
+} else {
+    ?>
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         G<?=($page != "prepa" || $page != "accueil") ? (int) $page[1] + 1 : 1?>
                         <?php
-                            }
-                        ?>
+}
+?>
                     </button>
                     <button id="back" class="btn btn-outline-primary back" type="button" <?=($page != "prepa" || $page != "accueil") ? "" : "disabled"?>>
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -199,8 +230,8 @@ color: #455a64; }
         </div>
 
         <?php
-            require_once "preview.php";
-        ?>
+require_once "preview.php";
+?>
 
     </section>
 </div>
@@ -402,7 +433,7 @@ require_once 'includes/template.php';
             $(".parent").append(field);
 
             var size = $(".field").length;
-          
+
             if (size >= 3) {
                 $(this).attr("disabled", "disabled");
             }
@@ -420,13 +451,13 @@ require_once 'includes/template.php';
                 else{
                     elements.push({intitule: elt, volume: $(this).val()})
                     hours+= parseInt($(this).val());
-                } 
+                }
             });
 
             val+= hours;
             valeur = val/2000;
             pourc = valeur*100;
-            
+
             if (pourc > 25 && pourc <=50) {
                 $(".progress-bar").addClass("bg-success");
             }
@@ -452,12 +483,12 @@ require_once 'includes/template.php';
                 else
                 {
                     var i = 0;
-                    $.each(elements, function (indexe, valeur) { 
+                    $.each(elements, function (indexe, valeur) {
                         if (valeur.intitule === "" || valeur.volume === "Volume horaire") {
                             i++;
                         }
                     });
-                   
+
                     if (i > 0) {
                         toastr.warning("veuillez compléter tous les champs");
                     }
@@ -466,7 +497,7 @@ require_once 'includes/template.php';
                         if(page === "accueil") {
                             page = "prepa";
                         }
-                        $.post("controllers/cours.php", 
+                        $.post("controllers/cours.php",
                         {
                             data:elements,
                             action: 'ajouter',
@@ -475,13 +506,13 @@ require_once 'includes/template.php';
                         function (data, textStatus, jqXHR) {
                             if (jqXHR.done()) {
                                 if(data === "ok")
-                                { 
+                                {
                                     $('#modalRegisterForm').modal('hide');
-                                    toastr.info("Suggesttion enregistrée"); 
+                                    toastr.info("Suggesttion enregistrée");
                                 }
                                 else{
                                     toastr.warning("Une erreur s'est produite veuillez réesayer");
-                                }  
+                                }
                             }
                             else{
                                 toastr.warning(textStatus);
@@ -509,8 +540,8 @@ require_once 'includes/template.php';
         $('#form-autocomplete-2').mdb_autocomplete({
             data: subjects
         });
-        
+
     });
-   
+
 
 </script>
