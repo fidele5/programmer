@@ -1,8 +1,6 @@
 <?php
-
 session_start();
 require_once '../models/autoload.php';
-
 class Process
 {
     private $modelCours;
