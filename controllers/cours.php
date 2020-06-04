@@ -19,7 +19,6 @@ switch ($action) {
             } else {
                 continue;
             }
-
         }
         if (!isset($_SESSION['suggested'])) {
             $_SESSION['suggested'] = array();

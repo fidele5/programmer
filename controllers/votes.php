@@ -1,7 +1,6 @@
 <?php
 session_start();
-require_once '../models/votes.php';
-$votes = new Votes();
+require_once 'process.php';
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 }
@@ -18,60 +17,59 @@ switch ($action) {
             }
         }
         if ($i > 0) {
-            $_SESSION["message"] = "Vous devez remplir tous les champs";
-            header("location: ../votes/ajouter");
+           
         } else {
-            #code
+            $process = new Process($_SESSION['voted'], array(), $_SESSION['id']);
+            $process->process();
+            echo "ok";
         }
-        break;
-    case "delete":
-        $id = $_GET["id"];
-        $delete = $votes->delete($id);
-        header("location: ../votes");
         break;
     default:
         echo "okay";
         extract($_POST);
         if (!isset($_SESSION['voted'])) {
-            $_SESSION['voted'] = array();
+            $_SESSION['voted'] = array(
+                "prepa" => array(),
+                "G1" => array(),
+                "G2" => array(),
+                "G3" => array(),
+            );
+
         }
-
         if (is_array($data)) {
-            if (exists($promotion)) {
+            if (in_array($promotion, array_keys($_SESSION['voted']))) {
                 $_SESSION['voted'] = reset_data($promotion, $data);
-            } else {
-                $action = array($promotion => $data);
-                array_push($_SESSION["voted"], $action);
             }
-
         }
         break;
-}
-
-function exists($promotion)
-{
-    if (isset($_SESSION['voted'])) {
-        foreach ($_SESSION['voted'] as $value) {
-            if (key($value) == $promotion) {
-                return true;
-            }
-        }
-    } else {
-        return false;
-    }
-
 }
 
 function reset_data($promotion, $data)
 {
     if (isset($_SESSION['voted'])) {
-        $temp = array();
+        $temp = array(
+            "prepa" => array(),
+            "G1" => array(),
+            "G2" => array(),
+            "G3" => array(),
+        );
+
         foreach ($_SESSION['voted'] as $key => $value) {
-            if (key($value) == $promotion) {
-                $action = array($promotion => $data);
-                array_push($temp, $action);
+            if ($key == $promotion) {
+                for ($i=0; $i < count($data) ; $i++) { 
+                    array_push($temp[$promotion], $data[$i]);   
+                }
             } else {
-                array_push($temp, $value);
+                if (is_array($value)) {
+                    if(count($value) > 0){
+                        for ($j = 0; $j < count($value); $j++) {
+                            array_push($temp[$key], $value[$j]);
+                        }
+                    }
+                }
+                else{
+                    array_push($temp[$key], $value);
+                }
             }
         }
         return $temp;

@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once '../models/autoload.php';
 class Process
 {
@@ -33,21 +32,21 @@ class Process
         $idFiliere = $this->modelUtilisateur->select_by_id($this->idUser);
         $all_courses = $this->modelCours->select_by_id_filiere($idFiliere[0]["domaine_id"]);
         $notSelected = array(
-            "Prepa" => array(),
+            "prepa" => array(),
             "G1" => array(),
             "G2" => array(),
             "G3" => array(),
         );
         foreach ($all_courses as $key => $cours) {
-            if (!(in_array($cours["id"], $this->datas["Prepa"]) ||
+            if (!(in_array($cours["id"], $this->datas["prepa"]) ||
                 in_array($cours["id"], $this->datas["G1"]) ||
                 in_array($cours["id"], $this->datas["G2"]) ||
                 in_array($cours["id"], $this->datas["G3"]))) {
                 $id_promotion = $cours["promotions_id"];
                 $promotion = $this->modelPromotion->select_by_id($id_promotion);
                 $nom = $promotion[0]["designation"];
-                if (preg_match("/Prepa/", $nom)) {
-                    $notSelected["Prepa"][] = $cours["id"];
+                if (preg_match("/prepa/", $nom)) {
+                    $notSelected["prepa"][] = $cours["id"];
                 } else if (preg_match("/G1/", $nom)) {
                     $notSelected["G1"][] = $cours["id"];
                 } else if (preg_match("/G2/", $nom)) {
@@ -64,7 +63,7 @@ class Process
     private function pondererSelected()
     {
         $poids_cotes = array(
-            "Prepa" => array(),
+            "prepa" => array(),
             "G1" => array(),
             "G2" => array(),
             "G3" => array(),
@@ -100,7 +99,7 @@ class Process
     private function pondererNotSelected(array $notSelected)
     {
         $poids_cotes = array(
-            "Prepa" => array(),
+            "prepa" => array(),
             "G1" => array(),
             "G2" => array(),
             "G3" => array(),
@@ -136,7 +135,7 @@ class Process
     public function pondererSuggered()
     {
         $poids_cotes = array(
-            "Prepa" => array(),
+            "prepa" => array(),
             "G1" => array(),
             "G2" => array(),
             "G3" => array(),
@@ -159,9 +158,10 @@ class Process
         $this->modelVotes->update_votes($this->idUser);
 
         foreach ($this->datas as $key => $value) {
-            foreach ($value as $key2 => $id_cours) {
+            foreach ($value as $key2 => $valeur) {
+                extract($valeur);
                 $filiere = 0;
-                if (($key == "Prepa") || ($key == "G1")) {
+                if (($key == "prepa") || ($key == "G1")) {
                     $filiere = $this->modelDomaine->select_by_name("Generale")[0]["id"];
                 } else {
                     $filiere = $this->modelUtilisateur->select_by_id($this->idUser)[0]["domaine_id"];
@@ -169,14 +169,14 @@ class Process
 
                 $promotion = $this->modelPromotion->select_id_by_name_domain($key, $filiere);
                 $id_promotion = $promotion[0]["id"];
-                $this->modelVotes->insert($this->idUser, $id_cours, $id_promotion, $dataPonderedSelected[$key][$key2], true);
+                $this->modelVotes->insert($this->idUser, $id, $id_promotion, $dataPonderedSelected[$key][$key2], true);
             }
         }
 
         foreach ($notSelected as $key => $value) {
             foreach ($value as $key2 => $id_cours) {
                 $filiere = 0;
-                if (($key == "Prepa") || ($key == "G1")) {
+                if (($key == "prepa") || ($key == "G1")) {
                     $filiere = $this->modelDomaine->select_by_name("Generale")[0]["id"];
                 } else {
                     $filiere = $this->modelUtilisateur->select_by_id($this->idUser)[0]["domaine_id"];
@@ -191,7 +191,7 @@ class Process
         foreach ($dataPonderedSuggered as $key => $value) {
             foreach ($value as $key2 => $id_cours) {
                 $filiere = 0;
-                if (($key == "Prepa") || ($key == "G1")) {
+                if (($key == "prepa") || ($key == "G1")) {
                     $filiere = $this->modelDomaine->select_by_name("Generale")[0]["id"];
                 } else {
                     $filiere = $this->modelUtilisateur->select_by_id($this->idUser)[0]["domaine_id"];
@@ -215,14 +215,3 @@ class Process
         $this->save();
     }
 }
-
-$datas = array(
-    "Prepa" => array(5),
-    "G1" => array(9),
-    "G2" => array(7),
-    "G3" => array(8),
-);
-$id = 1;
-$suggered = array();
-$p = new Process($datas, $suggered, $id);
-$p->process();

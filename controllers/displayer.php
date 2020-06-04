@@ -80,21 +80,52 @@ function Utilisateurs($page)
 
 function Accueil($page)
 {
+    $vote = new Votes;
+    $votes = $vote->get_votes_participant($_SESSION['id']);
+    if (count($votes) > 0) {
+        if (!isset($_SESSION['voted'])) {
+            $_SESSION['voted'] = array(
+                "prepa" => array(),
+                "G1" => array(),
+                "G2" => array(),
+                "G3" => array(),
+            );
+        
+            foreach ($votes as $key => $value) {
+                extract($value);
+                if ($designation == "prepa") {
+                    $datas = array("label" => $intitule, "state" => "on", "id" => $cours_id);
+                    array_push($_SESSION['voted'][$designation], $datas);
+                }
+                if ($designation == "G2") {
+                    $datas = array("label" => $intitule, "state" => "on", "id" => $cours_id);
+                    array_push($_SESSION['voted'][$designation], $datas);
+                }
+            }
+        }
+    } else {
+        $_SESSION['voted'] = array(
+            "prepa" => array(),
+            "G1" => array(),
+            "G2" => array(),
+            "G3" => array(),
+        );
+    }
     $cour = new Cours;
     $categorie = new Categorie_cours;
     $categories = $categorie->select();
     $icons = array(
-        'Programmation'=>'<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
-        'Machine Learning'=>'<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
-        'Domotique'=>'<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
-        'Modelisation'=>'<i class="fab fa-wpforms fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
-        'Base des donnees'=>'<i class="fa fa-database fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>', 
-        'Architecture Reseaux'=>'<i class="fa fa-wifi fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
-        'Design'=>'<i class="fas fa-image fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
-        'Telecommunication'=>'<i class="fas fa-signal fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
-        'Mathematiques'=>'<i class="fa fa-calculator fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
-        'Communication'=>'<i class="fa fa-comment fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
-        'Management'=>'<i class="fab fa-bitcoin fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>'
+        'Programmation' => '<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Machine Learning' => '<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Domotique' => '<i class="fa fa-code fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Modelisation' => '<i class="fab fa-wpforms fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Base des donnees' => '<i class="fa fa-database fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Architecture Reseaux' => '<i class="fa fa-wifi fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Design' => '<i class="fas fa-image fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Telecommunication' => '<i class="fas fa-signal fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Mathematiques' => '<i class="fa fa-calculator fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Communication' => '<i class="fa fa-comment fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
+        'Management' => '<i class="fab fa-bitcoin fa-2x p-3 mr-4 float-left black-text" aria-hidden="true"></i>',
     );
     require_once 'views/accueil.php';
 }

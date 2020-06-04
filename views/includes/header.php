@@ -15,6 +15,7 @@
             <link href="public/css/mdb.min.css" rel="stylesheet">
             <!-- Your custom styles (optional) -->
             <link href="public/css/style.css" rel="stylesheet">
+            <link href="public/css/unicons.css" rel="stylesheet">
             <![endif]-->
         </head>
     <?php
@@ -30,7 +31,7 @@ if (is_connected()) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
-                <a class="btn btn-outline-secondary waves-effect ml-auto" href="logout">Deconnexion</a>
+                <a class="btn btn-outline-danger waves-effect ml-auto" href="logout">Deconnexion</a>
             </div>
         </nav>
         <!--/.Navbar -->

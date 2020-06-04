@@ -5,9 +5,9 @@ $pages = ["accueil", "prepa", "G1", "G2", "G3", "L1", "L2", "L3", "g1", "g2", "g
 
 try {
     if (empty($page)) {
-        throw new Exception('page non disponible', 1);
+        throw new Exception('page non disponible si vous avez tapé la requete url veuillez vous rassurer qu elle est bonne', 1);
     } elseif (!in_array($page, $pages)) {
-        throw new Exception('page non disponible', 1);
+        throw new Exception("Cette page n'a jamais existée sur notre serveur.. 😍 ", 1); 
     } else {
         switch ($page) {
             case 'login':
@@ -29,5 +29,5 @@ try {
         }
     }
 } catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
+    require_once "views/error.php";
 }

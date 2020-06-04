@@ -7,89 +7,8 @@ if (isset($_SESSION['voted'])) {
 }
 // session_destroy();
 ?>
-<style>
-.contenu {
-  background: rgba(255,255,255,0.7);
-}
-
-#cover-spin {
-    position:fixed;
-    width:100%;
-    left:0;right:0;top:0;bottom:0;
-    background-color: rgba(255,255,255,0.7);
-    z-index:9999;
-
-}
-
-
-div#loader {
-  position:fixed;
-    /*width:100%;*/
-    left:0;right:0;top:0;bottom:0;
-  margin-top: 50vh;
-  text-align: center;
-  width: inherit;
-  height: inherit;
-  /*margin-left: auto;
-  margin-right: auto; */
-  z-index:9999;
-}
-
-@keyframes juggler {
-  0% {
-    transform: translateX(0px) translateY(0px);
-  }
-  12.5% {
-    transform: translateX(-20px) translateY(40px) scale(1.1);
-  }
-  25% {
-    transform: translateX(-40px) translateY(0px);
-  }
-  37.5% {
-    transform: translateX(-20px) translateY(-40px);
-  }
-  50% {
-    transform: translateX(0px) translateY(0px);
-  }
-  62.5% {
-    transform: translateX(20px) translateY(40px) scale(1.1);
-  }
-  75% {
-    transform: translateX(40px) translateY(0px);
-  }
-  87.5% {
-    transform: translateX(20px) translateY(-40px);
-  }
-  100% {
-    transform: translateX(0px) translateY(0px);
-  }
-}
-
-span.ball {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  animation: juggler 1.8s linear infinite;
-}
-span.ball:nth-child(1) {
-  background: radial-gradient(ellipse at center, #c52214 0%,#da3628 100%);
-  animation-delay: -0.6s;
-}
-span.ball:nth-child(2) {
-  background: radial-gradient(ellipse at center, #306ed6 0%,#4285f4 100%);
-  animation-delay: -1.2s;
-}
-span.ball:nth-child(3) {
-  background: radial-gradient(ellipse at center, #d29d04 0%,#fbbc05 100%);
-}
-.bc-icons-2 .breadcrumb-item + .breadcrumb-item::before {
-content: none; }
-.bc-icons-2 .breadcrumb-item.active {
-color: #455a64; }
-</style>
 <div class='container my-5 py-5 z-depth-1'>
-   <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+   <section class="px-md-5 mx-md-5 text-lg-left dark-grey-text">
         <!--Grid row-->
         <div class="cover" style="display: none">
             <div id="cover-spin"></div>
@@ -99,28 +18,22 @@ color: #455a64; }
                 <span class="ball"></span>
             </div>
         </div>
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb indigo lighten-4">
-                <li class="breadcrumb-item" <?=($page == "prepa") ? 'active text-default' : ""?>><a class="black-text" href="prepa">Prepa</a><i class="fas fa-caret-right mx-2"
-                    aria-hidden="true"></i></li>
-                <li class="breadcrumb-item <?=($page == "G1") ? 'active text-default' : ""?>"><a class="black-text" href="G1">G1</a><i class="fas fa-caret-right mx-2"
-                    aria-hidden="true"></i></li>
-                <li class="breadcrumb-item <?=($page == "G2") ? 'active text-default' : ""?>">G2</li>
-                <li class="breadcrumb-item <?=($page == "G3") ? 'active text-default' : ""?>"><a class="black-text" href="G3">G3</a><i class="fas fa-caret-right mx-2"
-                    aria-hidden="true"></i></li>
-            </ol>
-        </nav>
+        <div class="text-center">
+            <div class="breadcrumb text-center">
+                <a class="breadcrumb__step <?=($page == "prepa" || $page == "accueil") ? 'breadcrumb__step--active' : ""?>" href="prepa">Prepa</a>
+                <a class="breadcrumb__step <?=($page == "G1") ? 'breadcrumb__step--active' : ""?>" href="G1">G1</a>
+                <a class="breadcrumb__step <?=($page == "G2") ? 'breadcrumb__step--active' : ""?>" href="G2">G2</a>
+                <a class="breadcrumb__step <?=($page == "G3") ? 'breadcrumb__step--active' : ""?>" href="G3">G3</a>
+            </div>
+        </div>
         <?php
 function is_checked($id)
 {
     if (isset($_SESSION['voted'])) {
         foreach ($_SESSION['voted'] as $value) {
             foreach ($value as $val) {
-                for ($j = 0; $j < count($val); $j++) {
-                    if (in_array($id, $val[$j])) {
-                        return true;
-                    }
+                if (in_array($id, $val)) {
+                    return true;
                 }
             }
         }
@@ -147,15 +60,9 @@ function is_checked($id)
                                 <!--Accordion wrapper-->
                                 <div class="accordion md-accordion accordion-5" id="accordionEx5" role="tablist"
                                     aria-multiselectable="true">
-
                                     <?php
-                                        if (isset($_GET['action'])) {
-                                    ?>
-                                    <button id="reset" class="btn btn-amber">Modifier pour <?=$page?></button>
-                                    <?php
-                                    }
-                                    foreach ($categories as $cle => $valeur) {
-                                    ?>
+foreach ($categories as $cle => $valeur) {
+    ?>
                                     <!-- Card -->
                                     <!-- Accordion card -->
                                     <div class="card card-form-2 mb-4">
@@ -164,17 +71,17 @@ function is_checked($id)
                                             <a data-toggle="collapse" data-parent="#accordionEx5" href="#collapse3<?=$cle?>" aria-expanded="true"
                                                 aria-controls="collapse3<?=$cle?>">
                                                 <?=$icons[$valeur['nom']]?>
-                                                <h4 class="text-uppercase white-text mb-0 py-3 mt-1">
+                                                <h4 class="white-text mb-0 py-3 mt-1">
                                                 <?=$valeur['nom']?>
                                                 </h4>
                                             </a>
                                         </div>
-                                        <div id="collapse3<?=$cle?>" class="collapse <?=($cle==0)?"show":""?>" role="tabpanel" aria-labelledby="heading3<?=$cle?>"
+                                        <div id="collapse3<?=$cle?>" class="collapse <?=($cle == 0) ? "show" : ""?>" role="tabpanel" aria-labelledby="heading3<?=$cle?>"
                                                 data-parent="#accordionEx5">
-                                            <div class="card-body rgba-black-light white-text z-depth-1">
+                                            <div class="card-body rgba-black-light white-text z-depth-1 justify-content-start">
                                                 <?php
-                                                    foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
-                                                ?>
+foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
+        ?>
                                                 <!--  checkbox -->
                                                 <div class="form-check pl-0">
                                                     <input type="checkbox" class="form-check-input" id="filledInCheckbox<?=$value['id']?>" volume="<?=$value['volhoraire']?>"  valeur="<?=$value['id']?>" <?=(is_checked($value['id'])) ? "disabled checked" : ""?>>
@@ -182,21 +89,21 @@ function is_checked($id)
                                                 </div>
                                                 <!--  checkbox -->
                                                 <?php
-                                                    }
-                                                ?>
+}
+    ?>
                                             </div>
                                         </div>
                                     </div>
                                     <?php
-                                        }
-                                    ?>
+}
+?>
                                     <!-- accordeon card -->
                                 </div>
                                 <!--/.Accordion wrapper-->
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="justify-content-center">
@@ -205,25 +112,38 @@ function is_checked($id)
 if ($page == "G3" || $page == "L3") {
     ?>
                         <i class="fa fa-check" aria-hidden="true"></i>
+                        <span class="clearfix d-none d-md-inline-block">
                         Terminer
+                        </span>
                         <?php
 } else {
     ?>
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        <span class="clearfix d-none d-md-inline-block">
                         G<?=($page != "prepa" || $page != "accueil") ? (int) $page[1] + 1 : 1?>
+                        </span>
                         <?php
 }
 ?>
+
                     </button>
                     <button id="back" class="btn btn-outline-primary back" type="button" <?=($page != "prepa" || $page != "accueil") ? "" : "disabled"?>>
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        <span class="clearfix d-none d-md-inline-block">
                         Retour
+                        </span>
                     </button>
                     <button class="btn btn-outline-dark" type="button" data-toggle="modal" data-target="#modalRegisterForm">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Suggerer
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span class="clearfix d-none d-md-inline-block">
+                             Suggerer
+                        </span>
                     </button>
                     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalCart">
-                        <i class="fa fa-eye" aria-hidden="true"></i> Preview
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        <span class="clearfix d-none d-md-inline-block">
+                             Preview
+                        </span>
                     </button>
                 </div>
             </div>
@@ -245,27 +165,27 @@ require_once 'includes/template.php';
                 function (data, textStatus, jqXHR) {
                     $.each(data, function (cle, val) {
                         $.each(val, function (key, valeur) {
-                            $.each(valeur, function (index, value) {
-                                console.log(value)
-                                $(".form-check-input").each(function (index, element) {
-                                    if (value.id == $(this).attr("valeur")) {
-                                        if ($(this).prop('disabled')) {
-                                            if (key =="prepa") {
-                                                $(this).parent().find("label").append("<span class='text-success'><small><i> Selectionné pour "+key+"</i></small></span>");
-                                            }
-                                            else if (key == "G1") {
-                                                $(this).parent().find("label").append("<span class='text-default'><small><i> Selectionné pour "+key+"</i></small></span>");
-                                            }
-                                            else if (key =="G2") {
-                                                $(this).parent().find("label").append("<span class='text-warning'><small><i> Selectionné pour "+key+"</i></small></span>");
-                                            }
-                                            else if (key == "G3") {
-                                                $(this).parent().find("label").append("<span class='text-danger'><small><i> Selectionné pour "+key+"</i></small></span>");
-                                            }
+                            console.log(cle)
+                            $(".form-check-input").each(function (index, element) {
+                                if (valeur.id == $(this).attr("valeur")) {
+                                    if ($(this).prop('disabled')) {
+                                        if (cle === "<?=$page?>") {
+                                           $(this).removeAttr("disabled");
+                                        }
+                                        if (cle =="prepa") {
+                                            $(this).parent().find("label").append("<span class='text-success'><small><i> Selectionné pour "+cle+"</i></small></span>");
+                                        }
+                                        else if (cle == "G1") {
+                                            $(this).parent().find("label").append("<span class='text-default'><small><i> Selectionné pour "+cle+"</i></small></span>");
+                                        }
+                                        else if (cle =="G2") {
+                                            $(this).parent().find("label").append("<span class='text-warning'><small><i> Selectionné pour "+cle+"</i></small></span>");
+                                        }
+                                        else if (cle == "G3") {
+                                            $(this).parent().find("label").append("<span class='text-danger'><small><i> Selectionné pour "+cle+"</i></small></span>");
                                         }
                                     }
-
-                                });
+                                }
                             });
                         });
                     });
@@ -383,9 +303,9 @@ require_once 'includes/template.php';
             e.preventDefault();
             var prev = "G"+ (parseInt(<?=$page[1]?>)-1);
             if(prev == "G0"){
-                location . assign("prepa"+"-reset");
+                location . assign("prepa");
             }
-            else location.assign(prev+"-reset");
+            else location.assign(prev);
         });
 
         $("#valider").click(function (e) {
@@ -396,33 +316,6 @@ require_once 'includes/template.php';
                             location.reload(true);
                         }
                 });
-        });
-
-        $("#reset").click(function (e) {
-            e.preventDefault();
-            var tableau = {};
-            $.getJSON("views/json_data.php",
-                function (data, textStatus, jqXHR) {
-                    $.each(data, function (cle, val) {
-                        $.each(val, function (key, valeur) {
-                            if (key == "<?=$page?>") {
-                                $.each(valeur, function (index, value) {
-                                    console.log(value)
-                                    $(".form-check-input").each(function (index, element) {
-                                        if (value.id == $(this).attr("valeur")) {
-                                            if ($(this).prop('disabled')) {
-                                                $(this).removeAttr("disabled");
-                                            }
-                                        }
-
-                                    });
-                                });
-                            }
-                        });
-                    });
-                }
-            );
-
         });
 
 
@@ -543,5 +436,10 @@ require_once 'includes/template.php';
 
     });
 
-
+$(".breadcrumb__step").each(function (index, element) {
+    if ($(this).hasClass("breadcrumb__step--active")) {
+        return false;
+    }
+    else $(this).addClass("breadcrumb__step--active");    
+});
 </script>
