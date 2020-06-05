@@ -1,9 +1,9 @@
 <?php
 ob_start();
 if (isset($_SESSION['voted'])) {
-    // echo "<pre>";
-    // print_r($_SESSION['voted']);
-    // echo "</pre>";
+//     echo "<pre>";
+//     print_r($_SESSION['voted']);
+//     echo "</pre>";
 }
 // session_destroy();
 ?>

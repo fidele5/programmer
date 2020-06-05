@@ -45,7 +45,7 @@
 
         <!--  BEGIN SIDEBAR  -->
         <div class="sidebar-wrapper sidebar-theme">
-            
+
             <nav id="sidebar">
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
@@ -73,7 +73,7 @@
                                 <a href="programmes"> Programme </a>
                             </li>
                             <li>
-                                <a href="apps_mailbox.html"> Mailbox  </a>
+                                <a href="users"> Utilisateurs  </a>
                             </li>
                         </ul>
                     </li>
@@ -90,16 +90,16 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="components" data-parent="#accordionExample">
                             <li>
-                                <a href="component_tabs.html"> Tabs </a>
+                                <a href="upuser"> Upload Users </a>
                             </li>
                             <li>
-                                <a href="component_accordion.html"> Accordions  </a>
+                                <a href="uprogram"> Upload Programm  </a>
                             </li>
                         </ul>
-                    </li>                    
+                    </li>
                 </ul>
                 <!-- <div class="shadow-bottom"></div> -->
-                
+
             </nav>
 
         </div>

@@ -1,11 +1,6 @@
 <?php
 session_start();
-require 'vendor/autoload.php';
-
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-
+require_once "models/autoload.php";
 function is_connected()
 {
     if (isset($_SESSION["id"]) && isset($_SESSION["login"])) {
@@ -35,10 +30,13 @@ function Signup($page)
 
 function Users($page)
 {
-    $spreadsheet = new Spreadsheet();
-    $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-    $spreadSheet = $Reader->load("cours.xlsx");
+    $user = new Utilisateurs;
+    $users = $user->select();
     require_once 'views/utilisateurs.php';
+}
+
+function Upload($page){
+    require_once "views/upload.php";
 }
 
 function Votes($page)
@@ -46,11 +44,10 @@ function Votes($page)
     require_once 'views/votes.php';
 }
 
-
 function Programmes($page)
 {
     require_once 'views/programmes.php';
-    
+
 }
 
 function Accueil($page)

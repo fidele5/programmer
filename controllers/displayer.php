@@ -103,13 +103,6 @@ function Accueil($page)
                 }
             }
         }
-    } else {
-        $_SESSION['voted'] = array(
-            "prepa" => array(),
-            "G1" => array(),
-            "G2" => array(),
-            "G3" => array(),
-        );
     }
     $cour = new Cours;
     $categorie = new Categorie_cours;
