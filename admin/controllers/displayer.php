@@ -37,11 +37,7 @@ function Users($page)
 {
     $spreadsheet = new Spreadsheet();
     $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-    $spreadSheet = $Reader->load("Liste G1 2018-019.xlsx");
-    // $excelSheet = $spreadSheet->getActiveSheet();
-    // $spreadSheetAry = $excelSheet->toArray();
-    // $sheetCount = count($spreadSheetAry);
-
+    $spreadSheet = $Reader->load("cours.xlsx");
     require_once 'views/utilisateurs.php';
 }
 
