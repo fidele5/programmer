@@ -1,7 +1,9 @@
 <?php
 session_start();
 require_once '../models/cours.php';
+require_once '../models/promotions.php';
 $cours = new Cours();
+$cours = new Promotions();
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 }
@@ -9,7 +11,12 @@ extract($_POST);
 $i = 0;
 switch ($action) {
     case "ajouter":
-        $vals = array();
+        $vals = array(
+            "prepa"=>array(), 
+            "G1"=>array(), 
+            "G2"=>array(), 
+            "G3"=>array()
+        );
         foreach ($data as $key => $value) {
             extract($value);
             $ajouter = $cours->insert($intitule, $volume, 1);

@@ -128,7 +128,6 @@ class Process
 
             }
         }
-        print_r($poids_cotes);
         return $poids_cotes;
     }
 

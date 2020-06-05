@@ -7,7 +7,7 @@
             <!-- Default form register -->
             <form class="text-center border border-light p-5" action="#!">
 
-                <p class="h4 mb-4">Sign up</p>
+                <p class="h4 mb-4">Inscription</p>
 
                 
                 <input type="text" id="nom" class="form-control mb-4 field" placeholder="Nom complet">
@@ -47,15 +47,9 @@
                         </select>
                     </div>
                 </div>
-                
-                <!-- Newsletter -->
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">
-                    <label class="custom-control-label" for="defaultRegisterFormNewsletter">Subscribe to our newsletter</label>
-                </div>
 
                 <!-- Sign up button -->
-                <button id="signin" class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+                <button id="signin" class="btn btn-info my-4 btn-block" type="submit">S'inscrire</button>
 
                 <!-- Social register -->
                 <p>or sign up with:</p>
@@ -73,7 +67,7 @@
                     <a href="" target="_blank">terms of service</a>
 
             </form>
-<!-- Default form register -->
+            <!-- Default form register -->
         </div>
     </div>
 </div>

@@ -215,13 +215,13 @@ if (isset($_SESSION['voted'])) {
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                        <h4 class="modal-title w-100 font-weight-bold">Suggérer un cours</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body mx-3 parent">
-                        <button class="btn btn-info" id="plus" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <button class="btn btn-outline-danger" id="plus" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         <div id="content">
                             <div class="row field">
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -238,7 +238,7 @@ if (isset($_SESSION['voted'])) {
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <select class="browser-default custom-select champs">
+                                    <select class="browser-default custom-select champs mt-4">
                                         <option selected disabled>Volume horaire</option>
                                         <option value="15">15 heures</option>
                                         <option value="30">30 heures</option>
@@ -252,7 +252,7 @@ if (isset($_SESSION['voted'])) {
 
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button id="suggest" class="btn btn-deep-orange">Sign up</button>
+                        <button id="suggest" class="btn btn-outline-unique">valider</button>
                     </div>
                 </div>
             </div>
