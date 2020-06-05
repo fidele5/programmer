@@ -20,6 +20,9 @@
                 case 'programmes':
                     Programmes($page);
                 break;
+                case 'users':
+                    Users($page);
+                break;
                 case 'logout' :
                     Logout();
                 break;

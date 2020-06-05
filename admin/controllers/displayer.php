@@ -1,5 +1,11 @@
 <?php
 session_start();
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
 function is_connected()
 {
     if (isset($_SESSION["id"]) && isset($_SESSION["login"])) {
@@ -27,10 +33,23 @@ function Signup($page)
     require_once "views/signin.php";
 }
 
+function Users($page)
+{
+    $spreadsheet = new Spreadsheet();
+    $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+    $spreadSheet = $Reader->load("Liste G1 2018-019.xlsx");
+    // $excelSheet = $spreadSheet->getActiveSheet();
+    // $spreadSheetAry = $excelSheet->toArray();
+    // $sheetCount = count($spreadSheetAry);
+
+    require_once 'views/utilisateurs.php';
+}
+
 function Votes($page)
 {
     require_once 'views/votes.php';
 }
+
 
 function Programmes($page)
 {
