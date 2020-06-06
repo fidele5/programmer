@@ -1,5 +1,5 @@
 <?php
-    ob_start();
+ob_start();
 ?>
 <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
@@ -13,17 +13,14 @@
                                 <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                            <th>Extn.</th>
-                                            <th>Action</th>
+                                            <th>Numero</th>
+                                            <th>Intitule du cours</th>
+                                            <th>Volume horaire</th>
+                                            <th>Categorie</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                      <?php ?>
                                         <tr>
                                             <td>Tiger Nixon</td>
                                             <td>System Architect</td>

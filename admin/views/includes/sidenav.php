@@ -90,8 +90,13 @@
                                     <?php } ?>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="users"> UTILISATEURS  </a>
+                            <li class="menu">
+                                <a href="users" data-active="true"  class="dropdown-toggle">
+                                    <div class="">
+                                        <i class="fa fa-user"></i>
+                                        <span>UTILISATEURS</span>
+                                    </div>
+                                </a>
                             </li>
                         </ul>
                     </li>

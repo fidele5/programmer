@@ -46,6 +46,8 @@ function Votes($page)
 
 function Programmes($page)
 {
+    require_once "controllers/compiler.php";
+    $id_filiere = $_GET["id"];
     require_once 'views/programmes.php';
 
 }
