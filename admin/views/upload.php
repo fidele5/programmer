@@ -21,19 +21,23 @@
                                     </div>      
                                 </div>
                             </div>
-                            <form id="form" method="post" action="controllers/upload.php" enctype="multipart/form-data">
+                            <form id="form" method="post" action="controllers/cours.php" enctype="multipart/form-data">
                                 <div class="widget-content widget-content-area">
                                     <div class="custom-file-container" data-upload-id="myFirstImage">
                                         <label>Upload (Single File) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
                                         <label class="custom-file-container__custom-file" >
                                             <input type="file" id="fichier" class="custom-file-container__custom-file__custom-file-input" accept="*" name="programme">
                                             <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                            <input type="hidden" name="action" value="ajouter" />
                                             <span class="custom-file-container__custom-file__custom-file-control"></span>
                                         </label>
                                         <div class="custom-file-container__image-preview"></div>
                                     </div>
                                 </div>
                                 <input type="submit" name="txt" class="mt-4 btn btn-primary">
+                                <div class="progress br-30 mt-2">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 0%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -76,6 +80,7 @@ require_once 'includes/template.php';
                         },{
                             duration: 1000
                         });
+                        $(".progress-bar").text(percentageComplete + "%");
                     },
                     success:function(data) {
                         if (data == "ok") {

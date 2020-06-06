@@ -23,7 +23,7 @@
                 case 'users':
                     Users($page);
                 break;
-                case 'upuser':
+                case 'uprogram':
                     Upload($page);
                 break;
                 case 'logout' :
