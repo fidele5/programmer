@@ -9,11 +9,6 @@ class Compiler
     private $modelDomaine;
     private $modelUtilisateur;
     private $modelVotes;
-    private $cours;
-    private $promotions;
-    private $domaines;
-    private $utilisateurs;
-    private $votes;
     private $idFiliere;
     private $promotion_votes;
     private $resultats_cours;
@@ -138,7 +133,7 @@ class Compiler
     }
 }
 
-$c = new Compiler(3);
+$c = new Compiler(1);
 $c -> compile();
 $prog = $c->getProgrammeFinal();
 print_r($prog);

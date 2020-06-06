@@ -1,12 +1,12 @@
 <?php
-    require '../vendor/autoload.php';
-    require_once 'cours.php';
-    require_once 'promotions.php';
-    require_once 'Categorie_cours.php';
-    require_once 'config.php';
+require '../vendor/autoload.php';
+require_once 'cours.php';
+require_once 'promotions.php';
+require_once 'Categorie_cours.php';
+require_once 'config.php';
 
-    use PhpOffice\PhpSpreadsheet\Spreadsheet;
-    use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Cours extends Config
 {
@@ -22,7 +22,8 @@ class Cours extends Config
     public $promotion;
     public $categories;
 
-    public function __construct($file) {
+    public function __construct($file)
+    {
         $this->file = $file;
         $this->spreadsheet = new Spreadsheet();
         $this->Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -34,13 +35,12 @@ class Cours extends Config
     public function insert($intitule, $volhoraire, $promotions_id, $categorie)
     {
         $connexion = $this->GetConnexion();
-        $query = 'INSERT INTO cours(intitule, volhoraire, promotions_id, categorie_id) VALUES(:intitule, :volhoraire, :promotions_id, :categorie)';
+        $query = 'INSERT INTO cours(intitule, volhoraire, promotions_id) VALUES(:intitule, :volhoraire, :promotions_id)';
         $requete = $connexion->prepare($query);
 
         $requete->bindValue(":intitule", $intitule);
         $requete->bindValue(":volhoraire", $volhoraire);
         $requete->bindValue(":promotions_id", $promotions_id);
-        $requete->bindValue(":categorie", $categorie);
         $requete->execute();
         $requete->closeCursor();
     }
@@ -91,7 +91,8 @@ class Cours extends Config
         return $datas;
     }
 
-    public function select_by_category($id_category){
+    public function select_by_category($id_category)
+    {
         $connexion = $this->GetConnexion();
         $query = 'SELECT * FROM cours WHERE categorie_id = :id';
         $requete = $connexion->prepare($query);
@@ -111,54 +112,53 @@ class Cours extends Config
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
-        return $datas; 
+        return $datas;
     }
 
-    public function upload(){
-            foreach ($this->file as $file) {
-                $extensions_valides = array('xls', 'xlsx', 'csv', 'sql');
-                $text = substr(strrchr($file['name'], '.'), 1);
-                if (in_array($text, $extensions_valides)) {
-                    $tmp_name = $file['tmp_name'];
-                    $file['name'] = explode(".", $file['name']);
-                    $file['name'] = $file['name'][0] . "." . $text;
-                    $destination = $this::PATH.$file['name'];
-                    move_uploaded_file($tmp_name, $destination);
-                }
-                if ($file['error'] == UPLOAD_ERR_OK) {
-                    $this->file_path = $destination;
-                }
+    public function upload()
+    {
+        foreach ($this->file as $file) {
+            $extensions_valides = array('xls', 'xlsx', 'csv', 'sql');
+            $text = substr(strrchr($file['name'], '.'), 1);
+            if (in_array($text, $extensions_valides)) {
+                $tmp_name = $file['tmp_name'];
+                $file['name'] = explode(".", $file['name']);
+                $file['name'] = $file['name'][0] . "." . $text;
+                $destination = $this::PATH . $file['name'];
+                move_uploaded_file($tmp_name, $destination);
             }
-
+            if ($file['error'] == UPLOAD_ERR_OK) {
+                $this->file_path = $destination;
+            }
         }
 
-        public function saveCourses()
-        {
-            if (file_exists($this->file_path)) {
-                $spreadSheet = $this->Reader->load($this->file_path);
-                $sheetCount = $this->spreadsheet->getSheetCount();
-                for ($i = 0; $i < $sheetCount; $i++) {
-                    $nom = $spreadSheet->getSheetNames();
-                    $sheet = $spreadSheet->getSheet($i);
-                    $sheetData = $sheet->toArray();
-                    $prom = $nom[$i];
-                    foreach ($sheetData as $key => $value) {
-                        if ($key == 0) {
-                            continue;
-                        } else {
-                            $promotions = $this->promotion->select_id_by_name_domain($prom, $value[2]);
-                            $cat = $this->categories->getCatByName($value[2]);
-                            $ajouter = $this->cours->insert($value[0], $value[1], $promotions['id'], $cat);
-                        }
+    }
+
+    public function saveCourses()
+    {
+        if (file_exists($this->file_path)) {
+            $spreadSheet = $this->Reader->load($this->file_path);
+            $sheetCount = $this->spreadsheet->getSheetCount();
+            for ($i = 0; $i < $sheetCount; $i++) {
+                $nom = $spreadSheet->getSheetNames();
+                $sheet = $spreadSheet->getSheet($i);
+                $sheetData = $sheet->toArray();
+                $prom = $nom[$i];
+                foreach ($sheetData as $key => $value) {
+                    if ($key == 0) {
+                        continue;
+                    } else {
+                        $promotions = $this->promotion->select_id_by_name_domain($prom, $value[2]);
+                        $cat = $this->categories->getCatByName($value[2]);
+                        $ajouter = $this->cours->insert($value[0], $value[1], $promotions['id'], $cat);
                     }
-
                 }
 
-
-            } else {
-                echo "une erreur s'est produite";
             }
 
+        } else {
+            echo "une erreur s'est produite";
         }
-}
 
+    }
+}

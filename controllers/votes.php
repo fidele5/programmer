@@ -1,5 +1,7 @@
 <?php
+
 session_start();
+
 require_once 'process.php';
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
@@ -9,20 +11,9 @@ $i = 0;
 switch ($action) {
 
     case "ajouter":
-        foreach ($_SESSION['voted'] as $value) {
-            if (empty($value)) {
-                $i++;
-            } else {
-                continue;
-            }
-        }
-        if ($i > 0) {
-           
-        } else {
-            $process = new Process($_SESSION['voted'], array(), $_SESSION['id']);
-            $process->process();
-            echo "ok";
-        }
+        $process = new Process($_SESSION['voted'], array());
+        $process->process();
+        echo "ok";
         break;
     default:
         echo "okay";

@@ -1,19 +1,28 @@
 <?php
+
 require_once 'config.php';
-class Categories extends Config
+
+class Cotes extends Config
 {
     public $id;
-    public $nom;
+    public $id_cours;
+    public $id_etudiant;
+    public $moyenne;
+    public $examen;
+    
     public function __construct()
     {
-
     }
-    public function insert($nom)
+    public function insert($idCours, $idEtudiant, $moyenne, $examen)
     {
         $connexion = $this->GetConnexion();
-        $query = 'INSERT INTO categories(nom) VALUES(:nom)';
+        $query = 'INSERT INTO cotes_users VALUES(NULL, :idCours, :idEtudiant, :moyenne, :examen)';
         $requete = $connexion->prepare($query);
-        $requete->bindValue(":nom", $nom);
+
+        $requete->bindValue(":idCours", $idCours);
+        $requete->bindValue(":idEtudiant", $idEtudiant);
+        $requete->bindValue(":moyenne", $moyenne);
+        $requete->bindValue(":examen", $examen);
         $requete->execute();
         $requete->closeCursor();
     }
@@ -21,30 +30,18 @@ class Categories extends Config
     public function select()
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT * FROM categories';
+        $query = 'SELECT * FROM cotes_users';
         $requete = $connexion->prepare($query);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
-    }
-
-    public function update($id, $nom)
-    {
-        $connexion = $this->GetConnexion();
-        $query = 'UPDATE categories SET nom =:nom WHERE id = :id';
-        $requete = $connexion->prepare($query);
-        $requete->bindValue(':id', $id);
-
-        $requete->bindValue(":nom", $nom);
-        $requete->execute();
-        $requete->closeCursor();
     }
 
     public function delete($id)
     {
         $connexion = $this->GetConnexion();
-        $query = 'DELETE FROM categories WHERE id = :id';
+        $query = 'DELETE FROM cotes_users WHERE id = :id';
         $requete = $connexion->prepare($query);
         $requete->bindValue(':id', $id);
         $requete->execute();
@@ -54,24 +51,23 @@ class Categories extends Config
     public function select_by_id($id)
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT * FROM categories WHERE id = :id';
+        $query = 'SELECT * FROM cotes_users WHERE id = :id';
         $requete = $connexion->prepare($query);
         $requete->bindValue(':id', $id);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
 
-    public function select_id_by_name($name)
+    public function select_by_user_and_course($idUser, $idCourse)
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT id FROM categories WHERE nom = :nom';
+        $query = sprintf('SELECT * FROM cotes_users WHERE id_etudiant = %d AND id_cours = %d', $idUser, $idCourse);
         $requete = $connexion->prepare($query);
-        $requete->bindValue(':nom', $name);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
-        return $datas[0]["id"];
+        return $datas;
     }
 }

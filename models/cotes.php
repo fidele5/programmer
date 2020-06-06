@@ -64,7 +64,6 @@ class Cotes extends Config
     {
         $connexion = $this->GetConnexion();
         $query = sprintf('SELECT * FROM cotes_users WHERE id_etudiant = %d AND id_cours = %d', $idUser, $idCourse);
-        print($query."\n");
         $requete = $connexion->prepare($query);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);

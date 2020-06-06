@@ -10,8 +10,8 @@ $i = 0;
 switch ($action) {
     case "ajouter":
         $cours = new Cours($_FILES);
-        // $cours->upload();
-        // $cours->saveCourses();
+        $cours->upload();
+        $cours->saveCourses();
         echo "ok";
         break;
     case "delete":
