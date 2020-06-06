@@ -278,8 +278,15 @@ require_once 'includes/template.php';
                         if (data == "okay") {
                             $(".cover").delay(2500).fadeOut(1600 ,function() {
                                 if (next=="G4") {
-                                    $('#modalCart').modal('show');
-                                    toastr.info("Terminé");
+                                    $('#centralModalSuccess').modal('show');
+                                    $("#preview").click(function (e) { 
+                                        e.preventDefault();
+                                        $('#modalCart').modal('show');
+                                    });
+                                    $("#send").click(function (e) { 
+                                        e.preventDefault();
+                                        $("#valider").click();
+                                    });
                                 }
                                 else location.href = next;
                             });
