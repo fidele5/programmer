@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';
+require_once './vendor/autoload.php';
 require_once 'cours.php';
 require_once 'promotions.php';
 require_once 'Categorie_cours.php';

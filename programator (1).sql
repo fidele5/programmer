@@ -7,6 +7,11 @@
 -- Version du serveur :  10.1.38-MariaDB
 -- Version de PHP :  7.3.4
 
+-- Create a new database called 'DatabaseName'
+-- Connect to the 'master' database to run this snippet
+
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -27,19 +32,6 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `admins`
 --
-
-CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
-  `login` varchar(50) NOT NULL,
-  `mdp` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `admins`
---
-
-INSERT INTO `admins` (`id`, `login`, `mdp`) VALUES
-(3, 'admin', '12345');
 
 -- --------------------------------------------------------
 
@@ -375,8 +367,6 @@ ALTER TABLE `votes`
 --
 -- AUTO_INCREMENT pour la table `admins`
 --
-ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `categories`
