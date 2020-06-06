@@ -1,10 +1,8 @@
 <?php
-require_once './vendor/autoload.php';
-require_once 'cours.php';
+require_once '../vendor/autoload.php';
+require_once 'config.php';
 require_once 'promotions.php';
 require_once 'Categorie_cours.php';
-require_once 'config.php';
-
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -27,7 +25,6 @@ class Cours extends Config
         $this->file = $file;
         $this->spreadsheet = new Spreadsheet();
         $this->Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        $this->cours = new Cours();
         $this->promotion = new Promotions();
         $this->categories = new Categorie_cours();
     }
@@ -150,7 +147,7 @@ class Cours extends Config
                     } else {
                         $promotions = $this->promotion->select_id_by_name_domain($prom, $value[2]);
                         $cat = $this->categories->getCatByName($value[2]);
-                        $ajouter = $this->cours->insert($value[0], $value[1], $promotions['id'], $cat);
+                        $ajouter = $this->insert($value[0], $value[1], $promotions['id'], $cat);
                     }
                 }
 

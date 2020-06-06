@@ -5,7 +5,7 @@ function my_autoloader2()
     include "utilisateurs.php";
     include "promotions.php";
     include "domaines.php";
-    include "cours.php";
+    //include "cours.php";
     include "categories.php";
     //include "Categorie_cours.php";
     include "admins.php";

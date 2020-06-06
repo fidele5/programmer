@@ -82,7 +82,7 @@ require_once 'includes/template.php';
                         });
                         $(".progress-bar").text(percentageComplete + "%");
                     },
-                    success:function(data) {
+                    success:function(data, textStatus, jqXHR) {
                         if (data == "ok") {
                             swal({
                                 title: 'Succès!',
