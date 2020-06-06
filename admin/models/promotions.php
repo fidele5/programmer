@@ -57,10 +57,10 @@ class Promotions extends Config
     public function select_id_by_name_domain($nom, $domaine)
     {
         $connexion = $this->GetConnexion();
-        $query = sprintf('SELECT promotions.id FROM promotions INNER JOIN domaines ON promotions.domaines_id = domaines.id WHERE designation LIKE "%s%%" AND domaines.nom = %d', $nom, $domaine);
+        $query = sprintf('SELECT id FROM promotions WHERE designation LIKE "%s%%" AND domaines_id = %d', $nom, $domaine);
         $requete = $connexion->prepare($query);
         $requete->execute();
-        $datas = $requete->fetch(PDO::FETCH_ASSOC);
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }
