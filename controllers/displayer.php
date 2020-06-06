@@ -25,6 +25,11 @@ function Logout()
 
 function Signup($page)
 {
+    $categories = new Categories();
+    $statuses = $categories->select();
+    $domaine = new Domaines();
+    $domaines = $domaine->select();
+
     require_once "views/signin.php";
 }
 

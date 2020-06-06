@@ -24,7 +24,7 @@ class Categories extends Config
         $query = 'SELECT * FROM categories';
         $requete = $connexion->prepare($query);
         $requete->execute();
-        $datas = $requete->fetchAll();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
     }

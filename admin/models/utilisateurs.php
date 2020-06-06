@@ -33,7 +33,9 @@ class Utilisateurs extends Config
     public function select()
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT * FROM utilisateurs';
+        $query = 'SELECT nom_complet, login, email, categories.nom AS categorie, domaines.nom AS domaine FROM utilisateurs 
+                    INNER JOIN categories ON utilisateurs.categorie_id  = categories.id 
+                    INNER JOIN domaines ON utilisateurs.domaine_id = domaines.id';
         $requete = $connexion->prepare($query);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
