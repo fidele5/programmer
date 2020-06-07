@@ -28,8 +28,8 @@ ob_start();
                                             <td><?=$value['nom_complet']?></td>
                                             <td><?=$value['login']?></td>
                                             <td><?=$value['email']?></td>
-                                            <td><?=$value['categorie']?></td>
-                                            <td><?=$value['domaine']?></td>
+                                            <td><?=$categories->select_by_id($value['categorie_id'])[0]["nom"]?></td>
+                                            <td><?=$domaines->select_by_id($value['domaine_id'])[0]["nom"] ?></td>
                                             <td class="text-center"><button class="btn btn-primary">View</button> </td>
                                         </tr>
                                         <?php
