@@ -60,6 +60,10 @@ function Programmes($page)
     require_once 'views/programmes.php';
 }
 
+function UploadUser($page){
+    require_once "views/upuser.php";
+}
+
 function Accueil($page)
 {
     require_once 'views/accueil.php';

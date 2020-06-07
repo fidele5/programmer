@@ -26,6 +26,9 @@
                 case 'uprogram':
                     Upload($page);
                 break;
+                case 'upuser':
+                    UploadUser($page);
+                break;
                 case 'logout' :
                     Logout();
                 break;

@@ -1,5 +1,11 @@
 <?php
+require_once '../vendor/autoload.php';
 require_once 'config.php';
+require_once 'domaines.php';
+require_once 'categories.php';
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 class Utilisateurs extends Config
 {
     public $id;
@@ -7,12 +13,23 @@ class Utilisateurs extends Config
     public $login;
     public $password;
     public $email;
-    public $categorie_id;
-    public $domaine_id;
-    public function __construct()
-    {
+    public $file;
+    public const PATH = '../files/';
+    public $spreadsheet;
+    public $Reader;
+    public $cours;
+    public $domaines;
+    public $categories;
 
+    public function __construct($file)
+    {
+        $this->file = $file;
+        $this->spreadsheet = new Spreadsheet();
+        $this->Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        $this->domaines = new Domaines();
+        $this->categories = new Categories();
     }
+
     public function insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id)
     {
         $connexion = $this->GetConnexion();
@@ -33,14 +50,32 @@ class Utilisateurs extends Config
     public function select()
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT nom_complet, login, email, categories.nom AS categorie, domaines.nom AS domaine FROM utilisateurs 
-                    INNER JOIN categories ON utilisateurs.categorie_id  = categories.id 
+        $query = 'SELECT nom_complet, login, email, categories.nom AS categorie, domaines.nom AS domaine FROM utilisateurs
+                    INNER JOIN categories ON utilisateurs.categorie_id  = categories.id
                     INNER JOIN domaines ON utilisateurs.domaine_id = domaines.id';
         $requete = $connexion->prepare($query);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
+    }
+
+    public function upload()
+    {
+        foreach ($this->file as $file) {
+            $extensions_valides = array('xls', 'xlsx', 'csv', 'sql');
+            $text = substr(strrchr($file['name'], '.'), 1);
+            if (in_array($text, $extensions_valides)) {
+                $tmp_name = $file['tmp_name'];
+                $file['name'] = explode(".", $file['name']);
+                $file['name'] = $file['name'][0] . "." . $text;
+                $destination = $this::PATH . $file['name'];
+                move_uploaded_file($tmp_name, $destination);
+            }
+            if ($file['error'] == UPLOAD_ERR_OK) {
+                $this->file_path = $destination;
+            }
+        }
     }
 
     public function delete($id)
@@ -76,6 +111,70 @@ class Utilisateurs extends Config
         $data = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $data;
+    }
+
+    public function Save()
+    {
+        if (file_exists($this->file_path)) {
+            $spreadSheet = $this->Reader->load($this->file_path);
+            $sheetCount = $spreadSheet->getSheetCount();
+            $domains = array("SI" => "Genie Logiciel",
+                             "GST" => "Management", 
+                             "DSG" => "Design", 
+                             "TLC" => "Telecom", 
+                             "RES" => "Reseaux", 
+                             "G1" => "Generale", 
+                             "prepa" => "Generale");
+            for ($i = 0; $i < $sheetCount; $i++) {
+                $nom = $spreadSheet->getSheetNames();
+                $sheet = $spreadSheet->getSheet($i);
+                $sheetData = $sheet->toArray();
+                $prom = $nom[$i];
+                echo $prom . "<br>";
+                
+                print_r(explode(' ', $prom));
+
+                foreach ($sheetData as $key => $value) {
+                    if ($key == 0) {
+                        continue;
+                    } else {
+                        $nom = $value[2] . " " . $value[3] . " " . $value[4];
+                        $email = strtolower($value[2]) . "@esisalama.org";
+                        $password = self::generatePassword();
+                        $domaine = $this->domaines->select_by_name($domains[$prom]);
+                        $cat = $this->categories->select_id_by_name("Etudiant");
+                        $ajouter = $this->insert($nom, $email, $email, $password, $cat, $domaine);
+                    }
+                }
+                echo "<pre>";
+                print_r($sheetData);
+                echo "</pre>";
+
+            }
+
+        } else {
+            echo "une erreur s'est produite";
+        }
+
+    }
+
+    public static function generatePassword(){
+        $chiffres = 6;
+        $i = 0;
+        while ($i < $chiffres) {
+            $nbres = mt_rand(0, 9);
+            $nbr[$i] = $nbres;
+            $i++;
+        }
+
+        $nombres = null;
+
+        foreach ($nbr as $key) {
+            $nombres .= $key;
+        }
+        $mdp = $nombres;
+        return $mdp;
+
     }
 
 }

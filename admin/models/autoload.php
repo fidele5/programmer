@@ -2,7 +2,7 @@
 function my_autoloader2()
 {
     include "votes.php";
-    include "utilisateurs.php";
+    //include "utilisateurs.php";
     include "promotions.php";
     include "domaines.php";
     include "cours.php";
