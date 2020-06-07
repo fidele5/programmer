@@ -1,9 +1,9 @@
 <?php
 ob_start();
 if (isset($_SESSION['suggested'])) {
-    echo "<pre>";
-    print_r($_SESSION['suggested']);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($_SESSION['suggested']);
+    // echo "</pre>";
 }
 // session_destroy();
 ?>

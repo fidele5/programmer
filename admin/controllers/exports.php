@@ -13,17 +13,16 @@ function exportToExcel(array $cours, $filiere_name)
         $myWorkSheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, $promotion);
 
         $myWorkSheet->getCell("A1")->setValue("Intitule");
-        $myWorkSheet->getCell("A2")->setValue("Volume horaire");
-        $myWorkSheet->getCell("A1")->setValue("Categorie");
+        $myWorkSheet->getCell("B1")->setValue("Volume horaire");
+        $myWorkSheet->getCell("C1")->setValue("Categorie");
 
         $lignes = 2;
         $nb_cours = count($courses);
         for($i = 0; $i < $nb_cours; $i++)
         {
-            print_r($courses[$i]);
-            $myWorkSheet->setCellValueByColumnAndRow($lignes, 1, $courses[$i]["intitule"]);
-            $myWorkSheet->setCellValueByColumnAndRow($lignes, 2, $courses[$i]["volhoraire"]);
-            $myWorkSheet->setCellValueByColumnAndRow($lignes, 1, $courses[$i]["categorie_id"]);
+            $myWorkSheet->setCellValueByColumnAndRow(1, $lignes, $courses[$i]["intitule"]);
+            $myWorkSheet->setCellValueByColumnAndRow(2, $lignes, $courses[$i]["volhoraire"]);
+            $myWorkSheet->setCellValueByColumnAndRow(3, $lignes, $courses[$i]["categorie_id"]);
             $lignes++;
         }
 
@@ -32,5 +31,5 @@ function exportToExcel(array $cours, $filiere_name)
         $feuille++;
     }
     $writer = new Xlsx($spreadsheet);
-    $writer->save('/home/kornelius/'.$filiere_name.'.xlsx');
+    $writer->save($filiere_name.'.xlsx');
 }
