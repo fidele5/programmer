@@ -68,7 +68,7 @@ class Promotions extends Config
     public function select_id_for_filieres($idFiliere)
     {
         $connexion = $this->GetConnexion();
-        $query = sprintf('SELECT id FROM promotions WHERE designation = "Preparatoire" OR designation = "G1" OR domaines_id = %d', $idFiliere);
+        $query = sprintf('SELECT id FROM promotions WHERE designation = "prepa" OR designation = "G1" OR domaines_id = %d', $idFiliere);
         $requete = $connexion->prepare($query);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);

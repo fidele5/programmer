@@ -7,6 +7,7 @@ class Compiler
     private $modelDomaine;
     private $modelUtilisateur;
     private $modelVotes;
+    private $modelCategorieCours;
     private $idFiliere;
     private $promotion_votes;
     private $resultats_cours;
@@ -19,6 +20,7 @@ class Compiler
         $this->modelPromotion = new Promotions();
         $this->modelUtilisateur = new Utilisateurs();
         $this->modelVotes = new Votes();
+        $this->modelCategorieCours = new Categorie_cours();
         $this->cours = $this->modelCours->select();
         $this->promotions = $this->modelPromotion->select();
         $this->domaines = $this->modelDomaine->select();
@@ -35,7 +37,7 @@ class Compiler
         $promotions_id = $this->modelPromotion->select_id_for_filieres($this->idFiliere);
 
         $votes_promotion = array(
-            "Prepa" => array(),
+            "prepa" => array(),
             "G1" => array(),
             "G2" => array(),
             "G3" => array()
@@ -46,7 +48,7 @@ class Compiler
             $promotion_id = $promotion_id["id"];
             $designation = $this->modelPromotion->select_by_id($promotion_id)[0]['designation'];
             $key = "";
-            if(preg_match("/Prepa/", $designation)) $key = "Prepa";
+            if(preg_match("/prepa/", $designation)) $key = "prepa";
             else if(preg_match("/G1/", $designation)) $key = "G1";
             else if(preg_match("/G2/", $designation)) $key = "G2";
             else if(preg_match("/G3/", $designation)) $key = "G3";
@@ -65,7 +67,7 @@ class Compiler
     private function compilationPoints()
     {
         $coursPonderes = array(
-            "Prepa" => array(),
+            "prepa" => array(),
             "G1" => array(),
             "G2" => array(),
             "G3" => array()
@@ -109,7 +111,7 @@ class Compiler
         $this->compilationPoints();
         $points = $this->resultats_cours;
         $programme = array(
-            "Prepa" => array(),
+            "prepa" => array(),
             "G1" => array(),
             'G2' => array(),
             "G3" => array()
@@ -122,6 +124,26 @@ class Compiler
             }
         }
         $this->programme_final = $programme;
+    }
+
+    public function getFullFinalProgram()
+    {
+        $full_program = array(
+            "prepa" => array(),
+            "G1" => array(),
+            "G2" => array(),
+            "G3" => array()
+        );
+        foreach($this->programme_final as $key => $values)
+        {
+            foreach($values as $id_cours)
+            {
+                $cours = $this->modelCours->select_by_id($id_cours)[0];
+                $cours["categorie_id"] = $this->modelCategorieCours->select_by_id($cours["categorie_id"])[0]["nom"];
+                $full_program[$key][] = $cours;
+            }
+        }
+        return $full_program;
     }
 
     public function getProgrammeFinal()

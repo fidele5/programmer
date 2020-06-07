@@ -51,7 +51,7 @@
             },
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
-            "pageLength": 7 
+            "pageLength": 10
         } );
     </script>
     <!-- END PAGE LEVEL CUSTOM SCRIPTS -->

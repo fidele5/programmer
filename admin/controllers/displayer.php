@@ -31,6 +31,8 @@ function Signup($page)
 function Users($page)
 {
     $user = new Utilisateurs;
+    $categories = new Categories();
+    $domaines = new Domaines();
     $users = $user->select();
     require_once 'views/utilisateurs.php';
 }
@@ -48,8 +50,10 @@ function Programmes($page)
 {
     require_once "controllers/compiler.php";
     $id_filiere = $_GET["id"];
+    $compiler = new Compiler($id_filiere);
+    $compiler->compile();
+    $programme = $compiler->getFullFinalProgram();
     require_once 'views/programmes.php';
-
 }
 
 function Accueil($page)
