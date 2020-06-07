@@ -1,5 +1,4 @@
 <?php 
-
 class Compiler
 {
     private $modelCours;
@@ -15,7 +14,7 @@ class Compiler
 
     public function __construct(int $idFiliere)
     {
-        $this->modelCours = new Cours();
+        $this->modelCours = new Cours(null);
         $this->modelDomaine = new Domaines();
         $this->modelPromotion = new Promotions();
         $this->modelUtilisateur = new Utilisateurs();
