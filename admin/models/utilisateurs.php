@@ -1,5 +1,5 @@
 <?php
-require_once '../vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/programme/admin/vendor/autoload.php';
 require_once 'config.php';
 require_once 'domaines.php';
 require_once 'categories.php';
@@ -130,26 +130,26 @@ class Utilisateurs extends Config
                 $sheet = $spreadSheet->getSheet($i);
                 $sheetData = $sheet->toArray();
                 $prom = $nom[$i];
-                echo $prom . "<br>";
-                
-                print_r(explode(' ', $prom));
+                $filiere = explode(' ', $prom);
 
                 foreach ($sheetData as $key => $value) {
                     if ($key == 0) {
                         continue;
                     } else {
                         $nom = $value[2] . " " . $value[3] . " " . $value[4];
-                        $email = strtolower($value[2]) . "@esisalama.org";
+                        $email = strtolower($value[1]) . "@esisalama.org";
                         $password = self::generatePassword();
-                        $domaine = $this->domaines->select_by_name($domains[$prom]);
+                        $domaine = $this->domaines->select_by_name($domains[$filiere[1]]);
                         $cat = $this->categories->select_id_by_name("Etudiant");
-                        $ajouter = $this->insert($nom, $email, $email, $password, $cat, $domaine);
+
+                        if (!$this->exists($email)) {
+                            $ajouter = $this->insert($nom, $email, $password, $email, $cat, $domaine[0]['id']);
+                        }
+                        else{
+                            continue;
+                        }
                     }
                 }
-                echo "<pre>";
-                print_r($sheetData);
-                echo "</pre>";
-
             }
 
         } else {
@@ -175,6 +175,17 @@ class Utilisateurs extends Config
         $mdp = $nombres;
         return $mdp;
 
+    }
+
+    public function exists($email){
+        $connexion = $this->GetConnexion();
+        $query = "SELECT COUNT(*) FROM utilisateurs WHERE email = :email";
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(":email", $email);
+        $requete->execute();
+        $exists = ($requete->fetchColumn() == 0)?false:true;
+        $requete->closeCursor();
+        return $exists;
     }
 
 }

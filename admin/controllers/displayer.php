@@ -30,7 +30,7 @@ function Signup($page)
 
 function Users($page)
 {
-    $user = new Utilisateurs;
+    $user = new Utilisateurs(null);
     $categories = new Categories();
     $domaines = new Domaines();
     $users = $user->select();

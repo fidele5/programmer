@@ -18,6 +18,7 @@ ob_start();
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                         <h4>Charger les Utilisateurs</h4>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +87,7 @@ require_once 'includes/template.php';
                         if (data == "ok") {
                             swal({
                                 title: 'Succès!',
-                                text: "Programme chargé avec succès!",
+                                text: "Utilisateurs enregistrés avec succès!",
                                 type: 'success',
                                 padding: '2em'
                             })

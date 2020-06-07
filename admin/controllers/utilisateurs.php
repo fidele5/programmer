@@ -14,8 +14,7 @@
                 $utilisateurs = new Utilisateurs($_FILES);
                 $utilisateurs->upload();
                 $utilisateurs->Save();
-                //$ajouter = $utilisateurs->insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id);
-                echo "ojk";
+                echo "ok";
                 
             break;
 
