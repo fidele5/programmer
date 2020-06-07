@@ -10,15 +10,18 @@ class Cours extends Config
     {
 
     }
-    public function insert($intitule, $volhoraire, $promotions_id)
+    
+    public function insert($intitule, $volhoraire, $promotions_id, $categorie, $suggered)
     {
         $connexion = $this->GetConnexion();
-        $query = 'INSERT INTO cours(intitule, volhoraire, promotions_id) VALUES(:intitule, :volhoraire, :promotions_id)';
+        $query = 'INSERT INTO cours(intitule, volhoraire, promotions_id, categorie_id, suggered) VALUES(:intitule, :volhoraire, :promotions_id, :cat, :suggest)';
         $requete = $connexion->prepare($query);
 
         $requete->bindValue(":intitule", $intitule);
         $requete->bindValue(":volhoraire", $volhoraire);
         $requete->bindValue(":promotions_id", $promotions_id);
+        $requete->bindValue(":cat", $categorie);
+        $requete->bindValue(":suggest", $suggered);
         $requete->execute();
         $requete->closeCursor();
     }
@@ -90,6 +93,17 @@ class Cours extends Config
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas; 
+    }
+
+    public function exists($nom){
+        $connexion = $this->GetConnexion();
+        $query = "SELECT COUNT(*) FROM cours WHERE intitule LIKE :nom";
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':nom', "%".$nom."%");
+        $requete->execute();
+        $data = $requete->fetchColumn();
+        $requete->closeCursor();
+        return $data;
     }
 }
 

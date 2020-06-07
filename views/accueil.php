@@ -1,9 +1,9 @@
 <?php
 ob_start();
-if (isset($_SESSION['voted'])) {
-     /* echo "<pre>";
-    print_r($_SESSION['voted']);
-     echo "</pre>"; */
+if (isset($_SESSION['suggested'])) {
+    echo "<pre>";
+    print_r($_SESSION['suggested']);
+    echo "</pre>";
 }
 // session_destroy();
 ?>
@@ -334,25 +334,46 @@ require_once 'includes/template.php';
 
             var size = $(".field").length;
 
-            if (size >= 3) {
+            if (size >= 2) {
                 $(this).attr("disabled", "disabled");
             }
+        });
+       
+
+        $(".mdb-autocomplete").keyup(function (e) {
+            $.get('controllers/checkcourses.php?cours=' + $(this).val(), function(data) {
+                if (data != "ok") {
+                    $(".err").text("Ce cours existe");
+                    $(".err").css("color", "red");
+                    $("#suggest").attr("disabled", "disabled");
+                } else {
+                    $(".err").text("");
+                    $(".err").css("color", "green");
+                    $("#suggest").removeAttr("disabled");
+                }
+            });
         });
 
         $("#suggest").click(function (e) {
             e.preventDefault();
             var elements = [];
             var elt = "";
+            var volume = "";
             var hours = 0;
             $(".champs").each(function (index, element) {
                 if ($(this).prop("tagName") == "INPUT") {
                     elt = $(this).val();
                 }
+                else if ($(this).attr("name") == "volume") {
+                    volume = $(this).val();   
+                }
                 else{
-                    elements.push({intitule: elt, volume: $(this).val()})
-                    hours+= parseInt($(this).val());
+                    elements.push({intitule: elt, volume: volume, categorie: $(this).val()})
+                    hours+= parseInt(volume);
                 }
             });
+
+            console.log(elements),
 
             val+= hours;
             valeur = val/2000;
@@ -411,7 +432,7 @@ require_once 'includes/template.php';
                                     toastr.info("Suggesttion enregistrée");
                                 }
                                 else{
-                                    toastr.warning("Une erreur s'est produite veuillez réesayer");
+                                    toastr.warning(data);
                                 }
                             }
                             else{

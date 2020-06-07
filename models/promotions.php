@@ -65,6 +65,18 @@ class Promotions extends Config
         return $datas;
     }
 
+     public function select_by_name($name)
+    {
+        $connexion = $this->GetConnexion();
+        $query = 'SELECT * FROM promotions WHERE designation = :name';
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':name', $name);
+        $requete->execute();
+        $datas = $requete->fetch(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas['id'];
+    }
+
     public function select_id_for_filieres($idFiliere)
     {
         $connexion = $this->GetConnexion();
