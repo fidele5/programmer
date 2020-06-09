@@ -86,9 +86,12 @@ foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
                                                 <div class="form-check pl-0">
                                                     <input type="checkbox" class="form-check-input" id="filledInCheckbox<?=$value['id']?>" volume="<?=$value['volhoraire']?>"  valeur="<?=$value['id']?>" <?=(is_checked($value['id'])) ? "disabled checked" : ""?>>
                                                     <label class="form-check-label" for="filledInCheckbox<?=$value['id']?>"><?=$value['intitule']?></label>
+                                                    <a href="" data-toggle="modal" data-target="#details<?=$value['id']?>">details</a>
                                                 </div>
                                                 <!--  checkbox -->
+
                                                 <?php
+                                                include "details.php";
 }
     ?>
                                             </div>
@@ -463,11 +466,4 @@ require_once 'includes/template.php';
         });
 
     });
-
-$(".breadcrumb__step").each(function (index, element) {
-    if ($(this).hasClass("breadcrumb__step--active")) {
-        return false;
-    }
-    else $(this).addClass("breadcrumb__step--active");    
-});
 </script>

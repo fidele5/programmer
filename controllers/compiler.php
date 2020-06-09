@@ -1,6 +1,6 @@
 <?php 
 
-include "../models/autoload.php";
+include_once "../models/autoload.php";
 
 class Compiler
 {
