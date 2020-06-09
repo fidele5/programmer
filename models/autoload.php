@@ -1,15 +1,15 @@
 <?php
 function my_autoloader()
 {
-    include "votes.php";
-    include "utilisateurs.php";
-    include "promotions.php";
-    include "domaines.php";
-    include "cours.php";
-    include "categories.php";
-    include "Categorie_cours.php";
-    include "admins.php";
-    include "cotes.php";
+    include_once "votes.php";
+    include_once "utilisateurs.php";
+    include_once "promotions.php";
+    include_once "domaines.php";
+    include_once "cours.php";
+    include_once "categories.php";
+    include_once "Categorie_cours.php";
+    include_once "admins.php";
+    include_once "cotes.php";
 }
 
 spl_autoload_register("my_autoloader");
