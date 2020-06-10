@@ -26,6 +26,18 @@
                 case 'uprogram':
                     Upload($page);
                 break;
+                case "mailbox":
+                    Mailbox($page);
+                break;
+                case "setting":
+                    if (isset($_GET['id'])) {
+                        Profile($page, $_GET['id']);
+                    }
+                    else throw new Exception("Error Processing Request", 1);
+                break;                    
+                case 'settings':
+                    Settings($page);
+                break;
                 case 'upuser':
                     UploadUser($page);
                 break;

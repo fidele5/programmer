@@ -18,6 +18,11 @@
                 
             break;
 
+            case 'update':
+               $utilisateurs =  new Utilisateurs(null);
+               $utilisateurs->update($nom_complet, $login, $password, $email, $categorie_id, $domaine_id, $formation, $id);
+               echo "okay";
+            break;
             case "delete":
                 $id = $_GET["id"];
                 $delete = $utilisateurs->delete($id);

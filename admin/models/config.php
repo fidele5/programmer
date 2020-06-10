@@ -3,7 +3,7 @@ class Config
 {
     const bd_nom_serveur = 'localhost';
     const bd_login = 'root';
-    const bd_mot_de_passe = '';
+    const bd_mot_de_passe = 'root';
     const bd_nom_bd = 'programator';
 
     public function __construct()

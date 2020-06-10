@@ -13,10 +13,10 @@ class Utilisateurs extends Config
     {
 
     }
-    public function insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id)
+    public function insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id, $formation)
     {
         $connexion = $this->GetConnexion();
-        $query = 'INSERT INTO utilisateurs(nom_complet, login, password, email, categorie_id, domaine_id) VALUES(:nom_complet, :login, :password, :email, :categorie_id, :domaine_id)';
+        $query = 'INSERT INTO utilisateurs(nom_complet, login, password, email, categorie_id, domaine_id, formation) VALUES(:nom_complet, :login, :password, :email, :categorie_id, :domaine_id, :formation)';
         $requete = $connexion->prepare($query);
         $requete->bindValue(":nom_complet", $nom_complet);
         $requete->bindValue(":login", $login);
@@ -24,6 +24,7 @@ class Utilisateurs extends Config
         $requete->bindValue(":email", $email);
         $requete->bindValue(":categorie_id", $categorie_id);
         $requete->bindValue(":domaine_id", $domaine_id);
+        $requete->bindValue(":formation", $formation);
         $requete->execute();
         $id = $connexion->lastInsertId();
         $requete->closeCursor();
@@ -75,5 +76,26 @@ class Utilisateurs extends Config
         $requete->closeCursor();
         return $data;
     }
+    
+    public function hasVoted($id)
+    {
+        $connexion = $this->GetConnexion();
+        $query = "SELECT COUNT(*) FROM utilisateurs WHERE id = :id AND has_voted = true";
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(":id", $id);
+        $requete->execute();
+        $has_voted = ($requete->fetchColumn() == 0)?true:false;
+        $requete->closeCursor();
+        return $has_voted;
+    }
 
+    public function updateVoted($id)
+    {
+        $connexion = $this->GetConnexion();
+        $query = "UPDATE utilisateurs SET has_voted = true WHERE id = :id";
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(":id", $id);
+        $requete->execute();
+        $requete->closeCursor();
+    }
 }

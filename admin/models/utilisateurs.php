@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/programmer/admin/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/programme/admin/vendor/autoload.php';
 require_once 'config.php';
 require_once 'domaines.php';
 require_once 'categories.php';
@@ -50,7 +50,7 @@ class Utilisateurs extends Config
     public function select()
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT nom_complet, login, email, categories.nom AS categorie, domaines.nom AS domaine FROM utilisateurs
+        $query = 'SELECT utilisateurs.password, utilisateurs.id, utilisateurs.formation, nom_complet, login, email, categories.nom AS categorie, domaines.nom AS domaine FROM utilisateurs
                     INNER JOIN categories ON utilisateurs.categorie_id  = categories.id
                     INNER JOIN domaines ON utilisateurs.domaine_id = domaines.id';
         $requete = $connexion->prepare($query);
@@ -58,6 +58,25 @@ class Utilisateurs extends Config
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
         return $datas;
+    }
+    public function update($nom, $login, $password, $email, $categorie_id, $domainr_id, $formation, $id)
+    {
+        $connexion = $this->GetConnexion();
+        $query = "UPDATE utilisateurs 
+                  SET nom_complet = :nom, login = :lg, password = :psw, email = :email, 
+                      categorie_id = :cat, domaine_id = :domain, formation = :form
+                  WHERE id = :id";
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':nom', $nom);
+        $requete->bindValue(':lg', $login);
+        $requete->bindValue(':psw', $password);
+        $requete->bindValue(':email', $email);
+        $requete->bindValue(':cat', $categorie_id);
+        $requete->bindValue(':domain', $domainr_id);
+        $requete->bindValue(':form', $formation);
+        $requete->bindValue(':id', $id);
+        $requete->execute();
+        $requete->closeCursor();
     }
 
     public function upload()
@@ -119,12 +138,12 @@ class Utilisateurs extends Config
             $spreadSheet = $this->Reader->load($this->file_path);
             $sheetCount = $spreadSheet->getSheetCount();
             $domains = array("SI" => "Genie Logiciel",
-                             "GST" => "Management", 
-                             "DSG" => "Design", 
-                             "TLC" => "Telecom", 
-                             "RES" => "Reseaux", 
-                             "G1" => "Generale", 
-                             "prepa" => "Generale");
+                "GST" => "Management",
+                "DSG" => "Design",
+                "TLC" => "Telecom",
+                "RES" => "Reseaux",
+                "G1" => "Generale",
+                "prepa" => "Generale");
             for ($i = 0; $i < $sheetCount; $i++) {
                 $nom = $spreadSheet->getSheetNames();
                 $sheet = $spreadSheet->getSheet($i);
@@ -144,8 +163,7 @@ class Utilisateurs extends Config
 
                         if (!$this->exists($email)) {
                             $ajouter = $this->insert($nom, $email, $password, $email, $cat, $domaine[0]['id']);
-                        }
-                        else{
+                        } else {
                             continue;
                         }
                     }
@@ -158,7 +176,8 @@ class Utilisateurs extends Config
 
     }
 
-    public static function generatePassword(){
+    public static function generatePassword()
+    {
         $chiffres = 6;
         $i = 0;
         while ($i < $chiffres) {
@@ -177,15 +196,18 @@ class Utilisateurs extends Config
 
     }
 
-    public function exists($email){
+    public function exists($email)
+    {
         $connexion = $this->GetConnexion();
         $query = "SELECT COUNT(*) FROM utilisateurs WHERE email = :email";
         $requete = $connexion->prepare($query);
         $requete->bindValue(":email", $email);
         $requete->execute();
-        $exists = ($requete->fetchColumn() == 0)?false:true;
+        $exists = ($requete->fetchColumn() == 0) ? false : true;
         $requete->closeCursor();
         return $exists;
     }
+
+    
 
 }

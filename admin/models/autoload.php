@@ -9,6 +9,7 @@ function my_autoloader2()
     include_once "categories.php";
     include_once "Categorie_cours.php";
     include_once "admins.php";
+    include_once "settings.php";
     include_once "cotes.php";
 }
 

@@ -11,14 +11,16 @@ class Compiler
     private $promotion_votes;
     private $resultats_cours;
     private $programme_final;
+    private $modelSettings;
 
     public function __construct(int $idFiliere)
     {
         $this->modelCours = new Cours(null);
         $this->modelDomaine = new Domaines();
         $this->modelPromotion = new Promotions();
-        $this->modelUtilisateur = new Utilisateurs();
+        $this->modelUtilisateur = new Utilisateurs(null);
         $this->modelVotes = new Votes();
+        $this->modelSettings = new Settings;
         $this->modelCategorieCours = new Categorie_cours();
         $this->cours = $this->modelCours->select();
         $this->promotions = $this->modelPromotion->select();
@@ -97,8 +99,11 @@ class Compiler
         $this->resultats_cours = $coursPonderes;
     }
 
-    private function minumumAvailable($max=5, $min=1)
+    private function minumumAvailable()
     {
+        $values = $this->modelSettings->selectByName("pondered");
+        $min = $values[0]["minimum"]/10;
+        $max = $values[0]["maximum"]/10;
         $nombre = $this->modelVotes->nombre_participant($this->idFiliere);
         return ($max+$min)*$nombre / 2;
     }

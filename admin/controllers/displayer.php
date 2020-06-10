@@ -37,8 +37,28 @@ function Users($page)
     require_once 'views/utilisateurs.php';
 }
 
-function Upload($page){
+function Upload($page)
+{
     require_once "views/upload.php";
+}
+
+function Mailbox($page){
+    require_once "views/mailbox.php";
+}
+
+function Profile($page, $id){
+    $users = new Utilisateurs(null);
+    $user = $users->select_by_id($id);
+    $categories = new Categories();
+    $statuses = $categories->select();
+    $domaine = new Domaines();
+    $domaines = $domaine->select();
+    require_once 'views/edit_profile.php';
+}
+
+function Settings($page)
+{
+    require_once "views/settings.php";
 }
 
 function Votes($page)
@@ -60,7 +80,8 @@ function Programmes($page)
     require_once 'views/programmes.php';
 }
 
-function UploadUser($page){
+function UploadUser($page)
+{
     require_once "views/upuser.php";
 }
 

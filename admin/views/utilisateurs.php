@@ -1,6 +1,8 @@
 <?php
 ob_start();
 ?>
+<link href="public/assets/css/components/custom-modal.css" rel="stylesheet" type="text/css" />
+<link href="public/assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
 
@@ -29,7 +31,8 @@ ob_start();
                                             <td><?=$value['email']?></td>
                                             <td><?=$value['categorie']?></td>
                                             <td><?=$value["domaine"] ?></td>
-                                            <td class="text-center"><button class="btn btn-primary">View</button> </td>
+                                            <td class="text-center"><button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?=$value['id']?>">View</button> </td>
+                                            <?php include "details.php"?>
                                         </tr>
                                         <?php
                                             }

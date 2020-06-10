@@ -21,7 +21,7 @@
                 <!-- Password -->
                 <input type="password" id="password" class="form-control mb-4 field" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
 
-                <div class="form-row">
+                <div class="form-row mb-4">
                     <div class="col">
                         <select id="status" class="browser-default custom-select field">
                             <option selected>Status</option>
@@ -47,6 +47,8 @@
                         </select>
                     </div>
                 </div>
+
+                <input id="formation" class="form-control field" type="text" name="formation" placeholder="Formation...">
 
                 <!-- Sign up button -->
                 <button id="signin" class="btn btn-info my-4 btn-block" type="submit">S'inscrire</button>

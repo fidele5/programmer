@@ -27,6 +27,7 @@ $(document).ready(function() {
             var password = $("#password").val();
             var status = $("#status").val();
             var domain = $("#domain").val();
+            var formation = $("#formation").val();
 
             $.post("controllers/utilisateurs.php", {
                     nom_complet: nom,
@@ -35,6 +36,7 @@ $(document).ready(function() {
                     password: password,
                     categorie_id: status,
                     domaine_id: domain,
+                    formation: formation,
                     action: "ajouter"
                 },
                 function(data, textStatus, jqXHR) {

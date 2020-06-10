@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/programmer/admin/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/programme/admin/vendor/autoload.php';
 require_once 'config.php';
 require_once 'promotions.php';
 require_once 'Categorie_cours.php';

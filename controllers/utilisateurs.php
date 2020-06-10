@@ -9,7 +9,7 @@ extract($_POST);
 $i = 0;
 switch ($action) {
     case "ajouter":
-        $ajouter = $utilisateurs->insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id);
+        $ajouter = $utilisateurs->insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id, $formation);
         $_SESSION['login'] = $nom_complet;
         $_SESSION['id'] = $ajouter;
         echo 'okay';
@@ -20,6 +20,11 @@ switch ($action) {
         if (count($user) > 0) {
             $_SESSION['login'] = $user[0]['nom_complet'];
             $_SESSION['id'] = $user[0]['id'];
+            
+            if ($utilisateurs->hasVoted($_SESSION['id'])) {
+                $utilisateurs->updateVoted($_SESSION['id']);
+            }
+
             echo 'okay';
         } else {
             echo "ko";
