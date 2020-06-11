@@ -79,6 +79,17 @@ class Utilisateurs extends Config
         $requete->closeCursor();
     }
 
+    public function selectReceived()
+    {
+        $connexion = $this->GetConnexion();
+        $query = "SELECT * FROM utilisateurs WHERE has_voted = true ORDER BY id DESC LIMIT 0,10";
+        $requete = $connexion->prepare($query);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
     public function upload()
     {
         foreach ($this->file as $file) {

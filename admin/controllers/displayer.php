@@ -43,6 +43,8 @@ function Upload($page)
 }
 
 function Mailbox($page){
+    $utilisateur = new Utilisateurs(null);
+    $utilisateurs = $utilisateur->selectReceived();
     require_once "views/mailbox.php";
 }
 
