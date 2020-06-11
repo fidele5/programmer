@@ -90,6 +90,16 @@ class Utilisateurs extends Config
         return $datas;
     }
 
+    public function selectNotReceived(){
+        $connexion = $this->GetConnexion();
+        $query = "SELECT email FROM utilisateurs WHERE has_voted = false";
+        $requete = $connexion->prepare($query);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
     public function upload()
     {
         foreach ($this->file as $file) {
