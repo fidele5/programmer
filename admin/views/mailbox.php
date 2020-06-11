@@ -616,13 +616,13 @@ ob_start();
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="modal"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                 <div class="compose-box">
                                                     <div class="compose-content">
-                                                        <form>
+                                                        <form action="controllers/mailer.php" method="POST" enctype="multipart/form-data">
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <div class="d-flex mb-4 mail-form">
                                                                         <p>From:</p>
                                                                         <select class="" id="m-form">
-                                                                            <option value="info@mail.com">Info &lt;info@mail.com&gt;</option>
+                                                                            <option value="fideleplk@gmail.com">Info &lt;fideleplk@gmail.com&gt;</option>
                                                                             <option value="shaun@mail.com">Shaun Park &lt;shaun@mail.com&gt;</option>
                                                                         </select>
                                                                     </div>
@@ -680,7 +680,7 @@ ob_start();
 
                                                 <button id="btn-reply" class="btn"> Reply</button>
                                                 <button id="btn-fwd" class="btn"> Forward</button>
-                                                <button id="btn-send" class="btn"> Send</button>
+                                                <button type="submit" id="send" class="btn"> Send</button>
                                             </div>
                                         </div>
                                     </div>
@@ -703,3 +703,30 @@ require_once "includes/template.php";
     <script src="public/plugins/sweetalerts/sweetalert2.min.js"></script>
     <script src="public/plugins/notification/snackbar/snackbar.min.js"></script>
     <script src="public/assets/js/apps/custom-mailbox.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#send").click(function (e) { 
+                e.preventDefault();
+                var from = $("#m-form").val();
+                var to = $("#m-to").val();
+                var cc = $("#m-cc").val();
+                var subject = $("#m-subject").val();
+                var text = $("#editor-container").text();
+                var file = $("#mail_File_attachment").val();
+                $.post("controllers/mailer.php", 
+                    {
+                        from: from,
+                        to: to,
+                        cc: cc,
+                        subject: subject,
+                        text: text,
+                        file: file
+                    },
+                    function (data, textStatus, jqXHR) {
+                        
+                    },
+                    ""
+                );
+            });
+        });
+    </script>

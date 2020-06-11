@@ -13,7 +13,7 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>Individual column searching (text inputs)</h4>
+                                    <h4>Liste detaillée des cours votés</h4>
                                 </div>    
                             </div>
                         </div>
@@ -40,7 +40,11 @@
                                             <td><?=$vote["designation"]?></td>
                                             <td><?=$vote["nom"]?></td>
                                             <td><?=$vote["votes"]?></td>
-                                            <td class="text-center"><a href="javascript:void(0);" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></td>
+                                            <td class="text-center">
+                                                <a href="details-<?=$vote['course']?>" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="details">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <?php
                                             }

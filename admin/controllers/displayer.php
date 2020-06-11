@@ -23,9 +23,24 @@ function Logout()
     header('location: index.php');
 }
 
+
+function Courses($page){
+    $cours = new Cours(null);
+    $courses = $cours->select();
+    require_once "views/courses.php";
+}
+
 function Signup($page)
 {
     require_once "views/signin.php";
+}
+
+function Details($page, $id_cours){
+    $vote = new Votes;
+    $details = $vote->select_details_vote($id_cours);
+    $cours = new Cours(null);
+    $cour = $cours->select_by_id($id_cours);
+    require_once "views/details_votes.php";
 }
 
 function Users($page)

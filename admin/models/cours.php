@@ -45,7 +45,8 @@ class Cours extends Config
     public function select()
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT * FROM cours';
+        $query = 'SELECT cours.id, cours.intitule, cours.volhoraire, promotions.designation, domaines.nom, details FROM cours INNER JOIN promotions ON cours.promotions_id = promotions.id
+                  INNER JOIN domaines ON promotions.domaines_id = domaines.id ';
         $requete = $connexion->prepare($query);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);

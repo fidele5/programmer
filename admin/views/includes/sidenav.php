@@ -100,6 +100,9 @@ $listDomaines = $domainesModel->select();
                                 <a href="users">Show Users</a>
                             </li>
                             <li>
+                                <a href="courses">Show courses</a>
+                            </li>
+                            <li>
                                 <a href="upuser"> Upload Users </a>
                             </li>
                             <li>

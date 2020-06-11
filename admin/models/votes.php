@@ -29,12 +29,28 @@ class Votes extends Config
     public function select()
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT count(*) AS votes, intitule, designation, nom FROM votes 
+        $query = 'SELECT count(*) AS votes, intitule, designation, nom, cours.id AS course FROM votes 
                  INNER JOIN cours ON votes.cours_id = cours.id
                  INNER JOIN promotions ON votes.promotion_id = promotions.id 
                  INNER JOIN domaines ON promotions.domaines_id = domaines.id 
                  GROUP BY cours.id';
         $requete = $connexion->prepare($query);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
+    public function select_details_vote($idCours)
+    {
+        $connexion = $this->GetConnexion();
+        $query = "SELECT nom_complet, domaines.nom AS domaine, formation, categories.nom AS categorie FROM votes
+            INNER JOIN utilisateurs ON votes.utilisateur_id = utilisateurs.id 
+            INNER JOIN domaines ON utilisateurs.domaine_id = domaines.id 
+            INNER JOIN categories ON utilisateurs.categorie_id = categories.id
+            WHERE votes.cours_id = :id";
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(":id", $idCours);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();
