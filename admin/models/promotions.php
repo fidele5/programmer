@@ -81,6 +81,7 @@ class Promotions extends Config
         $connexion = $this->GetConnexion();
         $query = "SELECT id FROM promotions WHERE designation = :nom";
         $requete = $connexion->prepare($query);
+        $requete->bindValue(":nom", $nom, PDO::PARAM_STR);
         $requete->execute();
         $datas = $requete->fetch(PDO::FETCH_ASSOC);
         $requete->closeCursor();

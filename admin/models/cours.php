@@ -42,6 +42,21 @@ class Cours extends Config
         $requete->closeCursor();
     }
 
+    public function update($intitule, $promotion, $details, $volhoraire, $id)
+    {
+        $promo = $this->promotion->select_id_by_name($promotion);
+        $connexion = $this->GetConnexion();
+        $query = 'UPDATE cours SET intitule =:intitule, volhoraire =:volhoraire, promotions_id =:promotion, details = :detail WHERE id = :id';
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':id', $id);
+        $requete->bindValue(":intitule", $intitule);
+        $requete->bindValue(":volhoraire", $volhoraire);
+        $requete->bindValue(":promotion", $promo);
+        $requete->bindValue(":detail", $details);
+        $requete->execute();
+        $requete->closeCursor();
+    }
+
     public function select()
     {
         $connexion = $this->GetConnexion();

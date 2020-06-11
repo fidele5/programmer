@@ -43,6 +43,7 @@ switch ($action) {
         $delete = $cours->delete($id);
         header("location: ../cours");
         break;
+        
     default:
         break;
 }
