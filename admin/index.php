@@ -1,55 +1,55 @@
-
 <?php
-    require_once 'controllers/displayer.php';
-    if (!is_connected()) {
-        $page  = 'login';
+require_once 'controllers/displayer.php';
+if (!is_connected()) {
+    $page = 'login';
+} else {
+    $page = (isset($_GET["page"])) ? $_GET["page"] : 'accueil';
+}
+try {
+    if (empty($page)) {
+        throw new Exception('page non disponible', 1);
     } else {
-        $page = (isset($_GET["page"]))?$_GET["page"]:'accueil';
-    }
-    try{
-        if(empty($page)) throw new Exception('page non disponible', 1);
-        else{
-            switch($page)
-            {
-                case 'login':
-                    Login($page);
+        switch ($page) {
+            case 'login':
+                Login($page);
                 break;
-                case 'votes':
-                    Votes($page);
+            case 'programmes':
+                Programmes($page);
                 break;
-                case 'programmes':
-                    Programmes($page);
+            case 'users':
+                Users($page);
                 break;
-                case 'users':
-                    Users($page);
+            case 'uprogram':
+                Upload($page);
                 break;
-                case 'uprogram':
-                    Upload($page);
+            case "mailbox":
+                Mailbox($page);
                 break;
-                case "mailbox":
-                    Mailbox($page);
+            case "setting":
+                if (isset($_GET['id'])) {
+                    Profile($page, $_GET['id']);
+                } else {
+                    throw new Exception("Error Processing Request", 1);
+                }
+
                 break;
-                case "setting":
-                    if (isset($_GET['id'])) {
-                        Profile($page, $_GET['id']);
-                    }
-                    else throw new Exception("Error Processing Request", 1);
-                break;                    
-                case 'settings':
-                    Settings($page);
+            case "votes":
+                Votes($page);
+            break;
+            case 'settings':
+                Settings($page);
                 break;
-                case 'upuser':
-                    UploadUser($page);
+            case 'upuser':
+                UploadUser($page);
                 break;
-                case 'logout' :
-                    Logout();
+            case 'logout':
+                Logout();
                 break;
-                default:
-                    Accueil($page);
+            default:
+                Accueil($page);
                 break;
-            }
         }
     }
-    catch(Exception $e){
-        die('Erreur : '.$e);
-    }
+} catch (Exception $e) {
+    die('Erreur : ' . $e);
+}

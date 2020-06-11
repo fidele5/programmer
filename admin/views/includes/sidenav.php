@@ -56,7 +56,7 @@ $listDomaines = $domainesModel->select();
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
                     <li class="menu">
-                        <a href="#dashboard" <?= ($page == "acceuil") ? 'data-active="true"' : "" ?> data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+                        <a href="#dashboard" <?=($page == "acceuil") ? 'data-active="true"' : ""?> data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                 <span>Dashboard</span>
@@ -65,7 +65,7 @@ $listDomaines = $domainesModel->select();
                     </li>
 
                     <li class="menu">
-                        <a href="#app" <?= ($page == "programmes") ? 'data-active="true"' : "" ?> data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <a href="#app" <?=($page == "programmes") ? 'data-active="true"' : ""?> data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
                                 <span>Programmes filieres</span>
@@ -86,7 +86,7 @@ $listDomaines = $domainesModel->select();
                     </li>
 
                     <li class="menu">
-                        <a href="#components" <?= ($page == "users" || $page == "upuser" || $page == "uprogram") ? 'data-active="true"' : "" ?> data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <a href="#components" <?=($page == "users" || $page == "upuser" || $page == "uprogram") ? 'data-active="true"' : ""?> data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                                 <span>Utilisateurs</span>
@@ -108,7 +108,7 @@ $listDomaines = $domainesModel->select();
                         </ul>
                     </li>
                     <li class="menu">
-                        <a href="settings" <?= ($page == "settings") ? 'data-active="true"' : "" ?> aria-expanded="false" class="dropdown-toggle">
+                        <a href="settings" <?=($page == "settings") ? 'data-active="true"' : ""?> aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                                 <span> settings</span>
@@ -116,10 +116,18 @@ $listDomaines = $domainesModel->select();
                         </a>
                     </li>
                     <li class="menu">
-                        <a href="mailbox" <?= ($page == "mailbox") ? 'data-active="true"' : "" ?> aria-expanded="false" class="dropdown-toggle">
+                        <a href="mailbox" <?=($page == "mailbox") ? 'data-active="true"' : ""?> aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                 <span> Mails</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="votes" <?=($page == "votes") ? 'data-active="true"' : ""?> aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                                <span> Votes</span>
                             </div>
                         </a>
                     </li>

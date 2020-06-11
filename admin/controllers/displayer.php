@@ -42,6 +42,12 @@ function Upload($page)
     require_once "views/upload.php";
 }
 
+function Votes($page){
+    $vote = new Votes;
+    $votes = $vote->select();
+    require_once "views/votes.php";
+}
+
 function Mailbox($page){
     $utilisateur = new Utilisateurs(null);
     $utilisateurs = $utilisateur->selectReceived();
@@ -61,11 +67,6 @@ function Profile($page, $id){
 function Settings($page)
 {
     require_once "views/settings.php";
-}
-
-function Votes($page)
-{
-    require_once 'views/votes.php';
 }
 
 function Programmes($page)
