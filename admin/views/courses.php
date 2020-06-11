@@ -87,7 +87,7 @@ require_once "modals.php";
 $content = ob_get_clean();
 require_once 'includes/template.php';
 ?>
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="public/plugins/table/datatable/datatables.js"></script>
     <script src="public/plugins/table/datatable/custom_miscellaneous.js"></script>
     <script src="public/plugins/sweetalerts/sweetalert2.min.js"></script>
@@ -168,9 +168,9 @@ require_once 'includes/template.php';
             $("#save").addClass('btn btn-outline-info btn-sm m-0 waves-effect');
             $("#save").html('Save');
             $('#save').click(function (e) {
-            e.preventDefault();
-            var fields = [];
-            var reponse = {};
+                e.preventDefault();
+                var fields = [];
+                var reponse = {};
 
                 $(".champs").each(function (index, element) {
                     fields.push($(this).val());
@@ -199,13 +199,16 @@ require_once 'includes/template.php';
                                     type: 'error',
                                     title: "Impossible d'effectuer la modification"
                                 });
-                            }
-                            
+                            }   
                         }
-
+                        else {
+                            swal.insertQueueStep({
+                                type: 'error',
+                                title: textStatus
+                            });
+                        }
                     }
                 );
-                console.info(fields);
             });
         });
     });
