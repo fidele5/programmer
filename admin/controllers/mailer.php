@@ -1,4 +1,5 @@
 <?php
+    require_once "../models/utilisateurs.php";
     extract($_POST);
 
     $user = new Utilisateurs(null);

@@ -3,5 +3,5 @@
     extract($_POST);
 
     $setting = new Settings;
-    $setting->update($min, $max, $option);
+    $setting->update($moyenne, $cotation);
     echo "saved";

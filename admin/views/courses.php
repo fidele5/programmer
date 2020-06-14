@@ -138,7 +138,8 @@ require_once 'includes/template.php';
             $(".editable").each(function (index, element) {
                 var val = $(this).text();
                 if ($(this).hasClass("selectable promotion")) {
-                    $(this).html("<select size='1' class='form-control champs' id='promotion'>"+
+                    $(this).html(
+                        "<select size='1' class='form-control champs' id='promotion'>"+
                             '<option value="prepa">'+
                                 "prepa"+
                             "</option>"+
@@ -165,7 +166,7 @@ require_once 'includes/template.php';
             $(this).hide();
             $("#delete").hide();
             $('#actions').html('<a id="save"></a>');
-            $("#save").addClass('btn btn-outline-info btn-sm m-0 waves-effect');
+            $("#save").addClass('btn btn-outline-info m-0 waves-effect');
             $("#save").html('Save');
             $('#save').click(function (e) {
                 e.preventDefault();
@@ -188,7 +189,7 @@ require_once 'includes/template.php';
                                     type: 'success',
                                     title: 'Terminé',
                                     text: "Enregistrement effectué avec succès"
-                                    
+
                                 });
                                 setTimeout(() => {
                                     location . reload(true);
@@ -199,7 +200,7 @@ require_once 'includes/template.php';
                                     type: 'error',
                                     title: "Impossible d'effectuer la modification"
                                 });
-                            }   
+                            }
                         }
                         else {
                             swal.insertQueueStep({

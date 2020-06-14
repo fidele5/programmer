@@ -20,7 +20,7 @@
             return $datas;
         }
 
-        public function update($min, $max, $name){
+        public function update($min, $max){
             $connexion = $this->GetConnexion();
             $query = "UPDATE settings SET minimum = :minim, maximum = :maxim WHERE designation = :nom";
             $requete = $connexion->prepare($query);
