@@ -61,8 +61,8 @@ function is_checked($id)
                                 <div class="accordion md-accordion accordion-5" id="accordionEx5" role="tablist"
                                     aria-multiselectable="true">
                                     <?php
-foreach ($categories as $cle => $valeur) {
-    ?>
+                                        foreach ($categories as $cle => $valeur) {
+                                    ?>
                                     <!-- Card -->
                                     <!-- Accordion card -->
                                     <div class="card card-form-2 mb-4">
@@ -80,17 +80,15 @@ foreach ($categories as $cle => $valeur) {
                                                 data-parent="#accordionEx5">
                                             <div class="card-body rgba-black-light white-text z-depth-1 justify-content-start">
                                                 <?php
-foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
-        ?>
+                                                    foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
+                                                ?>
                                                 <!--  checkbox -->
                                                 <div class="form-check pl-0">
                                                     <input type="checkbox" class="form-check-input" id="filledInCheckbox<?=$value['id']?>" volume="<?=$value['volhoraire']?>"  valeur="<?=$value['id']?>" <?=(is_checked($value['id'])) ? "disabled checked" : ""?>>
                                                     <label class="form-check-label" for="filledInCheckbox<?=$value['id']?>"><?=$value['intitule']?></label>
                                                 </div>
                                                 <!--  checkbox -->
-                                                <?php
-}
-    ?>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
