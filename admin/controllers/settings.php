@@ -3,5 +3,5 @@
     extract($_POST);
 
     $setting = new Settings;
-    $setting->update($moyenne, $cotation);
+    $setting->update($cotation, $moyenne);
     echo "saved";

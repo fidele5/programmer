@@ -83,7 +83,6 @@ require_once 'includes/template.php';
                             if (data === "saved") {
                                 $(".active").hide();
                                 $("#msg").text("Valider");
-                                $("#"+$val).removeAttr("disabled");
                                 swal({
                                     title: 'Succès!',
                                     text: "Enregistré avec succès!",
@@ -97,7 +96,6 @@ require_once 'includes/template.php';
                             else{
                                 $(".active").hide();
                                 $("#msg").text("Valider");
-                                $("#"+$val).removeAttr("disabled");
                                 Snackbar.show({
                                     text: data,
                                     pos: 'top-right'
