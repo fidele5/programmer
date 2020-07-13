@@ -20,13 +20,12 @@
             return $datas;
         }
 
-        public function update($min, $max){
+        public function update($value, $nom){
             $connexion = $this->GetConnexion();
-            $query = "UPDATE settings SET minimum = :minim, maximum = :maxim WHERE designation = :nom";
+            $query = "UPDATE settings SET valeur = :val WHERE designation = :nom";
             $requete = $connexion->prepare($query);
             $requete->bindValue(':nom', $name);
-            $requete->bindValue(':minim', $min);
-            $requete->bindValue(':maxim', $max);
+            $requete->bindValue(':val', $val);
             $requete->execute();
             $requete->closeCursor();
         }
