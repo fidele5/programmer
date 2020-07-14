@@ -106,7 +106,10 @@ $listDomaines = $domainesModel->select();
                                 <a href="upuser"> Upload Users </a>
                             </li>
                             <li>
-                                <a href="uprogram"> Upload Programm  </a>
+                                <a href="uprogram"> Upload Program  </a>
+                            </li>
+                            <li>
+                                <a href="upcotes"> Upload cotes  </a>
                             </li>
                         </ul>
                     </li>

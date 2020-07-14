@@ -51,6 +51,9 @@ try {
             case 'upuser':
                 UploadUser($page);
                 break;
+            case 'upcotes':
+                UploadCotes($page);
+                break;
             case 'logout':
                 Logout();
                 break;

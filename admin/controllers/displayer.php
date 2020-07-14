@@ -103,6 +103,11 @@ function UploadUser($page)
     require_once "views/upuser.php";
 }
 
+function UploadCotes($page)
+{
+    require_once "views/upcotes.php";
+}
+
 function Accueil($page)
 {
     require_once 'views/accueil.php';
