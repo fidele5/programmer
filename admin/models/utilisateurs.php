@@ -61,6 +61,26 @@ class Utilisateurs extends Config
         return $datas;
     }
 
+    public function update($nom, $login, $password, $email, $categorie_id, $domainr_id, $formation, $id)
+    {
+        $connexion = $this->GetConnexion();
+        $query = "UPDATE utilisateurs 
+                  SET nom_complet = :nom, login = :lg, password = :psw, email = :email, 
+                      categorie_id = :cat, domaine_id = :domain, formation = :form
+                  WHERE id = :id";
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':nom', $nom);
+        $requete->bindValue(':lg', $login);
+        $requete->bindValue(':psw', $password);
+        $requete->bindValue(':email', $email);
+        $requete->bindValue(':cat', $categorie_id);
+        $requete->bindValue(':domain', $domainr_id);
+        $requete->bindValue(':form', $formation);
+        $requete->bindValue(':id', $id);
+        $requete->execute();
+        $requete->closeCursor();
+    }
+
     public function upload()
     {
         foreach ($this->file as $file) {
