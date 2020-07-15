@@ -38,13 +38,16 @@ ob_start();
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $domaines = new Domaines();
+                                        $promotions = new Promotions();
 foreach ($courses as $num => $course) {
+    $promotion = $promotions->select_by_id( $course["promotions_id"])[0];
     ?>
                                         <tr>
                                             <td class="text-center"><?=$num + 1?></td>
                                             <td><?=$course["intitule"]?></td>
-                                            <td class="selectable promotion"><?=$course["designation"]?></td>
-                                            <td class="filiere"><?=$course["nom"]?></td>
+                                            <td class="selectable promotion"><?= $promotion["designation"] ?></td>
+                                            <td class="filiere"><?= $domaines->select_by_id($promotion['domaines_id'])[0]['nom'] ?></td>
                                             <td><?=$course["details"]?></td>
                                             <td><?=$course["volhoraire"]?></td>
                                             <td>

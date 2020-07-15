@@ -20,7 +20,7 @@ class Compiler
         $this->modelPromotion = new Promotions();
         $this->modelUtilisateur = new Utilisateurs(null);
         $this->modelVotes = new Votes();
-        $this->modelSettings = new Settings;
+        $this->modelSettings = new Settings();
         $this->modelCategorieCours = new Categorie_cours();
         $this->cours = $this->modelCours->select();
         $this->promotions = $this->modelPromotion->select();
@@ -101,11 +101,8 @@ class Compiler
 
     private function minumumAvailable()
     {
-        $values = $this->modelSettings->selectByName("pondered");
-        $min = $values[0]["minimum"]/10;
-        $max = $values[0]["maximum"]/10;
-        $nombre = $this->modelVotes->nombre_participant($this->idFiliere);
-        return ($max+$min)*$nombre / 2;
+        $values = $this->modelSettings->selectByName("moyenne");
+        return $values[0]["valeur"];
     }
 
     public function compile()
