@@ -175,6 +175,7 @@
                 function(data, textStatus, jqXHR) {
                     if (jqXHR.done()) {
                         if (data !== "okay") {
+                            console.log(data);
                             Snackbar.show({
                                 text: "Erreur : verifier les données ",
                                 pos: 'top-right'
