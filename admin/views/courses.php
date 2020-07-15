@@ -40,9 +40,9 @@ ob_start();
                                         <?php
                                         $domaines = new Domaines();
                                         $promotions = new Promotions();
-foreach ($courses as $num => $course) {
-    $promotion = $promotions->select_by_id( $course["promotions_id"])[0];
-    ?>
+                                        foreach ($courses as $num => $course) {
+                                            $promotion = $promotions->select_by_id( $course["promotions_id"])[0];
+                                        ?>
                                         <tr>
                                             <td class="text-center"><?=$num + 1?></td>
                                             <td><?=$course["intitule"]?></td>

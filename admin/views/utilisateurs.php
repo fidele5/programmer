@@ -57,6 +57,7 @@ ob_start();
 <?php
 $content = ob_get_clean();
 require_once 'includes/template.php';
+require_once "modals.php";
 ?>
     <script>
         $('#default-ordering').DataTable( {
