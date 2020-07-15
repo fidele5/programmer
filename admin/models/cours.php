@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/programmer/admin/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/programmer/admin/vendor/autoload.php';
 require_once 'config.php';
 require_once 'promotions.php';
 require_once 'Categorie_cours.php';
@@ -22,8 +22,8 @@ class Cours extends Config
 
     public function __construct()
     {
-        $params = func_get_args();
-        if(!empty($params)) $this->file = $params[0];
+        $file = func_get_args()[0];
+        $this->file = $file;
         $this->spreadsheet = new Spreadsheet();
         $this->Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $this->promotion = new Promotions();
@@ -43,26 +43,10 @@ class Cours extends Config
         $requete->closeCursor();
     }
 
-    public function update($intitule, $promotion, $details, $volhoraire, $id)
-    {
-        $promo = $this->promotion->select_id_by_name($promotion);
-        $connexion = $this->GetConnexion();
-        $query = 'UPDATE cours SET intitule =:intitule, volhoraire =:volhoraire, promotions_id =:promotion, details = :detail WHERE id = :id';
-        $requete = $connexion->prepare($query);
-        $requete->bindValue(':id', $id);
-        $requete->bindValue(":intitule", $intitule);
-        $requete->bindValue(":volhoraire", $volhoraire);
-        $requete->bindValue(":promotion", $promo);
-        $requete->bindValue(":detail", $details);
-        $requete->execute();
-        $requete->closeCursor();
-    }
-
     public function select()
     {
         $connexion = $this->GetConnexion();
-        $query = 'SELECT cours.id, cours.intitule, cours.volhoraire, promotions.designation, domaines.nom, details FROM cours INNER JOIN promotions ON cours.promotions_id = promotions.id
-                  INNER JOIN domaines ON promotions.domaines_id = domaines.id ';
+        $query = 'SELECT * FROM cours';
         $requete = $connexion->prepare($query);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
@@ -128,18 +112,6 @@ class Cours extends Config
         $requete->closeCursor();
         return $datas;
     }
-
-    public function select_id($intitule) {
-        $connexion = $this->GetConnexion();
-        $query = 'SELECT id FROM cours WHERE intitule = :intitule';
-        $requete = $connexion->prepare($query);
-        $requete->bindValue(':intitule', $intitule);
-        $requete->execute();
-        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
-        $requete->closeCursor();
-        return $datas;
-    }
-
 
     public function upload()
     {
