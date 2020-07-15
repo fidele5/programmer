@@ -9,18 +9,22 @@ extract($_POST);
 $i = 0;
 switch ($action) {
     case "ajouter":
-        $fichier = (isset($_FILES))?$_FILES:null;
+        $fichier = (isset($_FILES)) ? $_FILES : null;
         $cours = new Cours($fichier);
-        // $cours->upload();
-        // $cours->saveCourses();
+        $cours->upload();
+        $cours->saveCourses();
         echo "ok";
         break;
     case "delete":
-        $cours = new Cours($_FILES);
-        $id = $_GET["id"];
+        $cours = new Cours(null);
         $delete = $cours->delete($id);
-        header("location: ../cours");
+        echo "deleted";
         break;
+    case "modifier":
+        $cours = new Cours(null);
+        $updates = $cours->update($champs[0], $champs[1], $champs[2], $champs[3], $id);
+        echo "ok";
+    break;
     default:
         break;
 }
