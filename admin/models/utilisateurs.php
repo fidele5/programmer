@@ -23,7 +23,8 @@ class Utilisateurs extends Config
 
     public function __construct()
     {
-        $this->file = func_get_args()[0];
+        $params = func_get_args();
+        if(!empty($params)) $this->file = $params[0];
         $this->spreadsheet = new Spreadsheet();
         $this->Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $this->domaines = new Domaines();
@@ -134,6 +135,18 @@ class Utilisateurs extends Config
         $query = 'SELECT * FROM utilisateurs WHERE id = :id';
         $requete = $connexion->prepare($query);
         $requete->bindValue(':id', $id);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
+    public function get_id_by_email($email)
+    {
+        $connexion = $this->GetConnexion();
+        $query = 'SELECT id FROM utilisateurs WHERE email = :email';
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':email', $email);
         $requete->execute();
         $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
         $requete->closeCursor();

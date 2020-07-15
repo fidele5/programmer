@@ -1,6 +1,11 @@
 <?php
 
 require_once 'config.php';
+require_once 'Utilisateurs.php';
+require_once 'cours.php';
+require_once 'promotions.php';
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Cotes extends Config
 {
@@ -12,13 +17,21 @@ class Cotes extends Config
     public $file;
     public $spreadsheet;
     public $Reader;
-    
+    public $file_path;
+    public $utilisateur;
+    public $cours;
+    public $promotions;
+    public const PATH = '../files/';
     
     public function __construct()
     {
-        $this->file = func_get_args()[0];
+        $params = func_get_args();
+        if(!empty($params)) $this->file = $params[0];
         $this->spreadsheet = new Spreadsheet();
         $this->Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        $this->utilisateur = new Utilisateurs();
+        $this->cours = new Cours();
+        $this->promotions = new Promotions();
     }
 
     public function insert($idCours, $idEtudiant, $moyenne, $examen)
@@ -113,31 +126,35 @@ class Cotes extends Config
 
     }
 
-    public function saveCourses()
+    public function Save()
     {
         if (file_exists($this->file_path)) {
             $spreadSheet = $this->Reader->load($this->file_path);
-            $sheetCount = $this->spreadsheet->getSheetCount();
-            for ($i = 0; $i < $sheetCount; $i++) {
-                $nom = $spreadSheet->getSheetNames();
-                $sheet = $spreadSheet->getSheet($i);
-                $sheetData = $sheet->toArray();
-                $prom = $nom[$i];
-                foreach ($sheetData as $key => $value) {
-                    if ($key == 0) {
-                        continue;
-                    } else {
-                        $promotions = $this->promotion->select_id_by_name_domain($prom, $value[2]);
-                        $cat = $this->categories->getCatByName($value[2]);
-                        $this->insert($value[0], $value[1], $promotions['id'], $cat);
-                    }
+            $noms = $spreadSheet->getSheetNames();
+            $sheet = $spreadSheet->getSheet(0);
+            $sheetData = $sheet->toArray();
+            $prom = $noms[0];
+            $cours = $sheetData[0];
+            $rows = count($sheetData);
+            for ($i=1; $i<$rows; $i=$i+3) {
+                $cotes_user = $sheetData[$i];
+                $user = $cotes_user[0];
+                for($j=1; $j < count($cotes_user); $j++) {
+                    $nom_cours = $cours[$j];
+                    $moyenne = $sheetData[$i][$j];
+                    $examen = $sheetData[$i+1][$j];
+                    $total = $sheetData[$i+2][$j];
+                    $email = strtolower($user).'@esisalama.org';
+                    $id_etudiant = $this->utilisateur->get_id_by_email($email);
+                    if(empty($id_etudiant)) continue;
+                    $idcours = $this->cours->select_id($nom_cours);
+                    if(empty($idcours)) continue;
+                    //$promotion = $this->promotions->select_id($prom);
+                    $this->insert($idcours[0]['id'], $id_etudiant[0]['id'], $moyenne, $examen);
                 }
-
             }
-
         } else {
             echo "une erreur s'est produite";
         }
-
     }
 }
