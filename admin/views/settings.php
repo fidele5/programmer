@@ -27,7 +27,7 @@ ob_start();
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label for="demo1">Cotation Available</label>
-                                        <input id="min" type="text" value="10" name="demo1">
+                                        <input id="min" type="text" value="<?= $ponderation ?>" name="demo1">
                                     </div>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@ ob_start();
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label for="demo1">Moyenne Available</label>
-                                        <input id="max" type="text" value="50" name="demo1">
+                                        <input id="max" type="text" value="<?= $moyenne ?>" name="demo1">
                                     </div>
                                 </div>
                             </div>

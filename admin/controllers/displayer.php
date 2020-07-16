@@ -81,6 +81,9 @@ function Profile($page, $id){
 
 function Settings($page)
 {
+    $settings = new Settings();
+    $notes = $settings->select();
+    extract($notes);
     require_once "views/settings.php";
 }
 

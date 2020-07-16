@@ -85,7 +85,7 @@ class Promotions extends Config
         $requete->execute();
         $datas = $requete->fetch(PDO::FETCH_ASSOC);
         $requete->closeCursor();
-        return $datas;
+        return $datas["id"];
     }
 
     public function select_id($nom){ 

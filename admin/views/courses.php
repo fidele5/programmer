@@ -99,6 +99,7 @@ require_once 'includes/template.php';
     <script>
     $(document).ready(function () {
         $('.widget-content .warning.confirm').on('click', function (e) {
+            var id = $(this).attr("id");
         e.preventDefault();
         swal({
             title: 'Are you sure?',
@@ -108,12 +109,11 @@ require_once 'includes/template.php';
             confirmButtonText: 'Delete',
             padding: '2em'
             }).then(function() {
-                var id = $(".warning.confirm").attr("href");
                 console.log(id);
                 $.post("controllers/cours.php", {id: id, action: "delete"},
                     function (data, textStatus, jqXHR) {
                         if (jqXHR.done()) {
-                            if (data != "deleted") {
+                            if (data === "deleted") {
                                 swal(
                                 {
                                     title: 'Deleted!',
@@ -186,6 +186,7 @@ require_once 'includes/template.php';
                         champs: fields
                     },
                     function (data, textStatus, jqXHR) {
+                        console.log(data);
                         if (jqXHR.done()) {
                             if (data === "ok") {
                                 swal({
