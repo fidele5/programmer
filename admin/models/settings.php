@@ -20,6 +20,7 @@ class Settings extends Config
         return $datas[0];
     }
 
+
     public function update($cotation, $moyenne)
     {
         $connexion = $this->GetConnexion();
