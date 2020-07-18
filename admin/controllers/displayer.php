@@ -23,19 +23,32 @@ function Logout()
     header('location: index.php');
 }
 
-
-function Courses($page){
+function Courses($page)
+{
     $cours = new Cours(null);
     $courses = $cours->select();
     require_once "views/courses.php";
 }
+
+function Course($page)
+{
+    $promotion = new Promotions();
+    $promotions = $promotion->select();
+    $categorie = new Categorie_cours();
+    $categories = $categorie->select();
+    $cours = new Cours(null);
+    
+    require_once "views/addCourse.php";
+}
+
 
 function Signup($page)
 {
     require_once "views/signin.php";
 }
 
-function Details($page, $id_cours){
+function Details($page, $id_cours)
+{
     $vote = new Votes;
     $details = $vote->select_details_vote($id_cours);
     $cours = new Cours(null);
@@ -52,24 +65,36 @@ function Users($page)
     require_once 'views/utilisateurs.php';
 }
 
+function User($page){
+    $categories = new Categories();
+    $statuses = $categories->select();
+    $domaine = new Domaines();
+    $domaines = $domaine->select();
+
+    require_once 'views/addUser.php';
+}
+
 function Upload($page)
 {
     require_once "views/upload.php";
 }
 
-function Votes($page){
+function Votes($page)
+{
     $vote = new Votes;
     $votes = $vote->select();
     require_once "views/votes.php";
 }
 
-function Mailbox($page){
+function Mailbox($page)
+{
     $utilisateur = new Utilisateurs(null);
     $utilisateurs = $utilisateur->selectReceived();
     require_once "views/mailbox.php";
 }
 
-function Profile($page, $id){
+function Profile($page, $id)
+{
     $users = new Utilisateurs(null);
     $user = $users->select_by_id($id);
     $categories = new Categories();

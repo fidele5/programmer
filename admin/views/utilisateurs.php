@@ -5,10 +5,10 @@ ob_start();
 <link href="public/assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
-
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
+                            <a class="btn btn-outline-info" href="user">Nouveau</a>
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table table-hover" style="width:100%">
                                     <thead>
@@ -23,20 +23,20 @@ ob_start();
                                     </thead>
                                     <tbody>
                                         <?php
-                                            foreach ($users as $key => $value) {
-                                        ?>
+foreach ($users as $key => $value) {
+    ?>
                                         <tr>
                                             <td><?=$value['nom_complet']?></td>
                                             <td><?=$value['login']?></td>
                                             <td><?=$value['email']?></td>
                                             <td><?=$value['categorie']?></td>
-                                            <td><?=$value["domaine"] ?></td>
+                                            <td><?=$value["domaine"]?></td>
                                             <td class="text-center"><button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?=$value['id']?>">View</button> </td>
                                             <?php include "details.php"?>
                                         </tr>
                                         <?php
-                                            }
-                                        ?>
+}
+?>
                                     </tbody>
                                     <tfoot>
                                         <tr>

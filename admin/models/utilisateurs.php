@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/programmer/admin/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/programme/admin/vendor/autoload.php';
 require_once 'config.php';
 require_once 'domaines.php';
 require_once 'categories.php';
@@ -31,10 +31,10 @@ class Utilisateurs extends Config
         $this->categories = new Categories();
     }
 
-    public function insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id)
+    public function insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id, $formation)
     {
         $connexion = $this->GetConnexion();
-        $query = 'INSERT INTO utilisateurs(nom_complet, login, password, email, categorie_id, domaine_id) VALUES(:nom_complet, :login, :password, :email, :categorie_id, :domaine_id)';
+        $query = 'INSERT INTO utilisateurs(nom_complet, login, password, email, categorie_id, domaine_id, formation) VALUES(:nom_complet, :login, :password, :email, :categorie_id, :domaine_id, :formation)';
         $requete = $connexion->prepare($query);
         $requete->bindValue(":nom_complet", $nom_complet);
         $requete->bindValue(":login", $login);
@@ -42,6 +42,7 @@ class Utilisateurs extends Config
         $requete->bindValue(":email", $email);
         $requete->bindValue(":categorie_id", $categorie_id);
         $requete->bindValue(":domaine_id", $domaine_id);
+        $requete->bindValue(":formation", $formation);
         $requete->execute();
         $id = $connexion->lastInsertId();
         $requete->closeCursor();
@@ -64,8 +65,8 @@ class Utilisateurs extends Config
     public function update($nom, $login, $password, $email, $categorie_id, $domainr_id, $formation, $id)
     {
         $connexion = $this->GetConnexion();
-        $query = "UPDATE utilisateurs 
-                  SET nom_complet = :nom, login = :lg, password = :psw, email = :email, 
+        $query = "UPDATE utilisateurs
+                  SET nom_complet = :nom, login = :lg, password = :psw, email = :email,
                       categorie_id = :cat, domaine_id = :domain, formation = :form
                   WHERE id = :id";
         $requete = $connexion->prepare($query);
@@ -140,12 +141,12 @@ class Utilisateurs extends Config
             $spreadSheet = $this->Reader->load($this->file_path);
             $sheetCount = $spreadSheet->getSheetCount();
             $domains = array("SI" => "Genie Logiciel",
-                             "GST" => "Management", 
-                             "DSG" => "Design", 
-                             "TLC" => "Telecom", 
-                             "RES" => "Reseaux", 
-                             "G1" => "Generale", 
-                             "prepa" => "Generale");
+                "GST" => "Management",
+                "DSG" => "Design",
+                "TLC" => "Telecom",
+                "RES" => "Reseaux",
+                "G1" => "Generale",
+                "prepa" => "Generale");
             for ($i = 0; $i < $sheetCount; $i++) {
                 $nom = $spreadSheet->getSheetNames();
                 $sheet = $spreadSheet->getSheet($i);
@@ -162,11 +163,11 @@ class Utilisateurs extends Config
                         $password = self::generatePassword();
                         $domaine = $this->domaines->select_by_name($domains[$filiere[1]]);
                         $cat = $this->categories->select_id_by_name("Etudiant");
+                        $formation = $value[5];
 
                         if (!$this->exists($email)) {
-                            $ajouter = $this->insert($nom, $email, $password, $email, $cat, $domaine[0]['id']);
-                        }
-                        else{
+                            $ajouter = $this->insert($nom, $email, $password, $email, $cat, $domaine[0]['id'], $formation);
+                        } else {
                             continue;
                         }
                     }
@@ -179,7 +180,9 @@ class Utilisateurs extends Config
 
     }
 
-    public static function generatePassword(){
+
+    public static function generatePassword()
+    {
         $chiffres = 6;
         $i = 0;
         while ($i < $chiffres) {
@@ -198,14 +201,20 @@ class Utilisateurs extends Config
 
     }
 
-    public function exists($email){
+    public function exists($email)
+    {
         $connexion = $this->GetConnexion();
         $query = "SELECT COUNT(*) FROM utilisateurs WHERE email = :email";
         $requete = $connexion->prepare($query);
         $requete->bindValue(":email", $email);
         $requete->execute();
-        $exists = ($requete->fetchColumn() == 0)?false:true;
+        $exists = ($requete->fetchColumn() == 0) ? false : true;
         $requete->closeCursor();
         return $exists;
+    }
+
+    public function selectReceived()
+    {
+        return null;
     }
 }

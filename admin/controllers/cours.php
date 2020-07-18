@@ -15,6 +15,12 @@ switch ($action) {
         $cours->saveCourses();
         echo "ok";
         break;
+    case "add":
+        $fichier = (isset($_FILES)) ? $_FILES : null;
+        $cours = new Cours($fichier);
+        $cours->insert($intitule, $volhor, $promotion, $categorie, $details);
+        echo "ok";
+        break;
     case "delete":
         $cours = new Cours(null);
         $delete = $cours->delete($id);

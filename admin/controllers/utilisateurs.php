@@ -18,6 +18,13 @@
                 
             break;
 
+            case "add":
+                $utilisateurs = new Utilisateurs(null);
+                $user = $utilisateurs->insert($nom_complet, $login, $password, $email, $categorie_id, $domaine_id, $formation);
+                echo "okay";
+                
+            break;
+
             case 'update':
                $utilisateurs =  new Utilisateurs(null);
                $utilisateurs->update($nom_complet, $login, $password, $email, $categorie_id, $domaine_id, $formation, $id);

@@ -23,6 +23,7 @@ ob_start();
                             </div>
                         </div>
                         <div class="widget-content widget-content-area">
+                            <a class="btn btn-outline-info" href="course">Nouveau</a>
                             <div class="table-responsive mb-4">
                                 <table id="individual-col-search" class="table table-hover">
                                     <thead>

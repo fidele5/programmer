@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/programmer/admin/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/programme/admin/vendor/autoload.php';
 require_once 'config.php';
 require_once 'promotions.php';
 require_once 'Categorie_cours.php';
@@ -30,15 +30,17 @@ class Cours extends Config
         $this->categories = new Categorie_cours();
     }
 
-    public function insert($intitule, $volhoraire, $promotions_id, $categorie)
+    public function insert($intitule, $volhoraire, $promotions_id, $categorie, $details)
     {
         $connexion = $this->GetConnexion();
-        $query = 'INSERT INTO cours(intitule, volhoraire, promotions_id) VALUES(:intitule, :volhoraire, :promotions_id)';
+        $query = 'INSERT INTO cours(intitule, volhoraire, promotions_id, categorie_id, details) VALUES(:intitule, :volhoraire, :promotions_id, :categorie, :details)';
         $requete = $connexion->prepare($query);
 
         $requete->bindValue(":intitule", $intitule);
         $requete->bindValue(":volhoraire", $volhoraire);
         $requete->bindValue(":promotions_id", $promotions_id);
+        $requete->bindValue(":categorie", $categorie);
+        $requete->bindValue(":details", $details);
         $requete->execute();
         $requete->closeCursor();
     }
@@ -57,7 +59,6 @@ class Cours extends Config
         $requete->execute();
         $requete->closeCursor();
     }
-
 
     public function select()
     {
@@ -164,7 +165,7 @@ class Cours extends Config
                     } else {
                         $promotions = $this->promotion->select_id_by_name_domain($prom, $value[2]);
                         $cat = $this->categories->getCatByName($value[2]);
-                        $ajouter = $this->insert($value[0], $value[1], $promotions['id'], $cat);
+                        $this->insert($value[0], $value[1], $promotions['id'], $cat, $value[3]);
                     }
                 }
 

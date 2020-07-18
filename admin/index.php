@@ -19,21 +19,29 @@ try {
             case 'users':
                 Users($page);
                 break;
+            case 'user':
+                User($page);
+                break;
             case 'uprogram':
                 Upload($page);
                 break;
             case 'courses':
                 Courses($page);
-            break;
+                break;
+            case 'course':
+                Course($page);
+                break;
             case "mailbox":
                 Mailbox($page);
                 break;
             case "details":
                 if (isset($_GET['id'])) {
                     Details($page, $_GET['id']);
+                } else {
+                    throw new Exception("Error Processing Request", 1);
                 }
-                else throw new Exception("Error Processing Request", 1);
-            break;
+
+                break;
             case "setting":
                 if (isset($_GET['id'])) {
                     Profile($page, $_GET['id']);
@@ -44,7 +52,7 @@ try {
                 break;
             case "votes":
                 Votes($page);
-            break;
+                break;
             case 'settings':
                 Settings($page);
                 break;
