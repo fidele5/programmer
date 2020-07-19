@@ -13,6 +13,7 @@
         <script type="text/javascript" src="public/js/mdb.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js"></script>
         <script type="text/javascript" src="public/js/auth.js"></script>
+        <script type="text/javascript" src="public/js/traitements.js"></script>
         <script type="text/javascript" src="public/js/index.js"></script>
         <script>
             // Material Select Initialization

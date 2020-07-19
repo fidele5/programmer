@@ -97,7 +97,7 @@ class Votes extends Config
     public function get_votes_participant($utilisateur_id)
     {
         $connexion = $this->GetConnexion();
-        $query = "SELECT cours_id, intitule, designation FROM votes INNER JOIN cours ON votes.cours_id = cours.id INNER JOIN promotions ON cours.promotions_id = promotions.id WHERE utilisateur_id = :id";
+        $query = "SELECT cours_id, intitule, designation FROM votes INNER JOIN cours ON votes.cours_id = cours.id INNER JOIN promotions ON cours.promotions_id = promotions.id WHERE utilisateur_id = :id AND selected = 1";
         $requete = $connexion->prepare($query);
         $requete->bindValue(":id", $utilisateur_id);
         $requete->execute();

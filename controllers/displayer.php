@@ -95,17 +95,11 @@ function Accueil($page)
                 "G2" => array(),
                 "G3" => array(),
             );
-        
+
             foreach ($votes as $key => $value) {
                 extract($value);
-                if ($designation == "prepa") {
-                    $datas = array("label" => $intitule, "state" => "on", "id" => $cours_id);
-                    array_push($_SESSION['voted'][$designation], $datas);
-                }
-                if ($designation == "G2") {
-                    $datas = array("label" => $intitule, "state" => "on", "id" => $cours_id);
-                    array_push($_SESSION['voted'][$designation], $datas);
-                }
+                $datas = array("label" => $intitule, "state" => "on", "id" => $cours_id);
+                array_push($_SESSION['voted'][$designation], $datas);
             }
         }
     }
@@ -127,3 +121,20 @@ function Accueil($page)
     );
     require_once 'views/accueil.php';
 }
+
+function is_checked($id)
+{
+    if (isset($_SESSION['voted'])) {
+        foreach ($_SESSION['voted'] as $value) {
+            foreach ($value as $val) {
+                if (in_array($id, $val)) {
+                    return true;
+                }
+            }
+        }
+    } else {
+        return false;
+    }
+
+}
+
