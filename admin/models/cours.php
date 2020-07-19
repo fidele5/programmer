@@ -130,6 +130,18 @@ class Cours extends Config
         return $datas;
     }
 
+    public function select_id_by_intitule($intitule)
+    {
+        $connexion = $this->GetConnexion();
+        $query = 'SELECT id FROM cours WHERE  intitule = :intitule';
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':intitule', $intitule);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
     public function upload()
     {
         foreach ($this->file as $file) {

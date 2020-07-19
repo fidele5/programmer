@@ -29,8 +29,8 @@
                 else{
                     if (count($connexion) > 0) {
                         if ($connexion[0]["login"] == $login) {
-                            $_SESSION["login"] = $login;
-                            $_SESSION["id"] = $connexion[0]["id"];
+                            $_SESSION["admin_login"] = $login;
+                            $_SESSION["admin_id"] = $connexion[0]["id"];
                             header("location: ../index.php");
                         }
                         else {

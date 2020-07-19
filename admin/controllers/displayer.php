@@ -3,7 +3,7 @@ session_start();
 require_once "models/autoload.php";
 function is_connected()
 {
-    if (isset($_SESSION["id"]) && isset($_SESSION["login"])) {
+    if (isset($_SESSION["admin_id"]) && isset($_SESSION["admin_login"])) {
         return true;
     } else {
         return false;
@@ -115,14 +115,14 @@ function Settings($page)
 function Programmes($page)
 {
     require_once "controllers/compiler.php";
-    // include "exports.php";
+    include "exports.php";
     $id_filiere = $_GET["id"];
     $fil = new Domaines();
     $nom_fil = $fil->select_by_id($id_filiere)[0]["nom"];
     $compiler = new Compiler($id_filiere);
     $compiler->compile();
     $programme = $compiler->getFullFinalProgram();
-    // exportToExcel($programme, $nom_fil);
+    exportToExcel($programme, $nom_fil);
     require_once 'views/programmes.php';
 }
 

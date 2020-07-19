@@ -82,6 +82,18 @@ class Utilisateurs extends Config
         $requete->closeCursor();
     }
 
+    public function get_id_by_email($email)
+    {
+        $connexion = $this->GetConnexion();
+        $query = "SELECT id FROM utilisateurs WHERE email = :email";
+        $requete = $connexion->prepare($query);
+        $requete -> bindValue(":email", $email);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
     public function upload()
     {
         foreach ($this->file as $file) {

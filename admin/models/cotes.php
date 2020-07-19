@@ -147,10 +147,13 @@ class Cotes extends Config
                     $email = strtolower($user).'@esisalama.org';
                     $id_etudiant = $this->utilisateur->get_id_by_email($email);
                     if(empty($id_etudiant)) continue;
-                    $idcours = $this->cours->select_id($nom_cours);
+                    $idcours = $this->cours->select_id_by_intitule($nom_cours);
                     if(empty($idcours)) continue;
-                    //$promotion = $this->promotions->select_id($prom);
-                    $this->insert($idcours[0]['id'], $id_etudiant[0]['id'], $moyenne, $examen);
+                    $id_user =  $id_etudiant[0]['id'];
+                    $id_cours = $idcours[0]['id'];
+                    $old_cote = $this->select_by_user_and_course($id_user, $id_cours);
+                    if(empty($old_cote)) $this->insert($id_cours, $id_user, $moyenne, $examen);
+                    else $this->update($id_cours, $id_user, $moyenne, $examen, $old_cote[0]["id"]);
                 }
             }
         } else {

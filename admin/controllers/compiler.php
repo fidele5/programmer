@@ -101,8 +101,8 @@ class Compiler
 
     private function minumumAvailable()
     {
-        $values = $this->modelSettings->selectByName("moyenne");
-        return $values[0]["valeur"];
+        $values = $this->modelSettings->select();
+        return $values["moyenne"];
     }
 
     public function compile()
