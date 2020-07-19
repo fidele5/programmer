@@ -61,8 +61,8 @@ function is_checked($id)
                                 <div class="accordion md-accordion accordion-5" id="accordionEx5" role="tablist"
                                     aria-multiselectable="true">
                                     <?php
-                                        foreach ($categories as $cle => $valeur) {
-                                    ?>
+foreach ($categories as $cle => $valeur) {
+    ?>
                                     <!-- Card -->
                                     <!-- Accordion card -->
                                     <div class="card card-form-2 mb-4">
@@ -80,15 +80,15 @@ function is_checked($id)
                                                 data-parent="#accordionEx5">
                                             <div class="card-body rgba-black-light white-text z-depth-1 justify-content-start">
                                                 <?php
-                                                    foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
-                                                ?>
+foreach ($cour->select_by_category($valeur['id']) as $key => $value) {
+        ?>
                                                 <!--  checkbox -->
                                                 <div class="form-check pl-0">
                                                     <input type="checkbox" class="form-check-input" id="filledInCheckbox<?=$value['id']?>" volume="<?=$value['volhoraire']?>"  valeur="<?=$value['id']?>" <?=(is_checked($value['id'])) ? "disabled checked" : ""?>>
                                                     <label class="form-check-label" for="filledInCheckbox<?=$value['id']?>"><?=$value['intitule']?></label>
                                                 </div>
                                                 <!--  checkbox -->
-                                                <?php } ?>
+                                                <?php }?>
                                             </div>
                                         </div>
                                     </div>
@@ -277,11 +277,11 @@ require_once 'includes/template.php';
                             $(".cover").delay(2500).fadeOut(1600 ,function() {
                                 if (next=="G4") {
                                     $('#centralModalSuccess').modal('show');
-                                    $("#preview").click(function (e) { 
+                                    $("#preview").click(function (e) {
                                         e.preventDefault();
                                         $('#modalCart').modal('show');
                                     });
-                                    $("#send").click(function (e) { 
+                                    $("#send").click(function (e) {
                                         e.preventDefault();
                                         $("#valider").click();
                                     });
@@ -336,7 +336,7 @@ require_once 'includes/template.php';
                 $(this).attr("disabled", "disabled");
             }
         });
-       
+
 
         $(".mdb-autocomplete").keyup(function (e) {
             $.get('controllers/checkcourses.php?cours=' + $(this).val(), function(data) {
@@ -363,7 +363,7 @@ require_once 'includes/template.php';
                     elt = $(this).val();
                 }
                 else if ($(this).attr("name") == "volume") {
-                    volume = $(this).val();   
+                    volume = $(this).val();
                 }
                 else{
                     elements.push({intitule: elt, volume: volume, categorie: $(this).val()})
@@ -466,6 +466,6 @@ $(".breadcrumb__step").each(function (index, element) {
     if ($(this).hasClass("breadcrumb__step--active")) {
         return false;
     }
-    else $(this).addClass("breadcrumb__step--active");    
+    else $(this).addClass("breadcrumb__step--active");
 });
 </script>
