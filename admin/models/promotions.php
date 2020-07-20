@@ -91,5 +91,4 @@ class Promotions extends Config
     public function select_id($nom){ 
         return $this->select_id_by_name($name);
     }
-
 }

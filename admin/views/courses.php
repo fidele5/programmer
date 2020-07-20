@@ -18,7 +18,7 @@ ob_start();
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>Liste detaillée des cours votés</h4>
+                                    <h4>Liste detaillée des cours</h4>
                                 </div>
                             </div>
                         </div>

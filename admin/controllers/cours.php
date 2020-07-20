@@ -11,8 +11,8 @@ switch ($action) {
     case "ajouter":
         $fichier = (isset($_FILES)) ? $_FILES : null;
         $cours = new Cours($fichier);
-        $cours->upload();
-        $cours->saveCourses();
+        $domaine = $cours->upload();
+        $cours->saveCourses($domaine);
         echo "ok";
         break;
     case "add":

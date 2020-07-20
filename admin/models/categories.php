@@ -16,6 +16,7 @@ class Categories extends Config
         $requete->bindValue(":nom", $nom);
         $requete->execute();
         $requete->closeCursor();
+        return $connexion->lastInsertId();
     }
 
     public function select()

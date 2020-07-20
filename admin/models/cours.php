@@ -1,8 +1,11 @@
 <?php
-require_once 'vendor/autoload.php';
+
+require_once $_SERVER["DOCUMENT_ROOT"].'/programmer/admin/vendor/autoload.php';
 require_once 'config.php';
 require_once 'promotions.php';
 require_once 'Categorie_cours.php';
+require_once 'domaines.php';
+
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -19,15 +22,17 @@ class Cours extends Config
     public $cours;
     public $promotion;
     public $categories;
+    public $domaines;
 
     public function __construct()
     {
-        $file = func_get_args()[0];
-        $this->file = $file;
+        $params = func_get_args();
+        if(!empty($params)) $this->file = $params[0];
         $this->spreadsheet = new Spreadsheet();
         $this->Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $this->promotion = new Promotions();
         $this->categories = new Categorie_cours();
+        $this->domaines = new Domaines();
     }
 
     public function insert($intitule, $volhoraire, $promotions_id, $categorie, $details)
@@ -142,26 +147,42 @@ class Cours extends Config
         return $datas;
     }
 
+    public function select_id_by_name_promotion($intitule, $promotion)
+    {
+        $query = "SELECT id FROM cours WHERE intitule = :intitule AND promotions_id = :promotions_id";
+        $connexion = $this->GetConnexion();
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(':intitule', $intitule);
+        $requete->bindValue(':promotions_id', $promotion);
+        $requete->execute();
+        $datas = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $requete->closeCursor();
+        return $datas;
+    }
+
     public function upload()
     {
         foreach ($this->file as $file) {
             $extensions_valides = array('xls', 'xlsx', 'csv', 'sql');
             $text = substr(strrchr($file['name'], '.'), 1);
+            $nom = "";
             if (in_array($text, $extensions_valides)) {
                 $tmp_name = $file['tmp_name'];
                 $file['name'] = explode(".", $file['name']);
+                $nom = $file["name"][0];
                 $file['name'] = $file['name'][0] . "." . $text;
                 $destination = $this::PATH . $file['name'];
                 move_uploaded_file($tmp_name, $destination);
             }
             if ($file['error'] == UPLOAD_ERR_OK) {
                 $this->file_path = $destination;
+                return $nom;
             }
         }
 
     }
 
-    public function saveCourses()
+    public function saveCourses($domaine)
     {
         if (file_exists($this->file_path)) {
             $spreadSheet = $this->Reader->load($this->file_path);
@@ -175,17 +196,32 @@ class Cours extends Config
                     if ($key == 0) {
                         continue;
                     } else {
-                        $promotions = $this->promotion->select_id_by_name_domain($prom, $value[2]);
+                        $domaines = new Domaines();
+                        $id_domaine = $domaines->get_id_by_tag_name($domaine);
+                        if(empty($id_domaine)){
+                            print("Erreur, Filiere inconnue");
+                            return;
+                        }
+                        else{
+                            $id_domaine = $id_domaine[0]["id"];
+                        }
+                        $promotions = $this->promotion->select_id_by_name_domain($prom, $id_domaine)[0];
                         $cat = $this->categories->getCatByName($value[2]);
-                        $this->insert($value[0], $value[1], $promotions['id'], $cat, $value[3]);
+                        $id_cat = 0;
+                        if(empty($cat)) {
+                            $id_cat = $this->categories->insert($value[2]);
+                        }
+                        else {
+                            $id_cat = $cat["id"];
+                        }
+                        if(empty($this->select_id_by_name_promotion($value[0], $promotions['id']))){
+                            $this->insert($value[0], $value[1], $promotions['id'], $id_cat, $value[3]);
+                        }
                     }
                 }
-
             }
-
         } else {
             echo "une erreur s'est produite";
         }
-
     }
 }

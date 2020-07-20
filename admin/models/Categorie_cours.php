@@ -9,6 +9,18 @@ class Categorie_cours extends Config
     {
     }
 
+    public function insert($nom)
+    {
+        $connexion = $this->GetConnexion();
+        $query = 'INSERT INTO categories(nom) VALUES(:nom)';
+        $requete = $connexion->prepare($query);
+        $requete->bindValue(":nom", $nom);
+        $requete->execute();
+        $requete->closeCursor();
+        return $connexion->lastInsertId();
+    }
+
+
     public function select_by_id($id)
     {
         $connexion = $this->GetConnexion();
@@ -41,7 +53,7 @@ class Categorie_cours extends Config
         $requete->execute();
         $datas = $requete->fetch(PDO::FETCH_ASSOC);
         $requete->closeCursor();
-        return $datas['id'];
+        return $datas;
 
     }
 }

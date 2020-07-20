@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';
+require_once $_SERVER["DOCUMENT_ROOT"].'/programmer/admin/vendor/autoload.php';
 require_once 'config.php';
 require_once 'domaines.php';
 require_once 'categories.php';
@@ -23,8 +23,8 @@ class Utilisateurs extends Config
 
     public function __construct()
     {
-        $file = func_get_args()[0];
-        $this->file = $file;
+        $params = func_get_args();
+        if(!empty($params)) $this->file = $params[0];
         $this->spreadsheet = new Spreadsheet();
         $this->Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $this->domaines = new Domaines();

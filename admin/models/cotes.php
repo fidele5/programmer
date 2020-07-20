@@ -37,9 +37,8 @@ class Cotes extends Config
     public function insert($idCours, $idEtudiant, $moyenne, $examen)
     {
         $connexion = $this->GetConnexion();
-        $query = 'INSERT INTO cotes_users VALUES(NULL, :idCours, :idEtudiant, :moyenne, :examen)';
+        $query = 'INSERT INTO cotes_users(id_cours, id_etudiant, moyenne, examen) VALUES(:idCours, :idEtudiant, :moyenne, :examen)';
         $requete = $connexion->prepare($query);
-
         $requete->bindValue(":idCours", $idCours);
         $requete->bindValue(":idEtudiant", $idEtudiant);
         $requete->bindValue(":moyenne", $moyenne);

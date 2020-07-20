@@ -76,4 +76,15 @@ class Domaines extends Config
         return $datas;
     }
 
+    public function get_id_by_tag_name($tag_name)
+    {
+        $connexion = $this->GetConnexion();
+        $name = "";
+        if((strtolower($tag_name) == "prepa") || (strtolower($tag_name) == "g1")) {
+            $name = "Generale";
+        }
+        else $name = $tag_name;
+        return $this->select_by_name($name);
+    }
+
 }
